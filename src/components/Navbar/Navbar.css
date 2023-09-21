@@ -1,0 +1,27 @@
+/* Styling the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7em 1em;
+  background-color: var(--secondary-bg);
+  color: white;
+}
+
+/* Styling the logo section  */
+.logo {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  aspect-ratio: 1/1;
+  width: 40px;
+}
+
+.logo h1 {
+  font-family: "Dosis", sans-serif;
+  line-height: 56px;
+}
