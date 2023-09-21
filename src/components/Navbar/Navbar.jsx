@@ -13,10 +13,10 @@ const Navbar = () => {
     <div className="navbar">
       <div className="container">
         {/* Logo start */}
-        <div className="logo">
+        <Link to="/" className="logo">
           <img src={logo} alt="logo" />
           <h1>Recetopia</h1>
-        </div>
+        </Link>
         {/* Logo end */}
 
         {/* Links start */}

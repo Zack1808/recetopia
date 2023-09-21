@@ -17,3 +17,10 @@
 :root {
   --secondary-bg: hsl(4, 77%, 48%);
 }
+
+/* Container that will keep the content from stretching accros the wonle screen for bigger screens */
+.container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
