@@ -9,10 +9,16 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container">
+        {/* Logo start */}
         <div className="logo">
-          <img src={logo} alt="" />
+          <img src={logo} alt="logo" />
           <h1>Recetopia</h1>
         </div>
+        {/* Logo end */}
+
+        {/* Links start */}
+        <div className="navigation">{/* Insert Links here */}</div>
+        {/* Links end */}
       </div>
     </div>
   );
