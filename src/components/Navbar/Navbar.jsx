@@ -1,3 +1,6 @@
+// Importing costume components
+import Link from "../Link/Link";
+
 // Importing the style file
 import "./Navbar.css";
 
@@ -17,7 +20,14 @@ const Navbar = () => {
         {/* Logo end */}
 
         {/* Links start */}
-        <div className="navigation">{/* Insert Links here */}</div>
+        <div className="navigation">
+          <Link to="/">Recipes</Link>
+          <>
+            <Link to="/dashboard">My recipes</Link>
+            <Link to="/logout">Logout</Link>
+          </>
+          <Link to="/login">Login</Link>
+        </div>
         {/* Links end */}
       </div>
     </div>

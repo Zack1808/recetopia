@@ -1,11 +1,14 @@
 /* Styling the navbar */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0.7em 1em;
   background-color: var(--secondary-bg);
   color: white;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Styling the logo section  */
@@ -25,4 +28,20 @@
 .logo h1 {
   font-family: "Dosis", sans-serif;
   line-height: 56px;
+}
+
+/* Styling the link section */
+.navigation {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigation a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em;
+  font-family: "Poppins", sans-serif;
+  line-height: 24px;
 }
