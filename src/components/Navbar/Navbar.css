@@ -70,9 +70,23 @@
     text-align: center;
     z-index: 999;
     gap: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: 0.3s ease-in-out;
+  }
+
+  .navigation.active {
+    transform: scaleY(1);
   }
 
   .navigation a {
     padding: 1em;
+    opacity: 0;
+    transition: 0.1s ease-in-out;
+  }
+
+  .navigation.active a {
+    opacity: 1;
+    transition: 0.3s 0.3s ease-in-out;
   }
 }

@@ -33,7 +33,7 @@ const Navbar = () => {
         {/* Logo end */}
 
         {/* Links start */}
-        <div className="navigation">
+        <div className={`navigation ${toggleNav ? "active" : ""}`}>
           <Link to="/">Recipes</Link>
           <>
             <Link to="/dashboard">My recipes</Link>
