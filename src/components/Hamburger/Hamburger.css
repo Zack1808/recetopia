@@ -1,10 +1,21 @@
-/* Styling the hamburger */
+/* Styling the hamburger container */
+.hamburger-container {
+  aspect-ratio: 1 / 1;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+
+/* Styling the hamburger in the closed state*/
 .hamburger {
   aspect-ratio: 8 / 1;
   position: relative;
-  width: 2.5rem;
+  width: 2rem;
   background-color: white;
   border-radius: 50px;
+  transition: 0.3s ease-in-out;
 }
 
 .hamburger::after,
@@ -12,8 +23,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-color: inherit;
+  background-color: white;
   border-radius: inherit;
+  transition: 0.3s ease-in-out;
 }
 
 .hamburger::before {
@@ -22,4 +34,17 @@
 
 .hamburger::after {
   transform: translateY(0.7em);
+}
+
+/* Styling the hamburger in the open state*/
+.hamburger.active {
+  background-color: transparent;
+}
+
+.hamburger.active::after {
+  transform: rotate(-45deg);
+}
+
+.hamburger.active::before {
+  transform: rotate(45deg);
 }
