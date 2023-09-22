@@ -1,0 +1,86 @@
+/* Styling the navbar */
+.navbar {
+  padding: 0.7em 1em;
+  background-color: var(--secondary-bg);
+  color: white;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* Styling the logo section  */
+.logo {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  text-decoration: none;
+  color: white;
+}
+
+.logo img {
+  aspect-ratio: 1/1;
+  width: 40px;
+}
+
+.logo h1 {
+  font-family: "Dosis", sans-serif;
+  line-height: 56px;
+}
+
+/* Styling the link section */
+.navigation {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigation a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em;
+  font-family: "Poppins", sans-serif;
+  line-height: 24px;
+}
+
+/* Styling the navigation on small screens */
+@media (width < 630px) {
+  /* Styling the link section */
+  .navigation {
+    position: absolute;
+    top: 100%;
+    left: -1em;
+    right: -1em;
+    background-color: var(--secondary-bg);
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    z-index: 999;
+    gap: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: 0.3s ease-in-out;
+  }
+
+  .navigation.active {
+    transform: scaleY(1);
+  }
+
+  .navigation a {
+    padding: 1em;
+    opacity: 0;
+    transition: 0.1s ease-in-out;
+  }
+
+  .navigation.active a {
+    opacity: 1;
+    transition: 0.3s 0.3s ease-in-out;
+  }
+}

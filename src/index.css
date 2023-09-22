@@ -1,3 +1,6 @@
+/* Importing the fonts */
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Poppins:wght@400;600&display=swap");
+
 /* Setting up starting styling rules */
 *,
 *::before,
@@ -8,4 +11,16 @@
 
   /* This line is for debuging puposes */
   /* outline: 1px solid lime !important; */
+}
+
+/* Setting up the variables */
+:root {
+  --secondary-bg: hsl(4, 77%, 48%);
+}
+
+/* Container that will keep the content from stretching accros the wonle screen for bigger screens */
+.container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
 }
