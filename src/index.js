@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+// Importing the context provider
+import NavigationProvider from "./context/navigation";
+
 // Importing the style file
 import "./index.css";
 
@@ -11,4 +14,8 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // Rendering the App component
-root.render(<App />);
+root.render(
+  <NavigationProvider>
+    <App />
+  </NavigationProvider>
+);
