@@ -1,5 +1,5 @@
 // Importing the context hook
-import { useNavigate } from "react-router";
+import { useNavigate } from "../../context/navigation";
 
 // Creating the Route component
 const Route = ({ to, children }) => {

@@ -1,6 +1,10 @@
 // Creating the LoginPage componnet
 const LoginPage = () => {
-  return <form></form>;
+  return (
+    <div className="container">
+      <form>Login</form>
+    </div>
+  );
 };
 
 // Exporting the component
