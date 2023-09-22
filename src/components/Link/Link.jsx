@@ -4,6 +4,8 @@ const Link = ({ children, to, onClick, ...rest }) => {
   const handleClick = (e) => {
     // Will prevent default behavior only if the control key or command key is not pressed
     !e.ctrlKey && !e.metaKey && e.preventDefault();
+
+    // Will handle the onClick funciton if one was passed down
     onClick && onClick();
   };
 
