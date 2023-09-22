@@ -1,5 +1,6 @@
 // Importing costume components
 import Link from "../Link/Link";
+import Hamburger from "../Hamburger/Hamburger";
 
 // Importing the style file
 import "./Navbar.css";
@@ -12,6 +13,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container">
+        {/* Hamburger start */}
+        <Hamburger />
+        {/* Hamburger end */}
+
         {/* Logo start */}
         <Link to="/" className="logo">
           <img src={logo} alt="logo" />

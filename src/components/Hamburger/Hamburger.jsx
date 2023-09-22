@@ -1,3 +1,6 @@
+// Importing the style file
+import "./Hamburger.css";
+
 // Creating the Hamburger component
 const Hamburger = ({ toggle, onClick }) => {
   return (
