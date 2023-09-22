@@ -18,6 +18,9 @@ const Navbar = () => {
   // Function that will open/close the navigation
   const handleToggle = () => setToggleNav((prevState) => !prevState);
 
+  // Funciton that will close the dropdown navigation (for the links)
+  const handleClosure = () => setToggleNav(false);
+
   return (
     <div className="navbar">
       <div className="container">
@@ -26,7 +29,7 @@ const Navbar = () => {
         {/* Hamburger end */}
 
         {/* Logo start */}
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={handleClosure}>
           <img src={logo} alt="logo" />
           <h1>Recetopia</h1>
         </Link>
@@ -34,12 +37,20 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          <Link to="/">Recipes</Link>
+          <Link to="/" onClick={handleClosure}>
+            Recipes
+          </Link>
           <>
-            <Link to="/dashboard">My recipes</Link>
-            <Link to="/logout">Logout</Link>
+            <Link to="/dashboard" onClick={handleClosure}>
+              My recipes
+            </Link>
+            <Link to="/logout" onClick={handleClosure}>
+              Logout
+            </Link>
           </>
-          <Link to="/login">Login</Link>
+          <Link to="/login" onClick={handleClosure}>
+            Login
+          </Link>
         </div>
         {/* Links end */}
       </div>

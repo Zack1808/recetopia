@@ -22,7 +22,6 @@
   user-select: none;
   text-decoration: none;
   color: white;
-  margin-right: auto;
 }
 
 .logo img {
@@ -53,11 +52,6 @@
 
 /* Styling the navigation on small screens */
 @media (width < 630px) {
-  /* Styling the logo */
-  .logo {
-    margin-right: 0;
-  }
-
   /* Styling the link section */
   .navigation {
     position: absolute;
