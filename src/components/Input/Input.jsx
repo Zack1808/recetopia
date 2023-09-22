@@ -1,8 +1,11 @@
 import { forwardRef } from "react";
 
+// Importing the style file
+import "./Input.css";
+
 // Creating the Input component
 const Input = forwardRef(
-  (ref, { defaultValue = "", type = "text", ...rest }) => {
+  ({ defaultValue = "", type = "text", ...rest }, ref) => {
     return (
       <div className="input">
         <input type={type} defaultValue={defaultValue} ref={ref} {...rest} />
