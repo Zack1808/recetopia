@@ -10,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 
 /* Styling the logo section  */
@@ -48,4 +49,30 @@
   padding: 0.5em;
   font-family: "Poppins", sans-serif;
   line-height: 24px;
+}
+
+/* Styling the navigation on small screens */
+@media (width < 630px) {
+  /* Styling the logo */
+  .logo {
+    margin-right: 0;
+  }
+
+  /* Styling the link section */
+  .navigation {
+    position: absolute;
+    top: 100%;
+    left: -1em;
+    right: -1em;
+    background-color: var(--secondary-bg);
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    z-index: 999;
+    gap: 0;
+  }
+
+  .navigation a {
+    padding: 1em;
+  }
 }

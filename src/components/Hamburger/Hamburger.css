@@ -6,6 +6,7 @@
   align-items: center;
   cursor: pointer;
   justify-content: center;
+  display: none;
 }
 
 /* Styling the hamburger in the closed state*/
@@ -47,4 +48,11 @@
 
 .hamburger.active::before {
   transform: rotate(45deg);
+}
+
+/* Displaying the hamburger on small screens */
+@media (width < 630px) {
+  .hamburger-container {
+    display: flex;
+  }
 }
