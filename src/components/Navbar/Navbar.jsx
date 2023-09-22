@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Importing costume components
 import Link from "../Link/Link";
 import Hamburger from "../Hamburger/Hamburger";
@@ -10,11 +12,17 @@ import logo from "../../images/recetopia_logo.png";
 
 // Creating the Navbar component
 const Navbar = () => {
+  // Setting up state
+  const [toggleNav, setToggleNav] = useState(false); // Will contain information if the navigation is open or closed (for small screens)
+
+  // Function that will open/close the navigation
+  const handleToggle = () => setToggleNav((prevState) => !prevState);
+
   return (
     <div className="navbar">
       <div className="container">
         {/* Hamburger start */}
-        <Hamburger />
+        <Hamburger toggle={toggleNav} onClick={handleToggle} />
         {/* Hamburger end */}
 
         {/* Logo start */}
