@@ -1,8 +1,11 @@
+// Importing the style file
+import "./LoginPage.css";
+
 // Creating the LoginPage componnet
 const LoginPage = () => {
   return (
-    <div className="container">
-      <form>Login</form>
+    <div className="login-page">
+      <div className="container">Login</div>
     </div>
   );
 };
