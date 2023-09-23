@@ -1,9 +1,17 @@
 /* Styling the login page */
+.login-page {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-page .container {
   padding: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 /* Styling the forms holder */

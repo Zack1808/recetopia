@@ -3,6 +3,8 @@
   display: flex;
   border: 1px solid hsl(0, 0%, 95%);
   border-bottom: 3px solid var(--secondary-bg);
+  width: 100%;
+  margin-bottom: 1.5em;
 }
 
 .input:focus-within {
