@@ -12,24 +12,51 @@
   max-width: 800px;
   border: 1px solid hsl(0 0% 90%);
   display: flex;
+  border-radius: 10px;
+  overflow: hidden;
   flex-direction: column;
   gap: 20px;
 }
 
-.form-headers {
+/* Styling the tabs */
+.form-tabs {
   display: flex;
   align-items: center;
 }
 
-.form-headers h2 {
-  font-family: "Dosis", sans-serif;
+.form-tabs h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.3rem;
   flex-grow: 1;
   text-align: center;
   padding: 0.5em;
   color: var(--secondary-bg);
-  backdrop-filter: brightness(90%);
+  backdrop-filter: brightness(95%);
+}
+.form-tabs h3:nth-child(1) {
+  border-bottom-right-radius: 10px;
 }
 
-.form-headers h2.active {
+.form-tabs h3:nth-child(2) {
+  border-bottom-left-radius: 10px;
+}
+
+.form-tabs h3.active {
   backdrop-filter: none;
+}
+
+/* Styling the form displayer */
+.form-displayer {
+  padding: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-displayer h2 {
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+  color: var(--secondary-bg);
 }

@@ -17,23 +17,28 @@ const LoginPage = () => {
     <div className="login-page">
       <div className="container">
         <div className="forms">
-          <div className="form-headers">
-            <h2
+          {/* Form Header start */}
+          <div className="form-tabs">
+            <h3
               className={tabNumber === 0 ? "active" : ""}
               onClick={() => handleSwitch(0)}
             >
               Login
-            </h2>
-            <h2
+            </h3>
+            <h3
               className={tabNumber === 1 ? "active" : ""}
               onClick={() => handleSwitch(1)}
             >
               Sign Up
-            </h2>
+            </h3>
           </div>
-          <div className="form-body">
+          {/* Form header end */}
+
+          {/* Form display start */}
+          <div className="form-displayer">
             {tabNumber === 0 ? <h2>Login</h2> : <h2>Sign Up</h2>}
           </div>
+          {/* Form display end */}
         </div>
       </div>
     </div>
