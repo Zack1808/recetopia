@@ -1,0 +1,8 @@
+/* Styling the form element */
+form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}

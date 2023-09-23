@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 // Importing the style file
 import "./LoginPage.css";
