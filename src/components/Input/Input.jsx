@@ -8,7 +8,13 @@ const Input = forwardRef(
   ({ defaultValue = "", type = "text", ...rest }, ref) => {
     return (
       <div className="input">
-        <input type={type} defaultValue={defaultValue} ref={ref} {...rest} />
+        <input
+          type={type}
+          defaultValue={defaultValue}
+          ref={ref}
+          {...rest}
+          autoComplete="on"
+        />
       </div>
     );
   }
