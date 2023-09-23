@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // Setting up the reducer
-export const authReducer = (state = initialState, action) => {
+export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGINACTIONS.LOGIN:
       return {
