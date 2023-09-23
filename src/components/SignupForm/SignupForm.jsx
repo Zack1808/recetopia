@@ -4,23 +4,25 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 
 // Importing the style file
-import "./LoginForm.css";
+import "./SignupForm.css";
 
-// Creating the LoginForm component
-const LoginForm = () => {
+// Creating the SignupForm component
+const SignupForm = () => {
   return (
-    <div className="login-form">
-      <h2>Login</h2>
+    <div className="signup-form">
+      <h2>Sign Up</h2>
       <Form>
+        <label htmlFor="name">Name*</label>
+        <Input type="text" name="name" id="name" required />
         <label htmlFor="email">Email*</label>
         <Input type="email" name="email" id="email" required />
         <label htmlFor="password">Password*</label>
         <Input type="password" name="password" id="password" required />
-        <Button>Login</Button>
+        <Button>Sign up</Button>
       </Form>
     </div>
   );
 };
 
 // Exporting the component
-export default LoginForm;
+export default SignupForm;

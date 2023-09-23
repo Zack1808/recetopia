@@ -2,15 +2,14 @@
 .login-page {
   flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .login-page .container {
-  padding: 1em;
+  padding: 3em 1em;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-grow: 1;
 }
 

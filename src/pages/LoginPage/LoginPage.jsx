@@ -2,6 +2,7 @@ import { useState } from "react";
 
 // Importing the costume components
 import LoginForm from "../../components/LoginForm/LoginForm";
+import SignupForm from "../../components/SignupForm/SignupForm";
 
 // Importing the style file
 import "./LoginPage.css";
@@ -39,7 +40,7 @@ const LoginPage = () => {
 
           {/* Form display start */}
           <div className="form-displayer">
-            {tabNumber === 0 ? <LoginForm /> : <h2>Sign Up</h2>}
+            {tabNumber === 0 ? <LoginForm /> : <SignupForm />}
           </div>
           {/* Form display end */}
         </div>
