@@ -38,7 +38,8 @@
   text-align: center;
   padding: 0.5em;
   color: var(--secondary-bg);
-  backdrop-filter: brightness(95%);
+  background-color: #eee;
+  color: grey;
 }
 .form-tabs h3:nth-child(1) {
   border-bottom-right-radius: 10px;
@@ -49,7 +50,8 @@
 }
 
 .form-tabs h3.active {
-  backdrop-filter: none;
+  background-color: white;
+  color: var(--secondary-bg);
 }
 
 /* Styling the form displayer */

@@ -1,6 +1,8 @@
 /* Styling the input conponent */
 .input {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid hsl(0, 0%, 95%);
   border-bottom: 3px solid var(--secondary-bg);
   width: 100%;
@@ -22,4 +24,14 @@
 
 .input input:focus {
   outline: none;
+}
+
+.input span {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--secondary-bg);
+  padding: 0.5em;
 }

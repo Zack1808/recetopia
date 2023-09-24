@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 // Importing the costume components
 import Form from "../Form/Form";
 import Input from "../Input/Input";
@@ -8,10 +10,16 @@ import "./LoginForm.css";
 
 // Creating the LoginForm component
 const LoginForm = () => {
+  // Setting up the ref
+  const loginRef = useRef();
+
+  // Creating the function that will handle the login
+  const handleLogin = () => {};
+
   return (
     <div className="login-form">
       <h2>Login</h2>
-      <Form>
+      <Form onSubmit={handleLogin} ref={loginRef}>
         <label htmlFor="email">Email*</label>
         <Input type="email" name="email" id="email" required />
         <label htmlFor="password">Password*</label>
