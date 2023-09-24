@@ -24,3 +24,11 @@
   max-width: 1500px;
   margin: 0 auto;
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+  min-height: 100dvh;
+}

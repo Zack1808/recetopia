@@ -3,6 +3,8 @@
   padding: 0.7em 1em;
   background-color: var(--secondary-bg);
   color: white;
+  position: sticky;
+  top: 0;
 }
 
 .navbar .container {
@@ -37,7 +39,7 @@
 /* Styling the link section */
 .navigation {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -48,6 +50,7 @@
   font-family: "Poppins", sans-serif;
   line-height: 24px;
   position: relative;
+  font-size: 1rem;
 }
 
 .navigation a::before {

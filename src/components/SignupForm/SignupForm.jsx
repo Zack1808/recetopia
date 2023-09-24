@@ -1,0 +1,108 @@
+import { useRef, useState } from "react";
+import { AiFillCheckCircle } from "react-icons/ai";
+
+// Importing the costume components
+import Form from "../Form/Form";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+
+// Importing the helper functions
+import { handleSignup } from "../../helpers/login";
+import {
+  checkLetter,
+  checkNumber,
+  checkSpecialChar,
+} from "../../helpers/pwdRequirements";
+// Importing the style file
+import "./SignupForm.css";
+
+// Creating the SignupForm component
+const SignupForm = () => {
+  // Setting up the state
+  const [hasLowerCase, setHasLowerCase] = useState(false);
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [hasEightChars, setHasEightChars] = useState(false);
+
+  // Setting up the form Ref
+  const signupRef = useRef();
+
+  // Function that will check if the password matches all requirements have been met
+  const handleChange = () => {
+    const pwd = signupRef.current.password.value;
+    setHasLowerCase(checkLetter(pwd, "lowerCase"));
+    setHasUpperCase(checkLetter(pwd, "upperCase"));
+    setHasNumber(checkNumber(pwd));
+    setHasSpecialChar(checkSpecialChar(pwd));
+    setHasEightChars(pwd.length >= 8);
+  };
+
+  // Funciton that will disable the button in case the requirements are not met
+  const checkPwdRequirements = () => {
+    return (
+      !hasEightChars ||
+      !hasLowerCase ||
+      !hasUpperCase ||
+      !hasNumber ||
+      !hasSpecialChar
+    );
+  };
+
+  return (
+    <div className="signup-form">
+      <h2>Sign Up</h2>
+      <Form ref={signupRef} onSubmit={() => handleSignup(signupRef.current)}>
+        {/* Form elements start */}
+        <label htmlFor="name">Name*</label>
+        <Input type="text" name="name" id="name" required />
+        <label htmlFor="email">Email*</label>
+        <Input type="email" name="email" id="email" required />
+        <label htmlFor="password">Password*</label>
+        <Input
+          type="password"
+          onChange={handleChange}
+          name="password"
+          id="password"
+          required
+        />
+        {/* Form elements end */}
+
+        {/* Password requirements display start */}
+        <div className="requirements">
+          <small className={`${hasEightChars ? "active" : ""}`}>
+            Password has at least 8 characters
+            {hasEightChars && <AiFillCheckCircle />}
+          </small>
+
+          <small className={`${hasUpperCase ? "active" : ""}`}>
+            Password has at least 1 capital letter
+            {hasUpperCase && <AiFillCheckCircle />}
+          </small>
+
+          <small className={`${hasLowerCase ? "active" : ""}`}>
+            Password has at least 1 lower case letter
+            {hasLowerCase && <AiFillCheckCircle />}
+          </small>
+
+          <small className={`${hasNumber ? "active" : ""}`}>
+            Password has at least 1 number {hasNumber && <AiFillCheckCircle />}
+          </small>
+
+          <small className={`${hasSpecialChar ? "active" : ""}`}>
+            Password has at least 1 special character
+            {hasSpecialChar && <AiFillCheckCircle />}
+          </small>
+        </div>
+        {/* Password requirements display end */}
+
+        {/* Submit button start */}
+        <Button disabled={checkPwdRequirements()}>Sign up</Button>
+        {/* Submit button end */}
+      </Form>
+    </div>
+  );
+};
+
+// Exporting the component
+export default SignupForm;
