@@ -8,7 +8,7 @@ import "./Input.css";
 const Input = forwardRef(
   ({ defaultValue = "", type = "text", ...rest }, ref) => {
     // Setting up the state
-    const [inputType, setInputType] = useState(type);
+    const [inputType, setInputType] = useState(type); // State used for switching the input elemen from type password to type text
 
     // Function that will toogle the password visibility
     const tooglePwdVisibility = (type) => {
@@ -17,6 +17,7 @@ const Input = forwardRef(
 
     return (
       <div className="input">
+        {/* Display input start */}
         <input
           type={inputType}
           defaultValue={defaultValue}
@@ -24,6 +25,9 @@ const Input = forwardRef(
           {...rest}
           autoComplete="on"
         />
+        {/* Display input end */}
+
+        {/* Adding show/hide passowrd button start */}
         {type === "password" &&
           (inputType === "password" ? (
             <span onClick={() => tooglePwdVisibility("text")}>
@@ -34,6 +38,7 @@ const Input = forwardRef(
               <AiFillEyeInvisible />
             </span>
           ))}
+        {/* Adding show/hide passowrd button end */}
       </div>
     );
   }

@@ -34,4 +34,5 @@
   font-size: 1.2rem;
   color: var(--secondary-bg);
   padding: 0.5em;
+  cursor: pointer;
 }

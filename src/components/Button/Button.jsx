@@ -2,10 +2,13 @@
 import "./Button.css";
 
 // Creating the button component
-const Button = ({ children, secondary, className = "", ...rest }) => {
+const Button = ({ children, secondary, className = "", disabled, ...rest }) => {
   return (
     <button
-      className={`${className} ${secondary ? "secondary" : ""}`}
+      disabled={disabled}
+      className={`${className} ${secondary ? "secondary" : ""} ${
+        disabled ? "disabled" : ""
+      }`}
       {...rest}
     >
       {children}

@@ -40,6 +40,7 @@
   color: var(--secondary-bg);
   background-color: #eee;
   color: grey;
+  cursor: pointer;
 }
 .form-tabs h3:nth-child(1) {
   border-bottom-right-radius: 10px;

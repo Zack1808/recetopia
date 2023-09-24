@@ -20,3 +20,12 @@ button.secondary {
   border: 2px solid var(--secondary-bg);
   color: var(--secondary-bg);
 }
+
+/* Styling the disasbled button */
+button.disabled {
+  background-color: gray;
+}
+
+button.disabled:hover {
+  transform: none;
+}
