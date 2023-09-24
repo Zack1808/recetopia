@@ -53,6 +53,7 @@ const SignupForm = () => {
     <div className="signup-form">
       <h2>Sign Up</h2>
       <Form ref={signupRef} onSubmit={() => handleSignup(signupRef.current)}>
+        {/* Form elements start */}
         <label htmlFor="name">Name*</label>
         <Input type="text" name="name" id="name" required />
         <label htmlFor="email">Email*</label>
@@ -65,28 +66,39 @@ const SignupForm = () => {
           id="password"
           required
         />
+        {/* Form elements end */}
+
+        {/* Password requirements display start */}
         <div className="requirements">
           <small className={`${hasEightChars ? "active" : ""}`}>
-            Password has at least 8 characters{" "}
+            Password has at least 8 characters
             {hasEightChars && <AiFillCheckCircle />}
           </small>
+
           <small className={`${hasUpperCase ? "active" : ""}`}>
-            Password has at least 1 capital letter{" "}
+            Password has at least 1 capital letter
             {hasUpperCase && <AiFillCheckCircle />}
           </small>
+
           <small className={`${hasLowerCase ? "active" : ""}`}>
-            Password has at least 1 lower case letter{" "}
+            Password has at least 1 lower case letter
             {hasLowerCase && <AiFillCheckCircle />}
           </small>
+
           <small className={`${hasNumber ? "active" : ""}`}>
             Password has at least 1 number {hasNumber && <AiFillCheckCircle />}
           </small>
+
           <small className={`${hasSpecialChar ? "active" : ""}`}>
-            Password has at least 1 special character{" "}
+            Password has at least 1 special character
             {hasSpecialChar && <AiFillCheckCircle />}
           </small>
         </div>
+        {/* Password requirements display end */}
+
+        {/* Submit button start */}
         <Button disabled={checkPwdRequirements()}>Sign up</Button>
+        {/* Submit button end */}
       </Form>
     </div>
   );

@@ -9,4 +9,9 @@ export const handleSignup = (formData) => {
   const name = formData.name.value;
   const email = formData.email.value;
   const password = formData.password.value;
+  const data = {
+    name,
+    email,
+    password,
+  };
 };
