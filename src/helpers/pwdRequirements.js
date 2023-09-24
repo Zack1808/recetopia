@@ -18,6 +18,6 @@ export const checkNumber = (str) => {
 
 // Function that will check if there is a special character in the string
 export const checkSpecialChar = (str) => {
-  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};'"\\|,.<>\/?~]/;
+  const specialChars = /[`!@#$%^&*()_+\-=[\]{};'"\\|,.<>/?~]/;
   return specialChars.test(str);
 };
