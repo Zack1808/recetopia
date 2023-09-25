@@ -37,10 +37,10 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          <Link to="/" onClick={handleClosure}>
-            Recipes
-          </Link>
           <>
+            <Link to="/recipes" onClick={handleClosure}>
+              Recipes
+            </Link>
             <Link to="/dashboard" onClick={handleClosure}>
               My recipes
             </Link>
@@ -48,7 +48,7 @@ const Navbar = () => {
               Logout
             </Link>
           </>
-          <Link to="/login" onClick={handleClosure}>
+          <Link to="/" onClick={handleClosure}>
             Login
           </Link>
         </div>

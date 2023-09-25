@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="app">
       <Navbar />
-      <Route to="/login">
+      <Route to="/">
         <LoginPage />
       </Route>
     </div>

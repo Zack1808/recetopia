@@ -1,19 +1,23 @@
+// importing the API functions
+import { login, signup } from "../api/login";
+
 // function that will handle the login
-export const handleLogin = (formData) => {
-  const email = formData.email.value;
-  const password = formData.password.value;
-  console.log(email, password);
+export const handleLogin = async (formData) => {
+  const data = {
+    email: formData.email.value,
+    password: formData.password.value,
+  };
+  const response = await login(data);
+  console.log(response);
 };
 
 // Funciton that will handle the sign up
-export const handleSignup = (formData) => {
-  const name = formData.name.value;
-  const email = formData.email.value;
-  const password = formData.password.value;
+export const handleSignup = async (formData) => {
   const data = {
-    name,
-    email,
-    password,
+    name: formData.name.value,
+    email: formData.email.value,
+    password: formData.password.value,
   };
-  console.log(data);
+  const response = await signup(data);
+  console.log(response);
 };
