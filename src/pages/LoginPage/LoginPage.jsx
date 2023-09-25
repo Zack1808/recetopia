@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // Importing the costume components
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignupForm from "../../components/SignupForm/SignupForm";
+
+// Importing the context hook
+import { useNavigate } from "../../context/navigation";
 
 // Importing the style file
 import "./LoginPage.css";
@@ -11,6 +15,17 @@ import "./LoginPage.css";
 const LoginPage = () => {
   // Setting up the state
   const [tabNumber, setTabNumber] = useState(0); // State that will contain the information which tab is active
+
+  // Getting the navigate function
+  const { navigate } = useNavigate();
+
+  // Getting the information if the user is logged in or not
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+  // Rerouting the user to the dashboard if he is already logged in
+  useEffect(() => {
+    isLoggedIn && navigate("/dashboard");
+  }, []);
 
   // Function that switches the tabs
   const handleSwitch = (tabNum) => {
