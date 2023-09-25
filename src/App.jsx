@@ -1,3 +1,6 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Importing the costume components
 import Navbar from "./components/Navbar/Navbar";
 import Route from "./components/Route/Route";
@@ -8,6 +11,7 @@ const App = () => {
   return (
     <div className="app">
       <Navbar />
+      <ToastContainer style={{ marginTop: "4em" }} />
       <Route to="/">
         <LoginPage />
       </Route>

@@ -7,12 +7,12 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 
 // Importing the helper functions
-import { handleSignup } from "../../helpers/login";
 import {
   checkLetter,
   checkNumber,
   checkSpecialChar,
 } from "../../helpers/pwdRequirements";
+
 // Importing the style file
 import "./SignupForm.css";
 
@@ -49,10 +49,15 @@ const SignupForm = () => {
     );
   };
 
+  // Function that will handle the sign up sequence
+  const handleSignup = async () => {
+    console.log("Signed up");
+  };
+
   return (
     <div className="signup-form">
       <h2>Sign Up</h2>
-      <Form ref={signupRef} onSubmit={() => handleSignup(signupRef.current)}>
+      <Form ref={signupRef} onSubmit={handleSignup}>
         {/* Form elements start */}
         <label htmlFor="name">Name*</label>
         <Input type="text" name="name" id="name" required />

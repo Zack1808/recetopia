@@ -1,12 +1,20 @@
 import { useRef } from "react";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+
+// Importing the api functions
+import { login } from "../../api/login";
+
+// Importing the actions
+import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the costume components
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
-// Importing the helper functions
-import { handleLogin } from "../../helpers/login";
+// Importing the context hook
+import { useNavigate } from "../../context/navigation";
 
 // Importing the style file
 import "./LoginForm.css";
@@ -16,10 +24,71 @@ const LoginForm = () => {
   // Setting up the ref
   const loginRef = useRef();
 
+  // Setting up the dispatch hook
+  const dispatch = useDispatch();
+
+  // Getting the navigate funciton
+  const { navigate } = useNavigate();
+
+  // Function that will handle the login sequence
+  const handleLogin = async () => {
+    // Simulating a successful login
+    toast.success("Login successful", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    dispatch(
+      loginDispatcher({
+        id: 123,
+        name: "User123",
+        email: loginRef.current.email.value,
+      })
+    );
+    navigate("/dashboard");
+
+    // Setting up the body of the request
+    // const body = {
+    //   email: loginRef.current.email.value,
+    //   password: loginRef.current.password.value,
+    // };
+
+    // Sending the login request to the server
+    // try {
+    //   const { data } = await login(body);
+    //   toast.success(data.message, {
+    //     position: "top-center",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   dispatch(loginDispatcher(data.appUser));
+    //   navigate("/dashboard");
+    // } catch (err) {
+    //   console.log(err);
+    //   toast.error(err.message, {
+    //     position: "top-center",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    // }
+  };
+
   return (
     <div className="login-form">
       <h2>Login</h2>
-      <Form onSubmit={() => handleLogin(loginRef.current)} ref={loginRef}>
+      <Form onSubmit={handleLogin} ref={loginRef}>
         <label htmlFor="email">Email*</label>
         <Input type="email" name="email" id="email" required />
         <label htmlFor="password">Password*</label>

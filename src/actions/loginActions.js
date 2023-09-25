@@ -2,12 +2,12 @@
 import { LOGINACTIONS } from "../reducers/loginReducer";
 
 // Creating the login action
-export const login = (user) => ({
+export const loginDispatcher = (user) => ({
   type: LOGINACTIONS.LOGIN,
   payload: user,
 });
 
 // Creating the logout action
-const logout = () => ({
+export const logoutDispatcher = () => ({
   type: LOGINACTIONS.LOGOUT,
 });
