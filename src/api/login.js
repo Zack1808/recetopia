@@ -1,31 +1,28 @@
 import axios from "axios";
 
 // Function that will handle the login post request
-export const login = async (data) => {
-  const response = await axios.post(
+export const login = async (body) => {
+  const { data } = await axios.post(
     "https://login-zazjbx7nka-uc.a.run.app/",
-    data,
+    body,
     {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_AUTHID}`,
-        "Content-Type": "application/json",
+        authid: process.env.REACT_APP_AUTHID,
       },
     }
   );
-  return response;
+  return data;
 };
 
 // Function that will handle the sign up
-export const signup = async (data) => {
-  const response = await axios.post(
+export const signup = async (body) => {
+  const { data } = await axios.post(
     "https://addappuser-zazjbx7nka-uc.a.run.app/",
-    data,
     {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_AUTHID}`,
-        "Content-Type": "application/json",
+        authid: process.env.REACT_APP_AUTHID,
       },
     }
   );
-  return response;
+  return data;
 };

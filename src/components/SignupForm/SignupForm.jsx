@@ -6,6 +6,9 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
+// Importing the api funcitons
+import { signup } from "../../api/login";
+
 // Importing the helper functions
 import {
   checkLetter,
@@ -51,7 +54,16 @@ const SignupForm = () => {
 
   // Function that will handle the sign up sequence
   const handleSignup = async () => {
-    console.log("Signed up");
+    try {
+      const data = await signup({
+        name: signupRef.current.name.value,
+        email: signupRef.current.email.value,
+        password: signupRef.current.password.value,
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

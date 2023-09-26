@@ -32,57 +32,38 @@ const LoginForm = () => {
 
   // Function that will handle the login sequence
   const handleLogin = async () => {
-    // Simulating a successful login
-    toast.success("Login successful", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    dispatch(
-      loginDispatcher({
-        id: 123,
-        name: "User123",
-        email: loginRef.current.email.value,
-      })
-    );
-    navigate("/dashboard");
-
-    // Setting up the body of the request
-    // const body = {
-    //   email: loginRef.current.email.value,
-    //   password: loginRef.current.password.value,
-    // };
-
     // Sending the login request to the server
-    // try {
-    //   const { data } = await login(body);
-    //   toast.success(data.message, {
-    //     position: "top-center",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   dispatch(loginDispatcher(data.appUser));
-    //   navigate("/dashboard");
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error(err.message, {
-    //     position: "top-center",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    // }
+    try {
+      const data = await login({
+        email: loginRef.current.email.value,
+        password: loginRef.current.password.value,
+      });
+      toast.success(data.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      dispatch(loginDispatcher(data.appUser));
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+      toast.error(
+        err.response?.status === 401 ? "Account does not exist" : err.message,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+    }
   };
 
   return (
