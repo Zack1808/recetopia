@@ -1,29 +1,49 @@
 import { useRef, useState } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 // Importing the costume components
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Loader from "../Loader/Loader";
+
+// Importing the context hook
+import { useNavigate } from "../../context/navigation";
+
+// Importing the api funcitons
+import { signup, login } from "../../api/login";
+
+// Importing the actions
+import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the helper functions
-import { handleSignup } from "../../helpers/login";
 import {
   checkLetter,
   checkNumber,
   checkSpecialChar,
 } from "../../helpers/pwdRequirements";
+
 // Importing the style file
 import "./SignupForm.css";
 
 // Creating the SignupForm component
 const SignupForm = () => {
   // Setting up the state
+  // States for the password
   const [hasLowerCase, setHasLowerCase] = useState(false);
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [hasEightChars, setHasEightChars] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // State for checking if the loader should be displayed or not
+
+  // Getting the navigate function
+  const { navigate } = useNavigate();
+
+  // Setting up the dispatcher
+  const dispatch = useDispatch();
 
   // Setting up the form Ref
   const signupRef = useRef();
@@ -49,10 +69,60 @@ const SignupForm = () => {
     );
   };
 
+  // Function that will handle the sign up sequence
+  const handleSignup = async () => {
+    setIsLoading(true);
+    try {
+      // Signing up the user
+      const data = await signup({
+        name: signupRef.current.name.value,
+        email: signupRef.current.email.value,
+        password: signupRef.current.password.value,
+      });
+      toast.success(data.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      // Loging the user in
+      const loginData = await login({
+        email: signupRef.current.email.value,
+        password: signupRef.current.password.value,
+      });
+      toast.success(loginData.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      dispatch(loginDispatcher(loginData.appUser));
+      navigate("/dashboard");
+    } catch (err) {
+      setIsLoading(false);
+      toast.error(err.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
   return (
     <div className="signup-form">
       <h2>Sign Up</h2>
-      <Form ref={signupRef} onSubmit={() => handleSignup(signupRef.current)}>
+      <Form ref={signupRef} onSubmit={handleSignup}>
         {/* Form elements start */}
         <label htmlFor="name">Name*</label>
         <Input type="text" name="name" id="name" required />
@@ -97,7 +167,9 @@ const SignupForm = () => {
         {/* Password requirements display end */}
 
         {/* Submit button start */}
-        <Button disabled={checkPwdRequirements()}>Sign up</Button>
+        <Button disabled={checkPwdRequirements() || isLoading}>
+          {isLoading ? <Loader /> : "Sign Up"}
+        </Button>
         {/* Submit button end */}
       </Form>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // Importing costume components
 import Link from "../Link/Link";
@@ -21,6 +22,9 @@ const Navbar = () => {
   // Funciton that will close the dropdown navigation (for the links)
   const handleClosure = () => setToggleNav(false);
 
+  // Getting the user information
+  const user = useSelector((state) => state.user);
+
   return (
     <div className="navbar">
       <div className="container">
@@ -37,20 +41,25 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          <Link to="/" onClick={handleClosure}>
-            Recipes
-          </Link>
-          <>
-            <Link to="/dashboard" onClick={handleClosure}>
-              My recipes
+          {user.isLoggedIn ? (
+            // Displaying these links if the user is logged in
+            <>
+              <Link to="/recipes" onClick={handleClosure}>
+                Recipes
+              </Link>
+              <Link to="/dashboard" onClick={handleClosure}>
+                My recipes
+              </Link>
+              <Link to="/logout" onClick={handleClosure}>
+                Logout
+              </Link>
+            </>
+          ) : (
+            // Displaying the link if the user is not logged in
+            <Link to="/" onClick={handleClosure}>
+              Login
             </Link>
-            <Link to="/logout" onClick={handleClosure}>
-              Logout
-            </Link>
-          </>
-          <Link to="/login" onClick={handleClosure}>
-            Login
-          </Link>
+          )}
         </div>
         {/* Links end */}
       </div>
