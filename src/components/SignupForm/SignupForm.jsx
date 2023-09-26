@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Loader from "../Loader/Loader";
 
 // Importing the context hook
 import { useNavigate } from "../../context/navigation";
@@ -30,11 +31,13 @@ import "./SignupForm.css";
 // Creating the SignupForm component
 const SignupForm = () => {
   // Setting up the state
+  // States for the password
   const [hasLowerCase, setHasLowerCase] = useState(false);
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [hasEightChars, setHasEightChars] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // State for checking if the loader should be displayed or not
 
   // Getting the navigate function
   const { navigate } = useNavigate();
@@ -68,6 +71,7 @@ const SignupForm = () => {
 
   // Function that will handle the sign up sequence
   const handleSignup = async () => {
+    setIsLoading(true);
     try {
       // Signing up the user
       const data = await signup({
@@ -102,7 +106,16 @@ const SignupForm = () => {
       dispatch(loginDispatcher(loginData.appUser));
       navigate("/dashboard");
     } catch (err) {
-      console.log(err);
+      setIsLoading(false);
+      toast.error(err.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -154,7 +167,9 @@ const SignupForm = () => {
         {/* Password requirements display end */}
 
         {/* Submit button start */}
-        <Button disabled={checkPwdRequirements()}>Sign up</Button>
+        <Button disabled={checkPwdRequirements() || isLoading}>
+          {isLoading ? <Loader /> : "Sign Up"}
+        </Button>
         {/* Submit button end */}
       </Form>
     </div>
