@@ -1,13 +1,21 @@
 import { useRef, useState } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 // Importing the costume components
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 
+// Importing the context hook
+import { useNavigate } from "../../context/navigation";
+
 // Importing the api funcitons
-import { signup } from "../../api/login";
+import { signup, login } from "../../api/login";
+
+// Importing the actions
+import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the helper functions
 import {
@@ -27,6 +35,12 @@ const SignupForm = () => {
   const [hasNumber, setHasNumber] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [hasEightChars, setHasEightChars] = useState(false);
+
+  // Getting the navigate function
+  const { navigate } = useNavigate();
+
+  // Setting up the dispatcher
+  const dispatch = useDispatch();
 
   // Setting up the form Ref
   const signupRef = useRef();
@@ -55,12 +69,38 @@ const SignupForm = () => {
   // Function that will handle the sign up sequence
   const handleSignup = async () => {
     try {
+      // Signing up the user
       const data = await signup({
         name: signupRef.current.name.value,
         email: signupRef.current.email.value,
         password: signupRef.current.password.value,
       });
-      console.log(data);
+      toast.success(data.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      // Loging the user in
+      const loginData = await login({
+        email: signupRef.current.email.value,
+        password: signupRef.current.password.value,
+      });
+      toast.success(loginData.message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      dispatch(loginDispatcher(loginData.appUser));
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }

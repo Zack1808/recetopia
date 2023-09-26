@@ -9,6 +9,7 @@ export const login = async (body) => {
       headers: {
         authid: process.env.REACT_APP_AUTHID,
       },
+      mode: "no-cors",
     }
   );
   return data;
@@ -18,10 +19,12 @@ export const login = async (body) => {
 export const signup = async (body) => {
   const { data } = await axios.post(
     "https://addappuser-zazjbx7nka-uc.a.run.app/",
+    body,
     {
       headers: {
         authid: process.env.REACT_APP_AUTHID,
       },
+      mode: "no-cors",
     }
   );
   return data;
