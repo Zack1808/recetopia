@@ -25,6 +25,8 @@ const LoginPage = () => {
   // Rerouting the user to the dashboard if he is already logged in
   useEffect(() => {
     isLoggedIn && navigate("/dashboard");
+
+    // eslint-disable-next-line
   }, []);
 
   // Function that switches the tabs
