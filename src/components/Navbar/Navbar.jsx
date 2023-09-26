@@ -23,7 +23,7 @@ const Navbar = () => {
   const handleClosure = () => setToggleNav(false);
 
   // Getting the user information
-  const user = useSelector((state) => state.user);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <div className="navbar">
@@ -41,7 +41,7 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          {user.isLoggedIn ? (
+          {isLoggedIn ? (
             // Displaying these links if the user is logged in
             <>
               <Link to="/recipes" onClick={handleClosure}>
