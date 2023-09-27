@@ -14,6 +14,7 @@ import { fetchAllRecipes } from "../../api/fetchRecipes";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
+import Pagination from "../../components/Pagination/Pagination";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -62,7 +63,7 @@ const Dashboard = () => {
             <Loader dark />
           </div>
         ) : (
-          recipes.length
+          <Pagination items={recipes} itemsPerPage={20} />
         )}
       </div>
     </div>
