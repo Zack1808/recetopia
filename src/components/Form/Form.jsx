@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import "./Form.css";
 
 // Creating the Form component
-const Form = forwardRef(({ children, onSubmit }, ref) => {
+const Form = forwardRef(({ children, onSubmit, ...rest }, ref) => {
   // Funciton that will handle the form submition
   const handleSubmit = (e) => {
     // Prevents the default behaviour of the form
@@ -15,7 +15,7 @@ const Form = forwardRef(({ children, onSubmit }, ref) => {
   };
 
   return (
-    <form ref={ref} onSubmit={handleSubmit}>
+    <form ref={ref} onSubmit={handleSubmit} {...rest}>
       {children}
     </form>
   );

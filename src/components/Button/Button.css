@@ -1,8 +1,10 @@
 /* Styling the button  */
 button {
-  padding: 1em 1.7em;
+  padding: 0.92em 1.6em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
-  border-radius: 5px;
   background-color: var(--secondary-bg);
   color: white;
   font-size: 1rem;

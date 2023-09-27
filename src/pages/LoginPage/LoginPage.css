@@ -1,12 +1,12 @@
 /* Styling the login page */
 .login-page {
+  padding: 3em 1em;
   flex-grow: 1;
   display: flex;
   align-items: flex-start;
 }
 
 .login-page .container {
-  padding: 3em 1em;
   display: flex;
   justify-content: center;
   align-items: flex-start;
