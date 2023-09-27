@@ -1,5 +1,5 @@
 .dashboard {
-  padding: 1em;
+  padding: 0 1em 1em;
   display: flex;
   flex-grow: 1;
 }
@@ -17,6 +17,10 @@
   width: 100%;
   display: flex;
   gap: 1em;
+  padding-block: 1em 0;
+  position: sticky;
+  z-index: 99;
+  background-color: white;
 }
 
 /* Styling the Loader */

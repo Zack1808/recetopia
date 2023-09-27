@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Importing the costume components
 import Button from "../Button/Button";
@@ -12,6 +12,11 @@ import "./Pagination.css";
 const Pagination = ({ items = [], itemsPerPage = 5 }) => {
   // Setting up the state
   const [currentPage, setCurrentPage] = useState(0);
+
+  // Setting the page back to the first in case the array changes
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [items]);
 
   // Funciton that will render the pagination buttons
   const renderButtons = () => {
@@ -45,6 +50,7 @@ const Pagination = ({ items = [], itemsPerPage = 5 }) => {
                 <small>
                   Created on: <span>{item.dateCreated}</span>
                 </small>
+                {console.log(items)}
               </Card>
             </Link>
           ))}

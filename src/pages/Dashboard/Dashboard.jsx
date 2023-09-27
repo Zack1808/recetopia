@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Importing the context hook
@@ -26,7 +26,10 @@ const Dashboard = () => {
   const recipes = useSelector((state) => state.recipes.recipes);
 
   // Setting ut the state
-  const [found, setFound] = useState(recipes);
+  const [found, setFound] = useState(recipes); // Will contain the list of found recipes with the particular title
+
+  // Setting up the ref
+  const headerRef = useRef();
 
   // Getting the navigate function
   const { navigate } = useNavigate();
@@ -44,6 +47,11 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, []);
 
+  // Setting the recipes in the found state since no search has been conducted
+  useEffect(() => {
+    setFound(recipes);
+  }, [recipes]);
+
   // Function that will fetch all recipes
   const getRecipes = async () => {
     try {
@@ -59,14 +67,22 @@ const Dashboard = () => {
     if (term.split(" ").join("") === "") setFound(recipes);
     else
       setFound(
-        recipes.filter((recipe) => recipe.title.toLowerCase().includes(term))
+        recipes.filter(
+          (recipe) =>
+            recipe.title.toLowerCase().includes(term) ||
+            recipe.tags.includes(term)
+        )
       );
   };
 
   return (
     <div className="dashboard">
       <div className="container">
-        <div className="header">
+        <div
+          className="header"
+          ref={headerRef}
+          style={{ top: `${headerRef.current?.getBoundingClientRect().y}px` }}
+        >
           <SearchBar onChange={handleSearch} />
           <Button>New</Button>
         </div>

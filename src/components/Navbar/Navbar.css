@@ -4,6 +4,7 @@
   background-color: var(--secondary-bg);
   color: white;
   position: sticky;
+  z-index: 999;
   top: 0;
 }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 // Importing the api funciton
 import { searchImages } from "../../api/unsplash";
@@ -10,6 +11,11 @@ import "./Card.css";
 const Card = ({ children, imageName = "" }) => {
   // Setting up the state
   const [images, setImages] = useState(null);
+
+  // Setting up the observer
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+  });
 
   // Fetching the images nomount
   useEffect(() => {
@@ -25,8 +31,9 @@ const Card = ({ children, imageName = "" }) => {
 
   return (
     <div
+      ref={ref}
       style={{ backgroundImage: `url(${images && images[0].urls.small_s3})` }}
-      className="card"
+      className={`card ${inView ? "visible" : ""}`}
     >
       {children}
     </div>
