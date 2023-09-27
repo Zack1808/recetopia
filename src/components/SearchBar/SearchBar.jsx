@@ -9,10 +9,14 @@ import Button from "../Button/Button";
 import "./SearchBar.css";
 
 // Creating the SearchBar component
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onChange }) => {
+  // Funciton that will handle the change event in the input
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  };
   return (
     <Form className="search">
-      <Input type="text" placeholder="Search..." />
+      <Input onChange={handleChange} type="text" placeholder="Search..." />
       <Button>
         <FaSearch />
       </Button>

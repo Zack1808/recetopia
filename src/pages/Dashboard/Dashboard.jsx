@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Importing the context hook
@@ -24,6 +24,9 @@ const Dashboard = () => {
   // Getting the state from the store
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const recipes = useSelector((state) => state.recipes.recipes);
+
+  // Setting ut the state
+  const [found, setFound] = useState(recipes);
 
   // Getting the navigate function
   const { navigate } = useNavigate();
@@ -51,19 +54,28 @@ const Dashboard = () => {
     }
   };
 
+  // Funciton that will display the recipe with the searched name
+  const handleSearch = (term) => {
+    if (term.split(" ").join("") === "") setFound(recipes);
+    else
+      setFound(
+        recipes.filter((recipe) => recipe.title.toLowerCase().includes(term))
+      );
+  };
+
   return (
     <div className="dashboard">
       <div className="container">
         <div className="header">
-          <SearchBar />
-          <Button>New </Button>
+          <SearchBar onChange={handleSearch} />
+          <Button>New</Button>
         </div>
         {recipes.length === 0 ? (
           <div className="load">
             <Loader dark />
           </div>
         ) : (
-          <Pagination items={recipes} itemsPerPage={10} />
+          <Pagination items={found} itemsPerPage={10} />
         )}
       </div>
     </div>
