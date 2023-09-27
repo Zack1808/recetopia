@@ -1,6 +1,6 @@
 /* Styling the Loader container */
 .loader {
-  width: 1.2rem;
+  width: 100%;
   aspect-ratio: 1 / 1;
   position: relative;
   inset: 0;
@@ -19,7 +19,7 @@
 }
 .dot::before {
   content: "";
-  width: 0.2em;
+  width: 20%;
   aspect-ratio: 1 / 1;
   position: absolute;
   background-color: white;
@@ -28,6 +28,11 @@
   transition: 0.3s ease-in-out;
   animation: scaleUpDown 0.5s ease infinite alternate calc(var(--i) * 150ms);
   z-index: 1;
+}
+
+/* Styling the Loader in case it is diplayed on a light background */
+.dark .dot::before {
+  background-color: black;
 }
 
 /* Creating the "spinning" animation */

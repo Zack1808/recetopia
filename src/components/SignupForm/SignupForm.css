@@ -38,3 +38,8 @@
 .requirements small.active {
   color: var(--secondary-bg);
 }
+
+/* Styling the Loader in the button */
+.signup-form button span {
+  width: 1.2rem;
+}

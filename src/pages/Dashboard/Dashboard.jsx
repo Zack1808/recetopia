@@ -12,6 +12,8 @@ import { fetchAllRecipes } from "../../api/fetchRecipes";
 
 // Importing the costume components
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Loader from "../../components/Loader/Loader";
+import Button from "../../components/Button/Button";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -51,8 +53,17 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="container">
-        <SearchBar />
-        {console.log(recipes)}
+        <div className="header">
+          <SearchBar />
+          <Button>New </Button>
+        </div>
+        {recipes.length === 0 ? (
+          <div className="load">
+            <Loader dark />
+          </div>
+        ) : (
+          recipes.length
+        )}
       </div>
     </div>
   );

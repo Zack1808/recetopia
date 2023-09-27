@@ -1,8 +1,7 @@
 /* Styling the button  */
 button {
-  padding: 0.92em 1.6em;
+  padding: 0.87em 1.54em;
   display: flex;
-  justify-content: center;
   align-items: center;
   border: none;
   background-color: var(--secondary-bg);

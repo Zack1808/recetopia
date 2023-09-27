@@ -93,7 +93,15 @@ const LoginForm = () => {
           required
           placeholder="Password"
         />
-        <Button disabled={isLoading}>{isLoading ? <Loader /> : "Login"}</Button>
+        <Button disabled={isLoading}>
+          {isLoading ? (
+            <span>
+              <Loader />
+            </span>
+          ) : (
+            "Login"
+          )}
+        </Button>
       </Form>
     </div>
   );

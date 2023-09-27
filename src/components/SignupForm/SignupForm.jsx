@@ -181,7 +181,13 @@ const SignupForm = () => {
 
         {/* Submit button start */}
         <Button disabled={checkPwdRequirements() || isLoading}>
-          {isLoading ? <Loader /> : "Sign Up"}
+          {isLoading ? (
+            <span>
+              <Loader />
+            </span>
+          ) : (
+            "Sign Up"
+          )}
         </Button>
         {/* Submit button end */}
       </Form>
