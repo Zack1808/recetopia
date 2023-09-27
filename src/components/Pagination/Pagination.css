@@ -6,14 +6,13 @@
   justify-content: flex-start;
   align-items: center;
   gap: 2em;
-  border: 1px solid #000;
   flex-grow: 1;
 }
 
 /* Styling the item-display */
 .pagination .item-display {
   display: grid;
-  place-items: center;
+  justify-content: center;
   width: 100%;
   gap: 0.5em;
   grid-template-columns: repeat(auto-fit, minmax(200px, 280px));
@@ -37,4 +36,10 @@
   transform: none;
   color: white;
   background-color: var(--secondary-bg);
+}
+
+/* Styling the cards */
+.link {
+  width: 100%;
+  text-decoration: none;
 }

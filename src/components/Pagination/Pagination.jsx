@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Importing the costume components
 import Button from "../Button/Button";
+import Link from "../../components/Link/Link";
+import Card from "../../components/Card/Card";
 
 // Importing the style file
 import "./Pagination.css";
@@ -38,15 +39,17 @@ const Pagination = ({ items = [], itemsPerPage = 5 }) => {
             currentPage * itemsPerPage + itemsPerPage
           )
           .map((item) => (
-            <div className="item" key={item.id}>
-              {item.title}
-            </div>
+            <Link className="link" to={`/recipe/${item.id}`} key={item.id}>
+              <Card>
+                <h2>{item.title}</h2>
+              </Card>
+            </Link>
           ))}
       </div>
       {/* Displaying the items for the current page end */}
 
       {/* Displaying the buttons start */}
-      {itemsPerPage <= items.length && (
+      {itemsPerPage < items.length && (
         <div className="buttons">{renderButtons()}</div>
       )}
       {/* Displaying the buttons end */}

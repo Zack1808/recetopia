@@ -63,7 +63,7 @@ const Dashboard = () => {
             <Loader dark />
           </div>
         ) : (
-          <Pagination items={recipes} itemsPerPage={20} />
+          <Pagination items={recipes} itemsPerPage={15} />
         )}
       </div>
     </div>
