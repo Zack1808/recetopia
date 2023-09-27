@@ -1,5 +1,5 @@
 // Creating the acitons
-export const RECIPEACTIONS = {
+export const RECIPESACTIONS = {
   GET_RECIPES: "GET_RECIPES",
   CLEAR_RECIPES: "CLEAR_RECIPES",
 };
@@ -12,9 +12,9 @@ const initialState = {
 // Setting up the reducer
 export const recipesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case RECIPEACTIONS.GET_RECIPES:
+    case RECIPESACTIONS.GET_RECIPES:
       return { ...state, recipes: action.payload };
-    case RECIPEACTIONS.CLEAR_RECIPES:
+    case RECIPESACTIONS.CLEAR_RECIPES:
       return { ...state, recipes: [] };
     default:
       return state;

@@ -14,3 +14,8 @@
 .search button:hover {
   transform: none;
 }
+
+.search span {
+  transform: scale(1.5);
+  display: flex;
+}

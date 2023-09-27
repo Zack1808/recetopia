@@ -1,4 +1,4 @@
-import { AiOutlineSearch } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
 
 // Importing the costume components
 import Form from "../Form/Form";
@@ -14,7 +14,7 @@ const SearchBar = ({ onSubmit }) => {
     <Form className="search">
       <Input type="text" placeholder="Search..." />
       <Button>
-        <AiOutlineSearch />
+        <FaSearch />
       </Button>
     </Form>
   );

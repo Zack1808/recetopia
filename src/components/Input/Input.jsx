@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Importing the style file
 import "./Input.css";
@@ -31,11 +31,11 @@ const Input = forwardRef(
         {type === "password" &&
           (inputType === "password" ? (
             <span onClick={() => tooglePwdVisibility("text")}>
-              <AiFillEye />
+              <FaEye />
             </span>
           ) : (
             <span onClick={() => tooglePwdVisibility("password")}>
-              <AiFillEyeInvisible />
+              <FaEyeSlash />
             </span>
           ))}
         {/* Adding show/hide passowrd button end */}

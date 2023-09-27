@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Creating the funciton that will fetch all recipes
-const fetchAllRecipes = async () => {
+export const fetchAllRecipes = async () => {
   const { data } = await axios.get(
     "https://getrecipes-zazjbx7nka-uc.a.run.app/",
     {
