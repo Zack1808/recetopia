@@ -1,6 +1,11 @@
 .card {
   display: flex;
   flex-direction: column;
-  padding: 1.5em 1em 1em;
+  padding: 3em 1em 1em;
   border: 1px solid hsl(0 0% 90%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  aspect-ratio: 8 / 9;
 }

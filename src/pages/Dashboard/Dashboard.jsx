@@ -44,7 +44,7 @@ const Dashboard = () => {
   // Function that will fetch all recipes
   const getRecipes = async () => {
     try {
-      const data = await fetchAllRecipes();
+      let data = await fetchAllRecipes();
       dispatch(getRecipesDispatcher(data.recipes));
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ const Dashboard = () => {
             <Loader dark />
           </div>
         ) : (
-          <Pagination items={recipes} itemsPerPage={15} />
+          <Pagination items={recipes} itemsPerPage={10} />
         )}
       </div>
     </div>

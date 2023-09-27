@@ -8,6 +8,9 @@ export const searchImages = async (query) => {
     },
     params: {
       query,
+      w: "200px",
+      h: "300px",
+      fm: "png",
     },
   });
   return data.results;

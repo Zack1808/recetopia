@@ -40,8 +40,11 @@ const Pagination = ({ items = [], itemsPerPage = 5 }) => {
           )
           .map((item) => (
             <Link className="link" to={`/recipe/${item.id}`} key={item.id}>
-              <Card>
+              <Card imageName={item.title}>
                 <h2>{item.title}</h2>
+                <small>
+                  Created on: <span>{item.dateCreated}</span>
+                </small>
               </Card>
             </Link>
           ))}
