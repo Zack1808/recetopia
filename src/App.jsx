@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar/Navbar";
 import Route from "./components/Route/Route";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 // Creating the App component
 const App = () => {
@@ -14,6 +15,9 @@ const App = () => {
       <ToastContainer style={{ marginTop: "4em" }} />
       <Route to="/">
         <LoginPage />
+      </Route>
+      <Route to="/dashboard">
+        <Dashboard />
       </Route>
     </div>
   );
