@@ -1,14 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 // Importing the context hook
 import { useNavigate } from "../../context/navigation";
 
 // Importing the actions
-import { getRecipesDispatcher } from "../../actions/recipesActions";
+import {
+  getRecipesDispatcher,
+  clearRecipesDispatcher,
+} from "../../actions/recipesActions";
 
 // Importing the api funciton
-import { fetchAllRecipes } from "../../api/fetchRecipes";
+import { fetchAllRecipes, addRecipe } from "../../api/fetchRecipes";
 
 // importing the helper function
 import { search } from "../../helpers/recipeSearch";
@@ -20,6 +24,7 @@ import Button from "../../components/Button/Button";
 import Pagination from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
 import FilterTags from "../../components/FilterTags/FilterTags";
+import RecipeInfoForm from "../../components/RecipeInfoForm/RecipeInfoForm";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -28,6 +33,7 @@ import "./Dashboard.css";
 const Dashboard = () => {
   // Getting the state from the store
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const userId = useSelector((state) => state.user.user);
   const recipes = useSelector((state) => state.recipes.recipes);
 
   // Setting ut the state
@@ -35,6 +41,8 @@ const Dashboard = () => {
   const [selectedTags, setSelectedTags] = useState([]); // Will contain all selected tags
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
   const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false); // State that will define if the modal for a new recipe creating is open or not
+  const [isLoading, setIsLoading] = useState(false); // Will check if the status is loading or not
+  const [rerequestData, setRerequestdata] = useState(null);
 
   // Setting up the ref
   const headerRef = useRef();
@@ -56,16 +64,43 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, []);
 
-  // Setting the recipes in the found state since no search has been conducted
+  // requesting a reload of the current recipes
   useEffect(() => {
-    setFound(recipes);
-  }, [recipes]);
+    rerequestData && setTimeout(getRecipes(), 1000);
+
+    // eslint-disable-next-line
+  }, [rerequestData]);
 
   // Function that will fetch all recipes
   const getRecipes = async () => {
     try {
       let data = await fetchAllRecipes();
       dispatch(getRecipesDispatcher(data.recipes));
+      setIsLoading(false);
+      setRerequestdata(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Function that will add a recipe to the database
+  const addNewRecipe = async (body) => {
+    body.recipe.authorId = userId.id;
+    try {
+      setIsLoading(true);
+      setIsRecipeModalOpen(false);
+      const data = await addRecipe(body);
+      dispatch(clearRecipesDispatcher());
+      toast.success(data.message + "Please refresh to show the recipes", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setRerequestdata(data);
     } catch (err) {
       console.log(err);
     }
@@ -122,12 +157,15 @@ const Dashboard = () => {
         {/* Header of the dashboard page end */}
 
         {/* Loading and displaying the recipes start */}
-        {recipes.length === 0 ? (
+        {isLoading ? (
           <div className="load">
             <Loader dark />
           </div>
         ) : (
-          <Pagination items={found} itemsPerPage={10} />
+          <Pagination
+            items={found.length === 0 ? recipes : found}
+            itemsPerPage={10}
+          />
         )}
         {/* Loading and displaying the recipes end */}
 
@@ -148,10 +186,12 @@ const Dashboard = () => {
 
         {/* Show recipe creatin modal start */}
         {isRecipeModalOpen && (
-          <Modal
-            title="Add Recipe"
-            close={() => setIsRecipeModalOpen(false)}
-          ></Modal>
+          <Modal title="Add Recipe" close={() => setIsRecipeModalOpen(false)}>
+            <RecipeInfoForm
+              onSubmit={addNewRecipe}
+              buttonText="Create recipe"
+            />
+          </Modal>
         )}
       </div>
     </div>

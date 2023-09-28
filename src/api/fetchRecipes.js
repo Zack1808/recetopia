@@ -12,3 +12,17 @@ export const fetchAllRecipes = async () => {
   );
   return data;
 };
+
+// Creating the function that will add a recipe to the recipes list
+export const addRecipe = async (body) => {
+  const { data } = await axios.post(
+    "https://addrecipe-zazjbx7nka-uc.a.run.app/",
+    body,
+    {
+      headers: {
+        authid: process.env.REACT_APP_AUTHID,
+      },
+    }
+  );
+  return data;
+};
