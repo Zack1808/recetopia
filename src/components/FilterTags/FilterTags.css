@@ -48,3 +48,15 @@
   background-color: var(--secondary-bg);
   color: white;
 }
+
+/* Styling the buttons section */
+.filter-tags .buttons {
+  width: 100%;
+  margin-top: 0.5em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.filter-tags .buttons button {
+  border: 2px solid var(--secondary-bg);
+}

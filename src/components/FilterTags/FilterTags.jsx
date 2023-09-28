@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 
 // Importing the costume components
-import Form from "../Form/Form";
 import Button from "../Button/Button";
 
 // Importing the style file
 import "./FilterTags.css";
 
 // Creating the FilterTags component
-const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
+const FilterTags = ({ items, selected, select, remove, onSubmit, onClear }) => {
   // Setting up the state
   const [tags, setTags] = useState([]);
 
@@ -38,7 +37,7 @@ const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <div className="filter-tags">
       {/* Displaying the selected tags start */}
       <div className="selected">
         <h4>Selected tags</h4>
@@ -76,8 +75,13 @@ const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
       </div>
       {/* Displaying all tags end */}
 
-      <Button>Filter</Button>
-    </Form>
+      <div className="buttons">
+        <Button secondary onClick={onClear}>
+          Clear tags
+        </Button>
+        <Button onClick={onSubmit}>Filter</Button>
+      </div>
+    </div>
   );
 };
 

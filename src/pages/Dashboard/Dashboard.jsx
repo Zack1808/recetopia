@@ -74,11 +74,13 @@ const Dashboard = () => {
   const handleSearch = () => {
     const term = searchRef.current.search.value;
     setFound(search(term, selectedTags, recipes));
+    setIsFilterOpen(false);
   };
 
-  // Function that will open the Filter Modal
-  const toggleFilterModal = (value) => {
-    setIsFilterOpen(value);
+  // Function that will close
+  const closeFilterModal = () => {
+    setIsFilterOpen(false);
+    handleSearch();
   };
 
   // Function that will add a tag to the selected tag list
@@ -89,6 +91,11 @@ const Dashboard = () => {
   // Function that will remove the tag from the selected tag list
   const removeTag = (tag) => {
     setSelectedTags((prevState) => prevState.filter((t) => t !== tag));
+  };
+
+  // Function that will remove all tags
+  const removeAllTags = () => {
+    setSelectedTags([]);
   };
 
   return (
@@ -102,7 +109,7 @@ const Dashboard = () => {
         >
           <SearchBar onChange={handleSearch} ref={searchRef} />
           <div className="buttons">
-            <Button secondary onClick={() => toggleFilterModal(true)}>
+            <Button secondary onClick={() => setIsFilterOpen(true)}>
               Filter
             </Button>
             <Button>New</Button>
@@ -122,13 +129,14 @@ const Dashboard = () => {
 
         {/* Show filter modal start */}
         {isFilterOpen && (
-          <Modal title="Select Tags" close={() => toggleFilterModal(false)}>
+          <Modal title="Select Tags" close={closeFilterModal}>
             <FilterTags
               items={recipes}
               selected={selectedTags}
               select={addTag}
               remove={removeTag}
               onSubmit={handleSearch}
+              onClear={removeAllTags}
             />
           </Modal>
         )}
