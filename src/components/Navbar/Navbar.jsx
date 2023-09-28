@@ -26,6 +26,9 @@ const Navbar = () => {
   // Getting the user information
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
+  // Getting the cookie
+  const cookie = Cookies.get("persistentLogin");
+
   return (
     <div className="navbar">
       <div className="container">
@@ -42,7 +45,7 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          {isLoggedIn || JSON.parse(Cookies.get("persistentLogin")) ? (
+          {isLoggedIn || !!cookie ? (
             // Displaying these links if the user is logged in
             <>
               <Link to="/dashboard" onClick={handleClosure}>

@@ -58,10 +58,10 @@ const Dashboard = () => {
 
   // Rerouting the user to login if he is not logged in
   useEffect(() => {
-    const id = JSON.parse(Cookies.get("persistentLogin"));
+    const id = Cookies.get("persistentLogin");
     if (!id && !isLoggedIn) navigate("/");
     else {
-      getUser(id);
+      !isLoggedIn && getUser(JSON.parse(id));
       getRecipes();
     }
 
@@ -95,7 +95,6 @@ const Dashboard = () => {
       dispatch(clearRecipesDispatcher());
       toast.success(data.message + ". Please refresh to show the recipes", {
         position: "top-center",
-        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

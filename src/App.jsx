@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Route from "./components/Route/Route";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import EditPage from "./pages/EditPage/EditPage";
 
 // Creating the App component
 const App = () => {
@@ -18,6 +19,9 @@ const App = () => {
       </Route>
       <Route to="/dashboard">
         <Dashboard />
+      </Route>
+      <Route to="/recipe/:id">
+        <EditPage />
       </Route>
     </div>
   );

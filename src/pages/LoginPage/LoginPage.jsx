@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 // Importing the costume components
 import LoginForm from "../../components/LoginForm/LoginForm";
@@ -24,7 +25,7 @@ const LoginPage = () => {
 
   // Rerouting the user to the dashboard if he is already logged in
   useEffect(() => {
-    isLoggedIn && navigate("/dashboard");
+    isLoggedIn || (!!Cookies.get("persistentLogin") && navigate("/dashboard"));
 
     // eslint-disable-next-line
   }, []);
