@@ -125,9 +125,21 @@ const SignupForm = () => {
       <Form ref={signupRef} onSubmit={handleSignup}>
         {/* Form elements start */}
         <label htmlFor="name">Name*</label>
-        <Input type="text" name="name" id="name" required />
+        <Input
+          type="text"
+          name="name"
+          id="name"
+          required
+          placeholder="John Doe"
+        />
         <label htmlFor="email">Email*</label>
-        <Input type="email" name="email" id="email" required />
+        <Input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="johndoe@gmail.com"
+        />
         <label htmlFor="password">Password*</label>
         <Input
           type="password"
@@ -135,6 +147,7 @@ const SignupForm = () => {
           name="password"
           id="password"
           required
+          placeholder="Password"
         />
         {/* Form elements end */}
 
@@ -168,7 +181,13 @@ const SignupForm = () => {
 
         {/* Submit button start */}
         <Button disabled={checkPwdRequirements() || isLoading}>
-          {isLoading ? <Loader /> : "Sign Up"}
+          {isLoading ? (
+            <span>
+              <Loader />
+            </span>
+          ) : (
+            "Sign Up"
+          )}
         </Button>
         {/* Submit button end */}
       </Form>

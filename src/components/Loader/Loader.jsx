@@ -2,9 +2,9 @@
 import "./Loader.css";
 
 // Creating the Loader component
-const Loader = () => {
+const Loader = ({ dark }) => {
   return (
-    <div className="loader">
+    <div className={`loader ${dark ? "dark" : ""}`}>
       <div className="dot" style={{ "--i": 1 }}></div>
       <div className="dot" style={{ "--i": 2 }}></div>
       <div className="dot" style={{ "--i": 3 }}></div>

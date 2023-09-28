@@ -1,0 +1,63 @@
+/* Styling the tags and selected tags container */
+.selected,
+.tags {
+  display: flex;
+  gap: 0.5em;
+  flex-direction: column;
+  margin-bottom: 0.5em;
+}
+
+/* Styling the headings and text */
+.selected h4,
+.selected p,
+.tags h4,
+.tags p {
+  color: var(--secondary-bg);
+}
+
+/* styling the tag list */
+.tags-list {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+/* Styling the spans themselves in the selected container */
+.selected span {
+  padding: 0.2em 0.5em;
+  border-radius: 50px;
+  color: white;
+  background-color: var(--secondary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2em;
+}
+
+/* Styling the spans themselves in the tags container */
+.tags span {
+  padding: 0.2em 0.5em;
+  border-radius: 50px;
+  border: 2px solid var(--secondary-bg);
+  cursor: pointer;
+  color: var(--secondary-bg);
+  transition: 0.3s ease-in-out;
+}
+
+.tags span:hover {
+  background-color: var(--secondary-bg);
+  color: white;
+}
+
+/* Styling the buttons section */
+.filter-tags .buttons {
+  width: 100%;
+  margin-top: 0.5em;
+  display: flex;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.filter-tags .buttons button {
+  border: 2px solid var(--secondary-bg);
+}

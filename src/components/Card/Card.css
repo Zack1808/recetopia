@@ -1,0 +1,22 @@
+/* Styling the card component */
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 3em 1em 1em;
+  border: 1px solid hsl(0 0% 90%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  aspect-ratio: 8 / 9;
+  scale: 0.8;
+  opacity: 0;
+  z-index: -999;
+  transition: 0.3s ease-in-out;
+}
+
+/* Styling the card when it is visible */
+.card.visible {
+  opacity: 1;
+  scale: none;
+}

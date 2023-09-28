@@ -26,7 +26,6 @@
 }
 
 .requirements small {
-  font-family: "Poppins", sans-serif;
   margin-bottom: 0.5em;
   font-weight: 700;
   display: flex;
@@ -37,4 +36,9 @@
 
 .requirements small.active {
   color: var(--secondary-bg);
+}
+
+/* Styling the Loader in the button */
+.signup-form button span {
+  width: 1.2rem;
 }

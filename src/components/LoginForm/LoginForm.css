@@ -8,12 +8,15 @@
 }
 
 .login-form h2 {
-  font-family: "Poppins", sans-serif;
   font-size: 1.7rem;
   color: var(--secondary-bg);
 }
 
 .login-form label {
-  font-family: "Poppins", sans-serif;
   font-size: 1rem;
+}
+
+/* Styling the Loader in the button */
+.login-form button span {
+  width: 1.2rem;
 }

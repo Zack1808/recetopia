@@ -1,0 +1,21 @@
+/* Styling the searchbar */
+.search {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling the input for the SearchBar */
+.search .input {
+  margin-bottom: 0;
+}
+
+/* Styling the button for the SeachBar */
+.search button:hover {
+  transform: none;
+}
+
+.search span {
+  transform: scale(1.5);
+  display: flex;
+}

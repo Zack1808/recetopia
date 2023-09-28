@@ -1,0 +1,61 @@
+/* Styling the pagination */
+.pagination {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+}
+
+/* Styling the item-display */
+.pagination .item-display {
+  display: grid;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5em;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 280px));
+}
+
+/* Styling the pagination buttons */
+.pagination .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1em;
+  margin-top: auto;
+}
+
+.pagination .buttons button {
+  padding: 0.87em 0.49em;
+  border: 2px solid var(--secondary-bg);
+}
+
+.pagination .buttons button:hover {
+  transform: none;
+  color: white;
+  background-color: var(--secondary-bg);
+}
+
+/* Styling the cards */
+.link {
+  width: 100%;
+  text-decoration: none;
+}
+
+.link .card {
+  justify-content: flex-end;
+}
+
+.link h3,
+.link small {
+  color: white;
+  background-color: var(--secondary-bg);
+  text-align: center;
+  padding: 0.2em;
+}
+
+.link small {
+  display: flex;
+  justify-content: space-between;
+}

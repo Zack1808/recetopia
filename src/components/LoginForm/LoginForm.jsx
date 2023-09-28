@@ -78,10 +78,30 @@ const LoginForm = () => {
       <h2>Login</h2>
       <Form onSubmit={handleLogin} ref={loginRef}>
         <label htmlFor="email">Email*</label>
-        <Input type="email" name="email" id="email" required />
+        <Input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="johndoe@gmail.com"
+        />
         <label htmlFor="password">Password*</label>
-        <Input type="password" name="password" id="password" required />
-        <Button disabled={isLoading}>{isLoading ? <Loader /> : "Login"}</Button>
+        <Input
+          type="password"
+          name="password"
+          id="password"
+          required
+          placeholder="Password"
+        />
+        <Button disabled={isLoading}>
+          {isLoading ? (
+            <span>
+              <Loader />
+            </span>
+          ) : (
+            "Login"
+          )}
+        </Button>
       </Form>
     </div>
   );

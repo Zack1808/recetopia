@@ -44,10 +44,10 @@ const Navbar = () => {
           {isLoggedIn ? (
             // Displaying these links if the user is logged in
             <>
-              <Link to="/recipes" onClick={handleClosure}>
+              <Link to="/dashboard" onClick={handleClosure}>
                 Recipes
               </Link>
-              <Link to="/dashboard" onClick={handleClosure}>
+              <Link to="/my-recipes" onClick={handleClosure}>
                 My recipes
               </Link>
               <Link to="/logout" onClick={handleClosure}>

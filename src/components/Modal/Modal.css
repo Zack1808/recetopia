@@ -1,0 +1,46 @@
+/* Styling the modal */
+.modal {
+  position: fixed;
+  padding: 1em;
+  inset: 0;
+  background-color: hsl(0 0% 0% / 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling the modal container */
+.modal-container {
+  width: 100%;
+  max-width: 700px;
+  padding: 1em;
+  background-color: white;
+}
+
+/* Styling the header */
+.modal-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px solid var(--secondary-bg);
+}
+
+.modal-container .header h2 {
+  font-family: "Poppins", sans-serif;
+  color: var(--secondary-bg);
+}
+
+.modal-container .header button:hover {
+  transform: none;
+  background-color: white;
+  color: var(--secondary-bg);
+}
+
+/* Styling the modal body */
+.modal-container .body {
+  max-height: 90vh;
+  overflow: auto none;
+  padding-block: 1em;
+  width: 100%;
+}
