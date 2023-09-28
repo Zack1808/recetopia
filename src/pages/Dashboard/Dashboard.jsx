@@ -32,8 +32,9 @@ const Dashboard = () => {
 
   // Setting ut the state
   const [found, setFound] = useState(recipes); // Will contain the list of found recipes with the particular title
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]); // Will contain all selected tags
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
+  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false); // State that will define if the modal for a new recipe creating is open or not
 
   // Setting up the ref
   const headerRef = useRef();
@@ -111,8 +112,11 @@ const Dashboard = () => {
           <div className="buttons">
             <Button secondary onClick={() => setIsFilterOpen(true)}>
               Filter
+              {selectedTags.length > 0 && (
+                <small>({selectedTags.length})</small>
+              )}
             </Button>
-            <Button>New</Button>
+            <Button onClick={() => setIsRecipeModalOpen(true)}>New</Button>
           </div>
         </div>
         {/* Header of the dashboard page end */}
@@ -141,6 +145,14 @@ const Dashboard = () => {
           </Modal>
         )}
         {/* Show filter modal end */}
+
+        {/* Show recipe creatin modal start */}
+        {isRecipeModalOpen && (
+          <Modal
+            title="Add Recipe"
+            close={() => setIsRecipeModalOpen(false)}
+          ></Modal>
+        )}
       </div>
     </div>
   );
