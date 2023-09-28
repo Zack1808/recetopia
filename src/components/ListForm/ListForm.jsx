@@ -28,7 +28,6 @@ const ListForm = forwardRef(({ items = [], onSubmit, name, remove }, ref) => {
         </Button>
       </div>
       <div className="form-data">
-        {console.log(items)}
         <h4>{name}s</h4>
         <ul>
           {items.length === 0 ? (

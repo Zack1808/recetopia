@@ -24,4 +24,5 @@ export const addRecipe = async (body) => {
       },
     }
   );
+  return data;
 };

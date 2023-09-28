@@ -4,3 +4,15 @@ hr {
   border-color: var(--secondary-bg);
   margin-block: 0em 1em;
 }
+
+.err {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.err small {
+  color: var(--secondary-bg);
+  font-weight: 700;
+}
