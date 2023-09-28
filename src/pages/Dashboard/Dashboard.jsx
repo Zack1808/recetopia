@@ -20,6 +20,7 @@ import Button from "../../components/Button/Button";
 import Pagination from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
 import FilterTags from "../../components/FilterTags/FilterTags";
+import RecipeInfoForm from "../../components/RecipeInfoForm/RecipeInfoForm";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -148,10 +149,9 @@ const Dashboard = () => {
 
         {/* Show recipe creatin modal start */}
         {isRecipeModalOpen && (
-          <Modal
-            title="Add Recipe"
-            close={() => setIsRecipeModalOpen(false)}
-          ></Modal>
+          <Modal title="Add Recipe" close={() => setIsRecipeModalOpen(false)}>
+            <RecipeInfoForm />
+          </Modal>
         )}
       </div>
     </div>
