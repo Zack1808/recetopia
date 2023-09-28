@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 
+// Importing the costume components
+import Form from "../Form/Form";
+import Button from "../Button/Button";
+
+// Importing the style file
+import "./FilterTags.css";
+
 // Creating the FilterTags component
-const FilterTags = ({ items, selected, select, remove }) => {
+const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
   // Setting up the state
   const [tags, setTags] = useState([]);
 
@@ -30,7 +37,7 @@ const FilterTags = ({ items, selected, select, remove }) => {
   };
 
   return (
-    <div className="filter-tags">
+    <Form>
       {/* Displaying the selected tags start */}
       <div className="selected">
         <h4>Selected tags</h4>
@@ -47,17 +54,21 @@ const FilterTags = ({ items, selected, select, remove }) => {
       {/* Displaying all tags start */}
       <div className="tags">
         <h4>All available tags</h4>
-        {tags.length > 0 ? (
-          tags.map(
-            (tag) =>
-              !selected.includes(tag) && <span key={`${tag}-all`}>{tag}</span>
-          )
-        ) : (
-          <p>No Tags available</p>
-        )}
+        <div className="tags-list">
+          {tags.length > 0 ? (
+            tags.map(
+              (tag) =>
+                !selected.includes(tag) && <span key={`${tag}-all`}>{tag}</span>
+            )
+          ) : (
+            <p>No Tags available</p>
+          )}
+        </div>
       </div>
       {/* Displaying all tags end */}
-    </div>
+
+      <Button>Filter</Button>
+    </Form>
   );
 };
 
