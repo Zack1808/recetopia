@@ -1,0 +1,62 @@
+/* Styling the list form */
+.list-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Styling the input part */
+.form-info {
+  display: flex;
+  width: 100%;
+}
+
+.form-info .input {
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.form-info .list-input {
+  flex-grow: 1;
+}
+
+/* Styling the button for the input section */
+.form-info button:hover {
+  transform: none;
+}
+
+.form-info button {
+  padding-block: 0.62em;
+}
+
+/* Styling the list */
+.form-data h4 {
+  text-transform: capitalize;
+}
+
+.form-data ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.form-data li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-data .close {
+  background-color: var(--secondary-bg);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  padding: 0.5em;
+}

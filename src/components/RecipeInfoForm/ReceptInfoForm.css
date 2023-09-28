@@ -1,0 +1,6 @@
+/* Styling the ruler */
+hr {
+  width: 100%;
+  border-color: var(--secondary-bg);
+  margin-block: 0em 1em;
+}
