@@ -16,11 +16,21 @@
 .dashboard .header {
   width: 100%;
   display: flex;
-  gap: 1em;
+  align-items: center;
+  gap: 0.5em;
   padding-block: 1em 0;
   position: sticky;
   z-index: 99;
   background-color: white;
+}
+
+.dashboard .header .buttons {
+  display: flex;
+  gap: 0.5em;
+}
+
+.dashboard .header .buttons button {
+  padding: calc(0.87em - 6px) calc(1.54em - 6px);
 }
 
 /* Styling the Loader */
@@ -28,4 +38,23 @@
   width: 5rem;
   aspect-ratio: 1 / 1;
   margin-block: auto;
+}
+
+/* Styling the dashboard on small screens */
+@media (width < 630px) {
+  /* styling the header */
+  .dashboard .header {
+    flex-direction: column;
+    padding-bottom: 0.1em;
+  }
+  .dashboard .header .buttons {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .dashboard .header .buttons button {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

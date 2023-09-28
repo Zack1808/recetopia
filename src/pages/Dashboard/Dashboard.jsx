@@ -15,6 +15,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
 import Pagination from "../../components/Pagination/Pagination";
+import Modal from "../../components/Modal/Modal";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -27,6 +28,7 @@ const Dashboard = () => {
 
   // Setting ut the state
   const [found, setFound] = useState(recipes); // Will contain the list of found recipes with the particular title
+  const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
 
   // Setting up the ref
   const headerRef = useRef();
@@ -67,12 +69,13 @@ const Dashboard = () => {
     if (term.split(" ").join("") === "") setFound(recipes);
     else
       setFound(
-        recipes.filter(
-          (recipe) =>
-            recipe.title.toLowerCase().includes(term) ||
-            recipe.tags.includes(term)
-        )
+        recipes.filter((recipe) => recipe.title.toLowerCase().includes(term))
       );
+  };
+
+  // Function that will open the Filter Modal
+  const toggleFilterModal = (value) => {
+    setIsFilterOpen(value);
   };
 
   return (
@@ -84,7 +87,12 @@ const Dashboard = () => {
           style={{ top: `${headerRef.current?.getBoundingClientRect().y}px` }}
         >
           <SearchBar onChange={handleSearch} />
-          <Button>New</Button>
+          <div className="buttons">
+            <Button secondary onClick={() => toggleFilterModal(true)}>
+              Filter
+            </Button>
+            <Button>New</Button>
+          </div>
         </div>
         {recipes.length === 0 ? (
           <div className="load">
@@ -92,6 +100,9 @@ const Dashboard = () => {
           </div>
         ) : (
           <Pagination items={found} itemsPerPage={10} />
+        )}
+        {isFilterOpen && (
+          <Modal title="Test" close={() => toggleFilterModal(false)} />
         )}
       </div>
     </div>

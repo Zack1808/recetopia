@@ -48,7 +48,7 @@
   justify-content: flex-end;
 }
 
-.link h2,
+.link h3,
 .link small {
   color: white;
   background-color: var(--secondary-bg);
