@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
 
 // Importing the costume components
 import Form from "../Form/Form";
@@ -37,13 +38,17 @@ const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
   };
 
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       {/* Displaying the selected tags start */}
       <div className="selected">
         <h4>Selected tags</h4>
         <div className="tags-list">
           {selected.length > 0 ? (
-            selected.map((tag) => <span key={`${tag}-selected`}>{tag}</span>)
+            selected.map((tag) => (
+              <span key={`${tag}-selected`}>
+                {tag} <FaTimes onClick={() => remove(tag)} />
+              </span>
+            ))
           ) : (
             <p>No tags selected</p>
           )}
@@ -58,7 +63,11 @@ const FilterTags = ({ items, selected, select, remove, onSubmit }) => {
           {tags.length > 0 ? (
             tags.map(
               (tag) =>
-                !selected.includes(tag) && <span key={`${tag}-all`}>{tag}</span>
+                !selected.includes(tag) && (
+                  <span onClick={() => select(tag)} key={`${tag}-all`}>
+                    {tag}
+                  </span>
+                )
             )
           ) : (
             <p>No Tags available</p>

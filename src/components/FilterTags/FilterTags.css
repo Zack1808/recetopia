@@ -22,7 +22,19 @@
   flex-wrap: wrap;
 }
 
-/* Styling the spans themselves */
+/* Styling the spans themselves in the selected container */
+.selected span {
+  padding: 0.2em 0.5em;
+  border-radius: 50px;
+  color: white;
+  background-color: var(--secondary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2em;
+}
+
+/* Styling the spans themselves in the tags container */
 .tags span {
   padding: 0.2em 0.5em;
   border-radius: 50px;

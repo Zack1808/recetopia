@@ -82,6 +82,16 @@ const Dashboard = () => {
     setIsFilterOpen(value);
   };
 
+  // Function that will add a tag to the selected tag list
+  const addTag = (tag) => {
+    setSelectedTags((prevState) => [...prevState, tag]);
+  };
+
+  // Function that will remove the tag from the selected tag list
+  const removeTag = (tag) => {
+    setSelectedTags((prevState) => prevState.filter((t) => t !== tag));
+  };
+
   return (
     <div className="dashboard">
       <div className="container">
@@ -113,8 +123,13 @@ const Dashboard = () => {
 
         {/* Show filter modal start */}
         {isFilterOpen && (
-          <Modal title="Test" close={() => toggleFilterModal(false)}>
-            <FilterTags items={recipes} selected={selectedTags} />
+          <Modal title="Select Tags" close={() => toggleFilterModal(false)}>
+            <FilterTags
+              items={recipes}
+              selected={selectedTags}
+              select={addTag}
+              remove={removeTag}
+            />
           </Modal>
         )}
         {/* Show filter modal end */}
