@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 // Importing the api functions
 import { login } from "../../api/login";
@@ -54,6 +55,7 @@ const LoginForm = () => {
         progress: undefined,
         theme: "light",
       });
+      Cookies.set("persistentLogin", JSON.stringify(data.appUser.id));
       dispatch(loginDispatcher(data.appUser));
       navigate("/dashboard");
     } catch (err) {

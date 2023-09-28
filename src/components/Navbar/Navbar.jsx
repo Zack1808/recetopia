@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 // Importing costume components
 import Link from "../Link/Link";
@@ -41,7 +42,7 @@ const Navbar = () => {
 
         {/* Links start */}
         <div className={`navigation ${toggleNav ? "active" : ""}`}>
-          {isLoggedIn ? (
+          {isLoggedIn || JSON.parse(Cookies.get("persistentLogin")) ? (
             // Displaying these links if the user is logged in
             <>
               <Link to="/dashboard" onClick={handleClosure}>

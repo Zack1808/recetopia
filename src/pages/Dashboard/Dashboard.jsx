@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 // Importing the context hook
 import { useNavigate } from "../../context/navigation";
@@ -10,9 +11,11 @@ import {
   getRecipesDispatcher,
   clearRecipesDispatcher,
 } from "../../actions/recipesActions";
+import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the api funciton
 import { fetchAllRecipes, addRecipe } from "../../api/fetchRecipes";
+import { fetchUser } from "../../api/user";
 
 // importing the helper function
 import { search } from "../../helpers/recipeSearch";
@@ -41,8 +44,7 @@ const Dashboard = () => {
   const [selectedTags, setSelectedTags] = useState([]); // Will contain all selected tags
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
   const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false); // State that will define if the modal for a new recipe creating is open or not
-  const [isLoading, setIsLoading] = useState(false); // Will check if the status is loading or not
-  const [rerequestData, setRerequestdata] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Will check if the status is loading or not
 
   // Setting up the ref
   const headerRef = useRef();
@@ -56,20 +58,21 @@ const Dashboard = () => {
 
   // Rerouting the user to login if he is not logged in
   useEffect(() => {
-    if (!isLoggedIn) navigate("/");
+    const id = JSON.parse(Cookies.get("persistentLogin"));
+    if (!id && !isLoggedIn) navigate("/");
     else {
+      getUser(id);
       getRecipes();
     }
 
     // eslint-disable-next-line
   }, []);
 
-  // requesting a reload of the current recipes
-  useEffect(() => {
-    rerequestData && setTimeout(getRecipes(), 1000);
-
-    // eslint-disable-next-line
-  }, [rerequestData]);
+  // Getting the user information
+  const getUser = async (id) => {
+    const data = await fetchUser(id);
+    dispatch(loginDispatcher(data.appUser));
+  };
 
   // Function that will fetch all recipes
   const getRecipes = async () => {
@@ -77,7 +80,6 @@ const Dashboard = () => {
       let data = await fetchAllRecipes();
       dispatch(getRecipesDispatcher(data.recipes));
       setIsLoading(false);
-      setRerequestdata(null);
     } catch (err) {
       console.log(err);
     }
@@ -91,7 +93,7 @@ const Dashboard = () => {
       setIsRecipeModalOpen(false);
       const data = await addRecipe(body);
       dispatch(clearRecipesDispatcher());
-      toast.success(data.message + "Please refresh to show the recipes", {
+      toast.success(data.message + ". Please refresh to show the recipes", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -100,7 +102,7 @@ const Dashboard = () => {
         progress: undefined,
         theme: "light",
       });
-      setRerequestdata(data);
+      getRecipes();
     } catch (err) {
       console.log(err);
     }
