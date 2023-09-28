@@ -7,6 +7,8 @@
   z-index: 9999;
   display: flex;
   justify-content: center;
+  max-height: 100%;
+  overflow-y: auto;
   align-items: center;
 }
 
@@ -35,4 +37,10 @@
   transform: none;
   background-color: white;
   color: var(--secondary-bg);
+}
+
+/* Styling the modal body */
+.modal-container .body {
+  padding-block: 1em;
+  width: 100%;
 }

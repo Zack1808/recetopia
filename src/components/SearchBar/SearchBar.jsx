@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { FaSearch } from "react-icons/fa";
 
 // Importing the costume components
@@ -9,20 +10,20 @@ import Button from "../Button/Button";
 import "./SearchBar.css";
 
 // Creating the SearchBar component
-const SearchBar = ({ onChange }) => {
+const SearchBar = forwardRef(({ onChange }, ref) => {
   // Funciton that will handle the change event in the input
-  const handleChange = (e) => {
-    onChange(e.target.value);
+  const handleChange = () => {
+    onChange();
   };
   return (
-    <Form className="search">
-      <Input onChange={handleChange} type="text" placeholder="Search..." />
+    <Form className="search" ref={ref} onChange={handleChange}>
+      <Input type="text" name="search" placeholder="Search..." />
       <Button>
         <FaSearch />
       </Button>
     </Form>
   );
-};
+});
 
 // Exporting the component
 export default SearchBar;

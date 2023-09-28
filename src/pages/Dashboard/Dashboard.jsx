@@ -16,6 +16,7 @@ import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
 import Pagination from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
+import FilterTags from "../../components/FilterTags/FilterTags";
 
 // Importing the style file
 import "./Dashboard.css";
@@ -28,10 +29,12 @@ const Dashboard = () => {
 
   // Setting ut the state
   const [found, setFound] = useState(recipes); // Will contain the list of found recipes with the particular title
+  const [selectedTags, setSelectedTags] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
 
   // Setting up the ref
   const headerRef = useRef();
+  const searchRef = useRef();
 
   // Getting the navigate function
   const { navigate } = useNavigate();
@@ -65,7 +68,8 @@ const Dashboard = () => {
   };
 
   // Funciton that will display the recipe with the searched name
-  const handleSearch = (term) => {
+  const handleSearch = () => {
+    const term = searchRef.current.search.value;
     if (term.split(" ").join("") === "") setFound(recipes);
     else
       setFound(
@@ -81,12 +85,13 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="container">
+        {/* Header of the dashboard page start */}
         <div
           className="header"
           ref={headerRef}
           style={{ top: `${headerRef.current?.getBoundingClientRect().y}px` }}
         >
-          <SearchBar onChange={handleSearch} />
+          <SearchBar onChange={handleSearch} ref={searchRef} />
           <div className="buttons">
             <Button secondary onClick={() => toggleFilterModal(true)}>
               Filter
@@ -94,6 +99,9 @@ const Dashboard = () => {
             <Button>New</Button>
           </div>
         </div>
+        {/* Header of the dashboard page end */}
+
+        {/* Loading and displaying the recipes start */}
         {recipes.length === 0 ? (
           <div className="load">
             <Loader dark />
@@ -101,9 +109,15 @@ const Dashboard = () => {
         ) : (
           <Pagination items={found} itemsPerPage={10} />
         )}
+        {/* Loading and displaying the recipes end */}
+
+        {/* Show filter modal start */}
         {isFilterOpen && (
-          <Modal title="Test" close={() => toggleFilterModal(false)} />
+          <Modal title="Test" close={() => toggleFilterModal(false)}>
+            <FilterTags items={recipes} selected={selectedTags} />
+          </Modal>
         )}
+        {/* Show filter modal end */}
       </div>
     </div>
   );
