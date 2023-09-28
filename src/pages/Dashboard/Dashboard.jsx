@@ -70,11 +70,39 @@ const Dashboard = () => {
   // Funciton that will display the recipe with the searched name
   const handleSearch = () => {
     const term = searchRef.current.search.value;
-    if (term.split(" ").join("") === "") setFound(recipes);
-    else
-      setFound(
-        recipes.filter((recipe) => recipe.title.toLowerCase().includes(term))
+
+    // Will set the state to contain all recipes if neither a tag or a search term has been given
+    if (term.split(" ").join("") === "" && selectedTags.length === 0)
+      setFound(recipes);
+    // Will return all recipes that contain the selected tags and contain the searched term in the title
+    else if (selectedTags.length !== 0 && term.split(" ").join("") !== "") {
+      const items = recipes.filter((recipe) =>
+        recipe.tags.some((tag) => selectedTags.includes(tag))
       );
+      setFound(
+        items.filter((item) =>
+          item.title.toLowerCase().includes(term.toLowerCase())
+        )
+      );
+    }
+
+    // Will return all recipes which containt the search term in the title
+    else if (selectedTags.length === 0 && term.split(" ").join("") !== "") {
+      setFound(
+        recipes.filter((recipe) =>
+          recipe.title.toLowerCase().includes(term.toLowerCase())
+        )
+      );
+    }
+
+    // Will return all items with the selected tag
+    else {
+      setFound(
+        recipes.filter((recipe) =>
+          recipe.tags.some((tag) => selectedTags.includes(tag))
+        )
+      );
+    }
   };
 
   // Function that will open the Filter Modal
@@ -129,6 +157,7 @@ const Dashboard = () => {
               selected={selectedTags}
               select={addTag}
               remove={removeTag}
+              onSubmit={handleSearch}
             />
           </Modal>
         )}
