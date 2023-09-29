@@ -1,0 +1,7 @@
+/* Styling the logout component */
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}

@@ -16,6 +16,7 @@ import Route from "./components/Route/Route";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EditPage from "./pages/EditPage/EditPage";
+import Logout from "./pages/Logout/Logout";
 
 // Creating the App component
 const App = () => {
@@ -48,6 +49,9 @@ const App = () => {
       </Route>
       <Route to="/my-recipes">
         <Dashboard />
+      </Route>
+      <Route to="/logout">
+        <Logout />
       </Route>
       <Route to="/recipe/:id">
         <EditPage />
