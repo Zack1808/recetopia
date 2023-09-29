@@ -26,3 +26,19 @@ export const addRecipe = async (body) => {
   );
   return data;
 };
+
+// Function that will fetch the information of a specific recipe
+export const getRecipe = async (id) => {
+  const { data } = await axios.get(
+    "https://getrecipe-zazjbx7nka-uc.a.run.app/",
+    {
+      headers: {
+        authid: process.env.AUTHID,
+      },
+      params: {
+        recipeId: id,
+      },
+    }
+  );
+  return data;
+};
