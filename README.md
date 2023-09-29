@@ -22,13 +22,13 @@ Recetopia is a web application built with React and Redux. The platform was desi
 - [Licence](#licence)
 - [Contact](#contact)
 
-## Features <a href="features" />
+## Features <a name="features" />
 
 - Login/Sign Up: Create an account to show recipes and manage your own recipes
 - Search with recipe name / search with tags: Find the recipe you are looking for using the tags and recipe name
 - Manage recipes: Easily create, update or delete recipes
 
-## Implemented libraries and frameworks <a href="implemented" />
+## Implemented libraries and frameworks <a name="implemented" />
 
 - [React](https://react.dev/learn)
 - [Redux](https://redux.js.org/introduction/getting-started)
@@ -36,15 +36,15 @@ Recetopia is a web application built with React and Redux. The platform was desi
 - [React Toastify](https://www.npmjs.com/package/react-toastify)
 - [React intersection observer](https://www.npmjs.com/package/react-intersection-observer)
 
-## Live demo <a href="live" />
+## Live demo <a name="live" />
 
 You can find the web app up and running by visiting the [live demo](https://recetopia.netlify.app)
 
-## How to run the app locally <a href="local" />
+## How to run the app locally <a name="local" />
 
 if you want to run the app following:
 
-#### 1. Clone the repository <a href="clone" />
+#### 1. Clone the repository <a name="clone" />
 
 - HTTS:
 
@@ -64,13 +64,13 @@ git clone git@github.com:Zack1808/recetopia.git
 gh repo clone Zack1808/recetopia
 ```
 
-#### 2. Enter the project directory <a href="dir" />
+#### 2. Enter the project directory <a name="dir" />
 
 ```bash
 cd recetopia
 ```
 
-#### 3. Install the dependencies <a href="dependencies" />
+#### 3. Install the dependencies <a name="dependencies" />
 
 ```bash
 npm install
@@ -82,7 +82,7 @@ or
 yarn install
 ```
 
-#### 4. Setup the API keys <a href="api" />
+#### 4. Setup the API keys <a name="api" />
 
 Within the project directory create a .env file. In there, create the following variables
 
@@ -91,7 +91,7 @@ REACT_APP_AUTHID=yourAuthId
 REACT_APP_UNSPLASH_KEY=yourUnsplashApiKey
 ```
 
-#### 5. Start the app <a href="start" />
+#### 5. Start the app <a name="start" />
 
 ```bash
 npm start
@@ -105,7 +105,7 @@ yarn start
 
 After execution, the localhost server will start up and a browser window will open, previewing the web app.
 
-## Test environment <a href="test" />
+## Test environment <a name="test" />
 
 You can create a new account using the signup tab, however for convenience you can use the following credentials:
 
@@ -121,15 +121,15 @@ johndoe@gmail.com
 adminLogin1!
 ```
 
-## Contribution <a href="contribution" />
+## Contribution <a name="contribution" />
 
 Contributions to the project are welcome. If you find any issues or want to add new features, feel free to create a pull request. Make sure to follow the project's coding conventions and provide detailed information about your changes.
 
-## Licence <a href="licence" />
+## Licence <a name="licence" />
 
 [MIT](https://github.com/Zack1808/recetopia/blob/master/LICENSE)
 
-## Contact <a href="contact" />
+## Contact <a name="contact" />
 
 If you have any questions or suggestions, you can reach me via:
 
