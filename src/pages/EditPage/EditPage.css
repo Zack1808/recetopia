@@ -108,6 +108,31 @@
   border: 2px solid var(--secondary-bg);
 }
 
+/* Styling the modal */
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.confirmation h3 {
+  color: var(--secondary-bg);
+}
+
+.confirmation .buttons {
+  display: flex;
+  width: 100%;
+  gap: 0.5em;
+}
+
+.confirmation .buttons button {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Styling the component on small screens */
 @media (width < 630px) {
   /* Styling the edit page */

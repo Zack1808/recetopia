@@ -56,3 +56,18 @@ export const editRecipe = async (body) => {
   );
   return data;
 };
+
+// Funciton that will delete a recipe
+export const deleteRecipe = async (id) => {
+  const { data } = await axios.delete(
+    "https://deleterecipe-zazjbx7nka-uc.a.run.app/",
+    {
+      headers: {
+        authid: process.env.REACT_APP_AUTHID,
+      },
+      params: {
+        recipeId: id,
+      },
+    }
+  );
+};

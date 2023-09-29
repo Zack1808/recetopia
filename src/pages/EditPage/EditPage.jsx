@@ -17,6 +17,7 @@ import { searchImages } from "../../api/unsplash";
 import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
 import RecipeInfoForm from "../../components/RecipeInfoForm/RecipeInfoForm";
+import Modal from "../../components/Modal/Modal";
 
 // Importing the style file
 import "./EditPage.css";
@@ -32,6 +33,7 @@ const EditPage = () => {
   const [recipe, setRecipe] = useState(null); // Will containt the information about the recipe
   const [images, setImages] = useState(null); // Will contain the images
   const [isEditing, setIsEditing] = useState(false); // Contains info if the edit form should be displayed or not
+  const [isModalOpen, setIsModalOpen] = useState(false); // Will determine if the confirmation message for deletion shoudl be displayed or not
 
   // Getting the navigate function
   const { navigate, currentPath } = useNavigate();
@@ -113,6 +115,10 @@ const EditPage = () => {
     setIsEditing((prevState) => !prevState);
   };
 
+  const toggleModal = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
+
   return (
     <div className="edit-page">
       <div className="container">
@@ -177,7 +183,9 @@ const EditPage = () => {
                   {/* Displaying the buttons in case the user created the recipe start */}
                   {user && recipe && user.id === recipe.authorId && (
                     <div className="buttons">
-                      <Button secondary>Delete</Button>
+                      <Button secondary onClick={toggleModal}>
+                        Delete
+                      </Button>
                       <Button onClick={toggleEdit}>Edit</Button>
                     </div>
                   )}
@@ -189,6 +197,23 @@ const EditPage = () => {
           </>
         )}
       </div>
+      {/* Displaying the modal start */}
+      {isModalOpen && (
+        <Modal title="Confirmation" close={toggleModal}>
+          <div className="confirmation">
+            <h3>
+              The recipe will be deleted permanently, do you want to proceed?
+            </h3>
+            <div className="buttons">
+              <Button onClick={toggleModal} secondary>
+                No
+              </Button>
+              <Button>Yes</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
+      {/* Displaying the modal end */}
     </div>
   );
 };
