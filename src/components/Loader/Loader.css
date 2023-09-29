@@ -32,7 +32,7 @@
 
 /* Styling the Loader in case it is diplayed on a light background */
 .dark .dot::before {
-  background-color: black;
+  background-color: var(--secondary-bg);
 }
 
 /* Creating the "spinning" animation */

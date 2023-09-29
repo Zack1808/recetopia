@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   // Rerouting the user to the dashboard if he is already logged in
   useEffect(() => {
-    isLoggedIn || (!!Cookies.get("persistentLogin") && navigate("/dashboard"));
+    if (isLoggedIn || !!Cookies.get("persistentLogin")) navigate("/dashboard");
 
     // eslint-disable-next-line
   }, []);

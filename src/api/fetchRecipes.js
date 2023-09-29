@@ -33,7 +33,7 @@ export const getRecipe = async (id) => {
     "https://getrecipe-zazjbx7nka-uc.a.run.app/",
     {
       headers: {
-        authid: process.env.AUTHID,
+        authid: process.env.REACT_APP_AUTHID,
       },
       params: {
         recipeId: id,

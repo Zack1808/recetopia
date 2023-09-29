@@ -1,0 +1,118 @@
+/* Styling the edit page */
+.edit-page {
+  display: flex;
+  flex-grow: 1;
+}
+
+.edit-page .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling the loader */
+.load {
+  width: 5rem;
+  aspect-ratio: 1 / 1;
+  margin: auto;
+}
+
+/* Styling the image section */
+.image {
+  flex-grow: 1;
+  max-width: 50%;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Styling the data section */
+.data {
+  flex-grow: 1;
+  padding: 2em;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* Styling the header */
+.data .header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+/* Styling the titlte */
+.data .header h1 {
+  color: var(--secondary-bg);
+}
+
+/* Styling the additional info */
+.data .description {
+  display: flex;
+  flex-direction: column;
+}
+
+.data .description small {
+  font-weight: 700;
+}
+
+/* Styling the tags */
+.data .tags {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.data .tags .tag-list {
+  display: flex;
+  flex-grow: 1;
+  gap: 0.2em;
+  flex-wrap: wrap;
+}
+
+/* Styling the instructions section */
+.data .list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.data .list h3 {
+  color: var(--secondary-bg);
+}
+
+/* Styling the list */
+.data .list ol {
+  padding-left: 1em;
+}
+
+.data .list li {
+  padding: 0.2em;
+}
+
+/* Styling the buttons */
+.data .buttons {
+  display: flex;
+  gap: 0.5em;
+  margin-top: 3em;
+  justify-content: flex-end;
+}
+
+/* Styling the component on small screens */
+@media (width < 630px) {
+  /* Styling the edit page */
+  .edit-page .container {
+    flex-direction: column;
+  }
+
+  /* Styling the image */
+  .image {
+    max-width: none;
+    width: 100%;
+  }
+}
