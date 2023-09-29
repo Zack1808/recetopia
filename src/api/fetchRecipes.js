@@ -42,3 +42,17 @@ export const getRecipe = async (id) => {
   );
   return data;
 };
+
+// Function that will update the recipe
+export const editRecipe = async (body) => {
+  const { data } = await axios.patch(
+    "https://editrecipe-zazjbx7nka-uc.a.run.app/",
+    body,
+    {
+      headers: {
+        authid: process.env.REACT_APP_AUTHID,
+      },
+    }
+  );
+  return data;
+};
