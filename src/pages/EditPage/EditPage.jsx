@@ -10,7 +10,7 @@ import { useNavigate } from "../../context/navigation";
 import { compareArrays } from "../../helpers/compare";
 
 // Importign the api functions
-import { getRecipe, editRecipe } from "../../api/fetchRecipes";
+import { getRecipe, editRecipe, deleteRecipe } from "../../api/fetchRecipes";
 import { searchImages } from "../../api/unsplash";
 
 // Importing the costume components
@@ -108,6 +108,24 @@ const EditPage = () => {
       }
     }
     setIsEditing(false);
+  };
+
+  // Function that will delete the recipe
+  const removeRecipe = async () => {
+    try {
+      const data = await deleteRecipe(recipe.id);
+      toast.success(data.message, {
+        position: "top-center",
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Function that will toggle the edit status
@@ -208,7 +226,7 @@ const EditPage = () => {
               <Button onClick={toggleModal} secondary>
                 No
               </Button>
-              <Button>Yes</Button>
+              <Button onClick={removeRecipe}>Yes</Button>
             </div>
           </div>
         </Modal>

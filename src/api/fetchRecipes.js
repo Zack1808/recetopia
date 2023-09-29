@@ -70,4 +70,5 @@ export const deleteRecipe = async (id) => {
       },
     }
   );
+  return data;
 };
