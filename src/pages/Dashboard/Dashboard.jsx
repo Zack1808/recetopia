@@ -157,7 +157,7 @@ const Dashboard = () => {
                 <small>({selectedTags.length})</small>
               )}
             </Button>
-            <Button onClick={() => setIsRecipeModalOpen(true)}>New</Button>
+            <Button onClick={() => setIsRecipeModalOpen(true)}>Add</Button>
           </div>
         </div>
         {/* Header of the dashboard page end */}

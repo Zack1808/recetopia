@@ -71,6 +71,11 @@
 
 /* Styling the navigation on small screens */
 @media (width < 630px) {
+  /* Styling the navbar */
+  .navbar .container {
+    flex-direction: row-reverse;
+  }
+
   /* Styling the link section */
   .navigation {
     position: absolute;

@@ -41,7 +41,7 @@ const App = () => {
   return (
     <div className="app">
       <Navbar />
-      <ToastContainer style={{ marginTop: "4em" }} />
+      <ToastContainer />
       <Route to="/">
         <LoginPage />
       </Route>

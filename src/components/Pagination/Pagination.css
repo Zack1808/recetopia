@@ -27,7 +27,7 @@
 }
 
 .pagination .buttons button {
-  padding: 0.87em 0.49em;
+  padding: 0.87em 0.8em;
   border: 2px solid var(--secondary-bg);
 }
 

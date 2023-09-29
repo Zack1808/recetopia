@@ -90,7 +90,6 @@ const LoginForm = () => {
           placeholder="johndoe@gmail.com"
         />
         <label htmlFor="password">Password*</label>
-        {console.log(Cookies.get("persistentLogin"))}
         <Input
           type="password"
           name="password"
