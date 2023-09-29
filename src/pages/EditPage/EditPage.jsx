@@ -52,11 +52,15 @@ const EditPage = () => {
         console.log(err);
       }
     }
+
+    // eslint-disable-next-line
   }, []);
 
   // Fetching the images once the recepie info has been fetched
   useEffect(() => {
     getImages();
+
+    // eslint-disable-next-line
   }, [recipe]);
 
   // Function that will fetch the specific recipe

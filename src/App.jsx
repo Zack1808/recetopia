@@ -26,6 +26,8 @@ const App = () => {
   useEffect(() => {
     const cookie = Cookies.get("persistentLogin");
     !!cookie && getUser(JSON.parse(cookie));
+
+    // eslint-disable-next-line
   }, []);
 
   // Function that will fetch the user data in case he was logged in, but a refresh happened
@@ -42,6 +44,9 @@ const App = () => {
         <LoginPage />
       </Route>
       <Route to="/dashboard">
+        <Dashboard />
+      </Route>
+      <Route to="/my-recipes">
         <Dashboard />
       </Route>
       <Route to="/recipe/:id">
