@@ -17,6 +17,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EditPage from "./pages/EditPage/EditPage";
 import Logout from "./pages/Logout/Logout";
+import Footer from "./components/Footer/Footer";
 
 // Creating the App component
 const App = () => {
@@ -56,6 +57,7 @@ const App = () => {
       <Route to="/recipe/:id">
         <EditPage />
       </Route>
+      <Footer />
     </div>
   );
 };

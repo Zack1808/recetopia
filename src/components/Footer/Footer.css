@@ -1,0 +1,13 @@
+/* Styling the footer component */
+.footer {
+  width: 100%;
+  padding: 2em 1em;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 700;
+  background-color: var(--secondary-bg);
+  color: white;
+}
