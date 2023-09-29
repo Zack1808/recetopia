@@ -1,7 +1,6 @@
 export const search = (term, selectedTags, recipes) => {
   // Will set the state to contain all recipes if neither a tag or a search term has been given
-  if (term.split(" ").join("") === "" && selectedTags.length === 0)
-    return recipes;
+  if (term.split(" ").join("") === "" && selectedTags.length === 0) return [];
   // Will return all recipes that contain the selected tags and contain the searched term in the title
   else if (selectedTags.length !== 0 && term.split(" ").join("") !== "") {
     const items = recipes.filter((recipe) =>

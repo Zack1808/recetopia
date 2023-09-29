@@ -35,9 +35,10 @@ const Dashboard = () => {
   // Getting the state from the store
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const userId = useSelector((state) => state.user.user);
-  const recipes = useSelector((state) => state.recipes.recipes);
+  const rec = useSelector((state) => state.recipes.recipes);
 
   // Setting ut the state
+  const [recipes, setRecipes] = useState([]);
   const [found, setFound] = useState(recipes); // Will contain the list of found recipes with the particular title
   const [selectedTags, setSelectedTags] = useState([]); // Will contain all selected tags
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State that will define if the filter modal is open or not
@@ -49,7 +50,7 @@ const Dashboard = () => {
   const searchRef = useRef();
 
   // Getting the navigate function
-  const { navigate } = useNavigate();
+  const { navigate, currentPath } = useNavigate();
 
   // Setting up the disptach function
   const dispatch = useDispatch();
@@ -60,10 +61,23 @@ const Dashboard = () => {
     if (!!!id && !isLoggedIn) navigate("/");
     else {
       getRecipes();
+      if (currentPath === "/my-recipes")
+        setRecipes((prevState) =>
+          prevState.filter((rec) => rec.authorId === userId.id)
+        );
     }
 
     // eslint-disable-next-line
   }, []);
+
+  // Will update the recipe list depending on if the user wants to see all recipes or only his own
+  useEffect(() => {
+    if (currentPath === "/my-recipes")
+      setRecipes(rec.filter((r) => r.authorId === userId.id));
+    else setRecipes(rec);
+
+    // eslint-disable-next-line
+  }, [rec]);
 
   // Function that will fetch all recipes
   const getRecipes = async () => {
