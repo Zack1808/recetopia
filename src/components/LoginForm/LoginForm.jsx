@@ -63,7 +63,9 @@ const LoginForm = () => {
     } catch (err) {
       setIsLoading(false);
       toast.error(
-        err.response?.status === 401 ? "Account does not exist" : err.message,
+        err.response?.status === 401
+          ? "Account does not exist or the password is wrong"
+          : err.message,
         {
           position: "top-center",
           autoClose: 5000,
