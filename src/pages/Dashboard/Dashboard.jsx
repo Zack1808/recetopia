@@ -11,11 +11,9 @@ import {
   getRecipesDispatcher,
   clearRecipesDispatcher,
 } from "../../actions/recipesActions";
-import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the api funciton
 import { fetchAllRecipes, addRecipe } from "../../api/fetchRecipes";
-import { fetchUser } from "../../api/user";
 
 // importing the helper function
 import { search } from "../../helpers/recipeSearch";
@@ -59,20 +57,13 @@ const Dashboard = () => {
   // Rerouting the user to login if he is not logged in
   useEffect(() => {
     const id = Cookies.get("persistentLogin");
-    if (!id && !isLoggedIn) navigate("/");
+    if (!!!id && !isLoggedIn) navigate("/");
     else {
-      !isLoggedIn && getUser(JSON.parse(id));
       getRecipes();
     }
 
     // eslint-disable-next-line
   }, []);
-
-  // Getting the user information
-  const getUser = async (id) => {
-    const data = await fetchUser(id);
-    dispatch(loginDispatcher(data.appUser));
-  };
 
   // Function that will fetch all recipes
   const getRecipes = async () => {

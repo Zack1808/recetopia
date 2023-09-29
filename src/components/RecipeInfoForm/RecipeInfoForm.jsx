@@ -108,7 +108,6 @@ const RecipeInfoForm = ({ item = null, onSubmit, buttonText }) => {
           {tags.length === 0 && <small>- You must have at least 1 tag</small>}
         </div>
       )}
-      {console.log(err)}
       <Button>{buttonText}</Button>
     </Form>
   );
