@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 // Importing the context hook
 import { useNavigate } from "../../context/navigation";
 
+// Importing the helper functions
+import { compareArrays } from "../../helpers/compare";
+
 // Importign the api functions
-import { getRecipe } from "../../api/fetchRecipes";
+import { getRecipe, editRecipe } from "../../api/fetchRecipes";
 import { searchImages } from "../../api/unsplash";
 
 // Importing the costume components
@@ -65,6 +69,45 @@ const EditPage = () => {
     recipe && setIsLoading(false);
   };
 
+  // Function that will send the edited recipe to the DB
+  const updateRecipe = async (body) => {
+    body.recipeId = recipe.id;
+    body.recipe.authorId = user.id;
+    if (
+      body.recipe.title === recipe.title &&
+      compareArrays(body.recipe.tags, recipe.tags) &&
+      compareArrays(body.recipe.instructions, recipe.instructions)
+    ) {
+      toast.error("User performed no changes. No update made", {
+        position: "top-center",
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(
+        compareArrays(body.recipe.tags, recipe.tags),
+        compareArrays(body.recipe.instructions, recipe.instructions)
+      );
+    } else {
+      try {
+        const data = await editRecipe(body);
+        toast.success(data.message + ". Please refresh to show the recipes", {
+          position: "top-center",
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    setIsEditing(false);
+  };
+
   // Function that will toggle the edit status
   const toggleEdit = () => {
     setIsEditing((prevState) => !prevState);
@@ -92,6 +135,7 @@ const EditPage = () => {
             <div className="data">
               {isEditing ? (
                 <RecipeInfoForm
+                  onSubmit={updateRecipe}
                   buttonText="Update recipe"
                   item={recipe}
                   cancel={toggleEdit}
