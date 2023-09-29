@@ -10,10 +10,10 @@ import ListForm from "../ListForm/ListForm";
 import "./ReceptInfoForm.css";
 
 // Creating the RecipeInfoForm
-const RecipeInfoForm = ({ item = null, onSubmit, buttonText }) => {
+const RecipeInfoForm = ({ item = null, onSubmit, buttonText, cancel }) => {
   // Setting up state
-  const [steps, setSteps] = useState([]); // Will contain a list of steps for the recipe
-  const [tags, setTags] = useState([]); // Will contain a list of tags the recipe should have
+  const [steps, setSteps] = useState(item ? item.instructions : []); // Will contain a list of steps for the recipe
+  const [tags, setTags] = useState(item ? item.tags : []); // Will contain a list of tags the recipe should have
   const [err, setErr] = useState(false); // Will have a list of error in case the steps and tags have not been privded
 
   // Setting up the refs
@@ -108,8 +108,14 @@ const RecipeInfoForm = ({ item = null, onSubmit, buttonText }) => {
           {tags.length === 0 && <small>- You must have at least 1 tag</small>}
         </div>
       )}
-      {console.log(err)}
-      <Button>{buttonText}</Button>
+      <div className="buttons">
+        {cancel && (
+          <Button secondary type="button" onClick={cancel}>
+            Cancel
+          </Button>
+        )}
+        <Button>{buttonText}</Button>
+      </div>
     </Form>
   );
 };

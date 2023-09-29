@@ -11,11 +11,9 @@ import {
   getRecipesDispatcher,
   clearRecipesDispatcher,
 } from "../../actions/recipesActions";
-import { loginDispatcher } from "../../actions/loginActions";
 
 // Importing the api funciton
 import { fetchAllRecipes, addRecipe } from "../../api/fetchRecipes";
-import { fetchUser } from "../../api/user";
 
 // importing the helper function
 import { search } from "../../helpers/recipeSearch";
@@ -58,21 +56,14 @@ const Dashboard = () => {
 
   // Rerouting the user to login if he is not logged in
   useEffect(() => {
-    const id = JSON.parse(Cookies.get("persistentLogin"));
-    if (!id && !isLoggedIn) navigate("/");
+    const id = Cookies.get("persistentLogin");
+    if (!!!id && !isLoggedIn) navigate("/");
     else {
-      getUser(id);
       getRecipes();
     }
 
     // eslint-disable-next-line
   }, []);
-
-  // Getting the user information
-  const getUser = async (id) => {
-    const data = await fetchUser(id);
-    dispatch(loginDispatcher(data.appUser));
-  };
 
   // Function that will fetch all recipes
   const getRecipes = async () => {
@@ -95,7 +86,6 @@ const Dashboard = () => {
       dispatch(clearRecipesDispatcher());
       toast.success(data.message + ". Please refresh to show the recipes", {
         position: "top-center",
-        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

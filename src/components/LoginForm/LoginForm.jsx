@@ -55,7 +55,9 @@ const LoginForm = () => {
         progress: undefined,
         theme: "light",
       });
-      Cookies.set("persistentLogin", JSON.stringify(data.appUser.id));
+      Cookies.set("persistentLogin", JSON.stringify(data.appUser.id), {
+        expires: null,
+      });
       dispatch(loginDispatcher(data.appUser));
       navigate("/dashboard");
     } catch (err) {
@@ -88,6 +90,7 @@ const LoginForm = () => {
           placeholder="johndoe@gmail.com"
         />
         <label htmlFor="password">Password*</label>
+        {console.log(Cookies.get("persistentLogin"))}
         <Input
           type="password"
           name="password"
