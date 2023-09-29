@@ -92,10 +92,6 @@ const EditPage = () => {
         progress: undefined,
         theme: "light",
       });
-      console.log(
-        compareArrays(body.recipe.tags, recipe.tags),
-        compareArrays(body.recipe.instructions, recipe.instructions)
-      );
     } else {
       try {
         const data = await editRecipe(body);
@@ -117,7 +113,9 @@ const EditPage = () => {
   // Function that will delete the recipe
   const removeRecipe = async () => {
     try {
+      navigate("/dashboard");
       const data = await deleteRecipe(recipe.id);
+
       toast.success(data.message, {
         position: "top-center",
         hideProgressBar: false,
@@ -126,7 +124,6 @@ const EditPage = () => {
         progress: undefined,
         theme: "light",
       });
-      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
