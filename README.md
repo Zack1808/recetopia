@@ -14,11 +14,11 @@ Recetopia is a web application built with React and Redux. The platform was desi
 
 ## Implemented libraries and frameworks
 
-- (React)[https://react.dev/learn]
-- (Redux)[https://redux.js.org/introduction/getting-started]
-- (Axios)[https://axios-http.com/docs/intro]
-- (React Toastify)[https://www.npmjs.com/package/react-toastify]
-- (React intersection observer)[https://www.npmjs.com/package/react-intersection-observer]
+- [React](https://react.dev/learn)
+- [Redux](https://redux.js.org/introduction/getting-started)
+- [Axios](https://axios-http.com/docs/intro)
+- [React Toastify](https://www.npmjs.com/package/react-toastify)
+- [React intersection observer](https://www.npmjs.com/package/react-intersection-observer)
 
 ## Live demo
 
@@ -95,7 +95,7 @@ Contributions to the project are welcome. If you find any issues or want to add 
 
 ## Licence
 
-(MIT)[https://github.com/Zack1808/recetopia/blob/master/LICENSE]
+[MIT](https://github.com/Zack1808/recetopia/blob/master/LICENSE)
 
 ## Contact
 
