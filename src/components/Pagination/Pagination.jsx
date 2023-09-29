@@ -18,6 +18,15 @@ const Pagination = ({ items = [], itemsPerPage = 5 }) => {
     setCurrentPage(0);
   }, [items]);
 
+  // Function that will change the page number and scroll back to top
+  const switchPage = (number) => {
+    setCurrentPage(number);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   // Funciton that will render the pagination buttons
   const renderButtons = () => {
     let buttons = Array.from(
@@ -27,7 +36,7 @@ const Pagination = ({ items = [], itemsPerPage = 5 }) => {
       <Button
         secondary={number !== currentPage}
         key={number}
-        onClick={() => setCurrentPage(number)}
+        onClick={() => switchPage(number)}
       >
         {number + 1}
       </Button>
