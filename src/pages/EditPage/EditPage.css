@@ -20,13 +20,9 @@
 .image {
   flex-grow: 1;
   max-width: 50%;
-}
-
-.image img {
-  width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  background-size: cover;
+  background-position: center center;
 }
 
 /* Styling the data section */
@@ -34,7 +30,7 @@
   flex-grow: 1;
   padding: 2em;
   display: flex;
-  /* justify-content: center; */
+  max-width: 50%;
   flex-direction: column;
   gap: 1em;
 }
@@ -75,6 +71,11 @@
   flex-wrap: wrap;
 }
 
+.data .tags .tag-list span {
+  background-color: var(--secondary-bg);
+  color: white;
+}
+
 /* Styling the instructions section */
 .data .list {
   display: flex;
@@ -103,6 +104,10 @@
   justify-content: flex-end;
 }
 
+.data .buttons button {
+  border: 2px solid var(--secondary-bg);
+}
+
 /* Styling the component on small screens */
 @media (width < 630px) {
   /* Styling the edit page */
@@ -114,5 +119,11 @@
   .image {
     max-width: none;
     width: 100%;
+    max-height: 300px;
+  }
+
+  /* Styling the data */
+  .data {
+    max-width: none;
   }
 }

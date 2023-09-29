@@ -5,6 +5,7 @@ hr {
   margin-block: 0em 1em;
 }
 
+/* Styling the error messages */
 .err {
   display: flex;
   flex-direction: column;
@@ -15,4 +16,12 @@ hr {
 .err small {
   color: var(--secondary-bg);
   font-weight: 700;
+}
+
+/* Styling the button  */
+form .buttons {
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+  justify-content: flex-end;
 }

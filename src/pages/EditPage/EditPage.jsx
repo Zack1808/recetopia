@@ -12,6 +12,7 @@ import { searchImages } from "../../api/unsplash";
 // Importing the costume components
 import Loader from "../../components/Loader/Loader";
 import Button from "../../components/Button/Button";
+import RecipeInfoForm from "../../components/RecipeInfoForm/RecipeInfoForm";
 
 // Importing the style file
 import "./EditPage.css";
@@ -24,8 +25,9 @@ const EditPage = () => {
 
   // Setting up the state
   const [isLoading, setIsLoading] = useState(true); // Will contain informaiton if the recipe is still being fetched or not
-  const [recipe, setRecipe] = useState(null);
-  const [images, setImages] = useState(null);
+  const [recipe, setRecipe] = useState(null); // Will containt the information about the recipe
+  const [images, setImages] = useState(null); // Will contain the images
+  const [isEditing, setIsEditing] = useState(false); // Contains info if the edit form should be displayed or not
 
   // Getting the navigate function
   const { navigate, currentPath } = useNavigate();
@@ -60,7 +62,12 @@ const EditPage = () => {
   // Function that will fetch the images
   const getImages = async () => {
     recipe && setImages(await searchImages(recipe.title));
-    setIsLoading(false);
+    recipe && setIsLoading(false);
+  };
+
+  // Function that will toggle the edit status
+  const toggleEdit = () => {
+    setIsEditing((prevState) => !prevState);
   };
 
   return (
@@ -72,46 +79,69 @@ const EditPage = () => {
           </div>
         ) : (
           <>
-            <div className="image">
-              {images && (
-                <img
-                  src={images[0].urls.regular}
-                  alt={images[0].alt_description}
-                />
-              )}
-            </div>
+            {/* Displaying the image start */}
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url(${images && images[0].urls.regular})`,
+              }}
+            ></div>
+            {/* Displaying the image end */}
+
+            {/* Displaying the recipe data start */}
             <div className="data">
-              <div className="header">
-                <h1>{recipe && recipe.title}</h1>
-                <div className="description">
-                  <small>Id: {recipe && recipe.id}</small>
-                  <small>Created by: {recipe && recipe.authorId}</small>
-                  <small>Created on: {recipe && recipe.dateCreated}</small>
-                </div>
-                <div className="tags">
-                  <h4>Tags:</h4>
-                  <div className="tag-list">
-                    {recipe &&
-                      recipe.tags.map((tag) => <span key={tag}>{tag}</span>)}
+              {isEditing ? (
+                <RecipeInfoForm
+                  buttonText="Update recipe"
+                  item={recipe}
+                  cancel={toggleEdit}
+                />
+              ) : (
+                <>
+                  {/* Displaying the header informaiton start */}
+                  <div className="header">
+                    <h1>{recipe && recipe.title}</h1>
+                    <div className="description">
+                      <small>Id: {recipe && recipe.id}</small>
+                      <small>Created by: {recipe && recipe.authorId}</small>
+                      <small>Created on: {recipe && recipe.dateCreated}</small>
+                    </div>
+                    <div className="tags">
+                      <h4>Tags:</h4>
+                      <div className="tag-list">
+                        {recipe &&
+                          recipe.tags.map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="list">
-                <h3>Instructions</h3>
-                <ol>
-                  {recipe &&
-                    recipe.instructions.map((instruction) => (
-                      <li key={instruction}>{instruction}</li>
-                    ))}
-                </ol>
-              </div>
-              {user && recipe && user.id === recipe.authorId && (
-                <div className="buttons">
-                  <Button secondary>Delete</Button>
-                  <Button>Edit</Button>
-                </div>
+                  {/* Displaying the header information end */}
+
+                  {/* Displaying the instructions start */}
+                  <div className="list">
+                    <h3>Instructions</h3>
+                    <ol>
+                      {recipe &&
+                        recipe.instructions.map((instruction) => (
+                          <li key={instruction}>{instruction}</li>
+                        ))}
+                    </ol>
+                  </div>
+                  {/* Displaying the instructions end */}
+
+                  {/* Displaying the buttons in case the user created the recipe start */}
+                  {user && recipe && user.id === recipe.authorId && (
+                    <div className="buttons">
+                      <Button secondary>Delete</Button>
+                      <Button onClick={toggleEdit}>Edit</Button>
+                    </div>
+                  )}
+                  {/* Displaying the buttons in case the user created the recipe end */}
+                </>
               )}
             </div>
+            {/* Displaying the recipe data end */}
           </>
         )}
       </div>
