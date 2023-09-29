@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# Recetopia - get recipes quick and easy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Recetopia is a web application built with React and Redux. The platform was designed for easy access to recipes, as well as easy recipe management.
 
-## Available Scripts
+<p align="center"><img src="./public/recetopia_login.png" alt="Preview of the web app: login" /></p>
+<p align="center"><img src="./public/recetopia_recipe_list.png" alt="Preview of the web app: recipe list" /></p>
+<p align="center"><img src="./public/recetopia_recipe_details.png" alt="Preview of the web app: recipe details" /></p>
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Login/Sign Up: Create an account to show recipes and manage your own recipes
+- Search with recipe name / search with tags: Find the recipe you are looking for using the tags and recipe name
+- Manage recipes: Easily create, update or delete recipes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Implemented libraries and frameworks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- (React)[https://react.dev/learn]
+- (Redux)[https://redux.js.org/introduction/getting-started]
+- (Axios)[https://axios-http.com/docs/intro]
+- (React Toastify)[https://www.npmjs.com/package/react-toastify]
+- (React intersection observer)[https://www.npmjs.com/package/react-intersection-observer]
 
-### `npm test`
+## Live demo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can find the web app up and running by visiting the [live demo](https://recetopia.netlify.app)
 
-### `npm run build`
+## How to run the app locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+if you want to run the app following:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 1. Clone the repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- HTTS:
 
-### `npm run eject`
+```bash
+git clone https://github.com/Zack1808/recetopia.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- SSH:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone git@github.com:Zack1808/recetopia.git
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Git CLI:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+gh repo clone Zack1808/recetopia
+```
 
-## Learn More
+#### 2. Enter the project directory
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+cd recetopia
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 3. Install the dependencies
 
-### Code Splitting
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+or
 
-### Analyzing the Bundle Size
+```bash
+yarn install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 4. Setup the API keys
 
-### Making a Progressive Web App
+Within the project directory create a .env file. In there, create the following variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+REACT_APP_AUTHID=yourAuthId
+REACT_APP_UNSPLASH_KEY=yourUnsplashApiKey
+```
 
-### Advanced Configuration
+#### 5. Start the app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm start
+```
 
-### Deployment
+or
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+yarn start
+```
 
-### `npm run build` fails to minify
+After execution, the localhost server will start up and a browser window will open, previewing the web app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contribution
+
+Contributions to the project are welcome. If you find any issues or want to add new features, feel free to create a pull request. Make sure to follow the project's coding conventions and provide detailed information about your changes.
+
+## Licence
+
+(MIT)[https://github.com/Zack1808/recetopia/blob/master/LICENSE]
+
+## Contact
+
+If you have any questions or suggestions, you can reach me via:
+
+- Mail: jeanpierrenovak23@gmail.com
+- My portfolio: [jeanpierrenovak.netlify.app](https://jeanpierrenovak.netlify.app)
+
+---
+
+Happy cooking!
