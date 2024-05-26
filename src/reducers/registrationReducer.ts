@@ -1,35 +1,37 @@
-interface RegistrationState {
-  isLoggedIn: boolean;
-  user: {
-    userName: string;
-    email: string;
-    uid: string;
-  } | null;
-}
+import { RegistrationState, User } from "../interfaces/registration";
+import { RegistrationActionTypes } from "../enums";
 
 const initialState: RegistrationState = {
   isLoggedIn: false,
   user: null,
 };
 
+type Actions = {
+  type:
+    | RegistrationActionTypes.LOGIN
+    | RegistrationActionTypes.REGISTER
+    | RegistrationActionTypes.SIGNOUT;
+  payload: User | null;
+};
+
 export const registrationReducer = (
   state: RegistrationState = initialState,
-  action: any
+  action: Actions
 ) => {
   switch (action.type) {
-    case "LOGIN":
+    case RegistrationActionTypes.LOGIN:
       return {
         ...state,
         isLoggedIn: true,
         user: action.payload,
       };
-    case "REGISTER":
+    case RegistrationActionTypes.REGISTER:
       return {
         ...state,
         isLoggedIn: true,
         user: action.payload,
       };
-    case "SIGNOUT":
+    case RegistrationActionTypes.SIGNOUT:
       return {
         ...state,
         isLoggedIn: false,
