@@ -1,7 +1,13 @@
 import React from "react";
 
+import Button from "../components/Button";
+
 const Home: React.FC = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Button primary>Hello</Button>
+    </div>
+  );
 };
 
 export default Home;
