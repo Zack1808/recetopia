@@ -1,4 +1,4 @@
-export interface RegistrationState {
+export interface AuthState {
   isLoggedIn: boolean;
   user: User | null;
 }
