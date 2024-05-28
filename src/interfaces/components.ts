@@ -15,3 +15,10 @@ export interface InputProps
   title?: string;
   required?: boolean;
 }
+
+export interface ModalProps {
+  children: React.ReactNode;
+  handleClose: () => void;
+  title?: string;
+  isOpen: boolean;
+}
