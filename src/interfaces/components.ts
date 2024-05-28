@@ -6,4 +6,12 @@ export interface ButtonProps
   primary?: boolean;
   secondary?: boolean;
   className?: string;
+  disabled?: boolean;
+}
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  type: string;
+  title?: string;
+  required?: boolean;
 }

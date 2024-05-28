@@ -8,6 +8,7 @@ const Button: React.FC<ButtonProps> = ({
   primary,
   secondary,
   className,
+  disabled,
   ...rest
 }) => {
   const classes = classNames(
@@ -16,9 +17,11 @@ const Button: React.FC<ButtonProps> = ({
     {
       "border-orange-400 border hover:border-orange-500 font-medium":
         primary || secondary,
-      "text-orange-400 hover:bg-slate-50 hover:text-orange-500": secondary,
+      "text-orange-400 hover:bg-gray-50 hover:text-orange-500": secondary,
       "text-white bg-orange-400 hover:bg-orange-500": primary,
-      "hover:bg-slate-50": !primary && !secondary,
+      "hover:bg-gray-50": !primary && !secondary,
+      "bg-gray-500 hover:bg-gray-500 border-gray-500 hover:border-gray-500":
+        disabled || (disabled && primary) || (disabled && secondary),
     }
   );
 
@@ -27,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
     throw new Error("Button component can only be used with one variant!");
 
   return (
-    <button {...rest} className={classes}>
+    <button {...rest} className={classes} disabled={disabled}>
       {children}
     </button>
   );

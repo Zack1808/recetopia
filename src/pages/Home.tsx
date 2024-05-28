@@ -1,11 +1,11 @@
 import React from "react";
 
-import Button from "../components/Button";
+import Input from "../components/Input";
 
 const Home: React.FC = () => {
   return (
     <div>
-      <Button primary>Hello</Button>
+      <Input type="password" placeholder="Text" title="title" required />
     </div>
   );
 };
