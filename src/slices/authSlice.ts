@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState, User } from "../interfaces/registration";
+import { AuthState, User } from "../interfaces/states";
 
 const initialState: AuthState = {
   isLoggedIn: false,

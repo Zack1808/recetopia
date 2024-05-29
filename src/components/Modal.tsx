@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
         handleModalOverlayClick
       );
     };
-  }, []);
+  });
 
   if (!isOpen) return null;
 
