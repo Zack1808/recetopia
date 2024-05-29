@@ -18,16 +18,24 @@ const Modal: React.FC<ModalProps> = ({
       modalOverlayRef?.current === event.target && handleClose();
     };
 
+    const handleEscKeyPress = (event: KeyboardEvent) => {
+      event.key === "Escape" && handleClose();
+    };
+
     modalOverlayRef?.current?.addEventListener(
       "click",
       handleModalOverlayClick
     );
+
+    document.addEventListener("keydown", handleEscKeyPress);
 
     return () => {
       modalOverlayRef?.current?.removeEventListener(
         "click",
         handleModalOverlayClick
       );
+
+      document.removeEventListener("keydown", handleEscKeyPress);
     };
   });
 
@@ -38,9 +46,9 @@ const Modal: React.FC<ModalProps> = ({
       ref={modalOverlayRef}
       className="bg-black/20 fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center p-4"
     >
-      <div className="bg-white p-3 rounded w-full max-w-2xl">
-        <div className="flex justify-between items-center pb-5">
-          <h2 className="text-xl mb-1">{title}</h2>
+      <div className="bg-white p-3 pb-5 rounded w-full max-w-2xl flex flex-col gap-5">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold">{title}</h2>
           <Button onClick={handleClose}>
             <FaXmark className="text-xl" />
           </Button>

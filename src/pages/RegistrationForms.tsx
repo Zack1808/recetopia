@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
 import Button from "../components/Button";
+import RegisterForm from "../components/RegisterForm";
 
 const RegistrationForms: React.FC = () => {
   const [isRegisterForm, setIsRegisterForm] = useState<boolean>(true);
 
   return (
-    <div>
+    <div
+      className="flex flex-col gap-5
+    "
+    >
       <div className="bg-gray-100 flex rounted-t-lg">
         <Button
           onClick={() => setIsRegisterForm(true)}
@@ -29,6 +33,7 @@ const RegistrationForms: React.FC = () => {
           Login
         </Button>
       </div>
+      {isRegisterForm ? <RegisterForm /> : null}
     </div>
   );
 };
