@@ -10,7 +10,11 @@ import { setDoc, doc } from "firebase/firestore";
 
 import { registration } from "../slices/authSlice";
 import { auth, db } from "../firebaseConfig";
-import { checkIfUserNameIsUsed } from "../helpers/registration";
+
+import {
+  checkIfUserNameIsUsed,
+  checkPasswordValidity,
+} from "../helpers/registration";
 
 import { UseRegisterUserProps } from "../interfaces/hooks";
 
@@ -31,6 +35,8 @@ export const useRegisterUser = ({
           setErrors((prevState) => ({ ...prevState, errorUserName: true }));
           return;
         }
+
+        if (!checkPasswordValidity({ password, setErrors })) return;
 
         const { user } = await createUserWithEmailAndPassword(
           auth,
