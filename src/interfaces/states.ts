@@ -8,3 +8,9 @@ export interface User {
   email: string;
   uid: string;
 }
+
+export interface RegistrationErrorState {
+  errorEmail: boolean;
+  errorPassword: boolean;
+  errorUserName: boolean;
+}
