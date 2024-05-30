@@ -7,6 +7,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import { ClipLoader } from "react-spinners";
 
 import Input from "./Input";
 import Button from "./Button";
@@ -24,6 +25,7 @@ const RegisterForm: React.FC = () => {
     errorPassword: false,
     errorUserName: false,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -40,6 +42,7 @@ const RegisterForm: React.FC = () => {
     password: string,
     displayName: string
   ) => {
+    setIsLoading(true);
     try {
       const userNameInUse = await checkIfUserNameIsUsed(displayName);
       if (userNameInUse) {
@@ -80,6 +83,8 @@ const RegisterForm: React.FC = () => {
       } else {
         toast.error(err.message, toastOptions);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -137,7 +142,9 @@ const RegisterForm: React.FC = () => {
           setErrors((prevState) => ({ ...prevState, errorPassword: false }))
         }
       />
-      <Button primary>Register</Button>
+      <Button primary disabled={isLoading}>
+        {isLoading ? <ClipLoader color="white" size={23} /> : "Register"}
+      </Button>
     </form>
   );
 };
