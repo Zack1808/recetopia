@@ -98,8 +98,6 @@ export const useLoginUser = ({
           return;
         }
 
-        console.log(userNameInUse.email[0]);
-
         const { user } = await signInWithEmailAndPassword(
           auth,
           userNameInUse.email[0],
