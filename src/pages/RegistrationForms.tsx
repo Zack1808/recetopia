@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Button from "../components/Button";
 import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/LoginForm";
 
 const RegistrationForms: React.FC = () => {
   const [isRegisterForm, setIsRegisterForm] = useState<boolean>(true);
@@ -33,7 +34,7 @@ const RegistrationForms: React.FC = () => {
           Login
         </Button>
       </div>
-      {isRegisterForm ? <RegisterForm /> : null}
+      {isRegisterForm ? <RegisterForm /> : <LoginForm />}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   updateProfile,
   setPersistence,
   browserSessionPersistence,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
@@ -16,7 +17,7 @@ import {
   checkPasswordValidity,
 } from "../helpers/registration";
 
-import { UseRegisterUserProps } from "../interfaces/hooks";
+import { UseRegisterUserProps, useLoginUserProps } from "../interfaces/hooks";
 
 import { toastOptions } from "../toastOptions";
 
@@ -30,7 +31,7 @@ export const useRegisterUser = ({
       setIsLoading(true);
       try {
         const userNameInUse = await checkIfUserNameIsUsed(displayName);
-        if (userNameInUse) {
+        if (userNameInUse?.userNameInUse) {
           toast.error("Username already in use");
           setErrors((prevState) => ({ ...prevState, errorUserName: true }));
           return;
@@ -48,7 +49,7 @@ export const useRegisterUser = ({
 
         await setPersistence(auth, browserSessionPersistence);
 
-        await setDoc(doc(db, "users", user.uid), { displayName });
+        await setDoc(doc(db, "users", user.uid), { displayName, email });
 
         dispatch(
           registration({
@@ -79,4 +80,50 @@ export const useRegisterUser = ({
   );
 
   return { registerUser };
+};
+
+export const useLoginUser = ({
+  setIsLoading,
+  setErrors,
+  dispatch,
+}: useLoginUserProps) => {
+  const loginUser = useCallback(
+    async (displayName: string, password: string) => {
+      setIsLoading(true);
+      try {
+        const userNameInUse = await checkIfUserNameIsUsed(displayName);
+        if (!userNameInUse?.userNameInUse) {
+          toast.error("Username not found");
+          setErrors((prevState) => ({ ...prevState, errorUserName: true }));
+          return;
+        }
+
+        const { user } = await signInWithEmailAndPassword(
+          auth,
+          userNameInUse.email[0],
+          password
+        );
+
+        dispatch(
+          registration({
+            userName: displayName,
+            email: userNameInUse.email[0],
+            uid: user.uid,
+          })
+        );
+
+        await setPersistence(auth, browserSessionPersistence);
+
+        toast.success("Login was successful", toastOptions);
+
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading, setErrors, dispatch]
+  );
+
+  return { loginUser };
 };

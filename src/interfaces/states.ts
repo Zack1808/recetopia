@@ -14,3 +14,8 @@ export interface RegistrationErrorState {
   errorPassword: boolean;
   errorUserName: boolean;
 }
+
+export interface LoginErrorState {
+  errorUserName: boolean;
+  errorPassword: boolean;
+}

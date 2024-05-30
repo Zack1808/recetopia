@@ -1,44 +1,38 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import { ClipLoader } from "react-spinners";
 
 import Input from "./Input";
 import Button from "./Button";
 
 import { useAppDispatch } from "../hooks/storeHook";
-import { useRegisterUser } from "../hooks/registrationHooks";
+import { useLoginUser } from "../hooks/registrationHooks";
 
-import { RegistrationErrorState } from "../interfaces/states";
+import { LoginErrorState } from "../interfaces/states";
 
-const RegisterForm: React.FC = () => {
-  const [errors, setErrors] = useState<RegistrationErrorState>({
-    errorEmail: false,
-    errorPassword: false,
+const LoginForm: React.FC = () => {
+  const [errors, setErrors] = useState<LoginErrorState>({
     errorUserName: false,
+    errorPassword: false,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const dispatch = useAppDispatch();
-
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { registerUser } = useRegisterUser({
-    setIsLoading,
-    setErrors,
-    dispatch,
-  });
+  const dispatch = useAppDispatch();
+
+  const { loginUser } = useLoginUser({ setIsLoading, setErrors, dispatch });
 
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    registerUser(
-      formRef?.current?.Email?.value,
-      formRef?.current?.Password?.value,
-      formRef?.current?.Username?.value
+    loginUser(
+      formRef?.current?.Username?.value,
+      formRef?.current?.Password?.value
     );
   };
 
   return (
     <form
-      className="flex flex-col items-end gap-5"
+      className="flex flex-col gap-5 items-end"
       ref={formRef}
       onSubmit={handleFormSubmition}
     >
@@ -55,19 +49,7 @@ const RegisterForm: React.FC = () => {
           setErrors((prevState) => ({ ...prevState, errorUserName: false }))
         }
       />
-      <Input
-        className={
-          errors.errorEmail ? "border-red-500 ring-1 ring-red-500" : ""
-        }
-        title="Email"
-        type="email"
-        placeholder="cookmaster@gmail.com"
-        required
-        name="email"
-        onChange={() =>
-          setErrors((prevState) => ({ ...prevState, errorEmail: false }))
-        }
-      />
+
       <Input
         className={
           errors.errorPassword ? "border-red-500 ring-1 ring-red-500" : ""
@@ -81,15 +63,23 @@ const RegisterForm: React.FC = () => {
           setErrors((prevState) => ({ ...prevState, errorPassword: false }))
         }
       />
+
+      <Button
+        className="text-orange-500 self-start w-full sm:w-auto justify-center"
+        type="button"
+      >
+        Forgot Password
+      </Button>
+
       <Button
         primary
         disabled={isLoading}
         className="w-full sm:w-auto justify-center"
       >
-        {isLoading ? <ClipLoader color="white" size={23} /> : "Register"}
+        {isLoading ? <ClipLoader color="white" size={23} /> : "Login"}
       </Button>
     </form>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

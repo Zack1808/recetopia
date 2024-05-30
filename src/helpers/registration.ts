@@ -16,7 +16,12 @@ export const checkIfUserNameIsUsed = async (displayName: string) => {
   try {
     const userQuerySnapshot = await getDocs(userQuery);
 
-    return !userQuerySnapshot.empty;
+    const email = userQuerySnapshot.docs.map((doc) => doc.data().email);
+
+    return {
+      userNameInUse: !userQuerySnapshot.empty,
+      email,
+    };
   } catch (err) {
     console.log(err);
   }
