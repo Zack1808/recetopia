@@ -81,7 +81,11 @@ const RegisterForm: React.FC = () => {
           setErrors((prevState) => ({ ...prevState, errorPassword: false }))
         }
       />
-      <Button primary disabled={isLoading}>
+      <Button
+        primary
+        disabled={isLoading}
+        className="w-full sm:w-auto justify-center"
+      >
         {isLoading ? <ClipLoader color="white" size={23} /> : "Register"}
       </Button>
     </form>
