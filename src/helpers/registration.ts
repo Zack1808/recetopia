@@ -77,3 +77,15 @@ export const checkPasswordValidity = ({
 
   return true;
 };
+
+export const checkIfEmailDoesExist = async (email: string) => {
+  const usersCollection = collection(db, "users");
+  const userQuery = query(usersCollection, where("email", "==", email));
+  try {
+    const userQuerySnapshot = await getDocs(userQuery);
+
+    return !userQuerySnapshot.empty;
+  } catch (err) {
+    console.log(err);
+  }
+};

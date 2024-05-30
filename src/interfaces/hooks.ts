@@ -9,8 +9,13 @@ export interface UseRegisterUserProps {
   dispatch: AppDispatch;
 }
 
-export interface useLoginUserProps {
+export interface UseLoginUserProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setErrors: React.Dispatch<React.SetStateAction<LoginErrorState>>;
   dispatch: AppDispatch;
+}
+
+export interface UseResetPasswordProps {
+  setErrors: React.Dispatch<React.SetStateAction<LoginErrorState>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }

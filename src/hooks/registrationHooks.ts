@@ -5,6 +5,7 @@ import {
   setPersistence,
   browserSessionPersistence,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
@@ -15,9 +16,14 @@ import { auth, db } from "../firebaseConfig";
 import {
   checkIfUserNameIsUsed,
   checkPasswordValidity,
+  checkIfEmailDoesExist,
 } from "../helpers/registration";
 
-import { UseRegisterUserProps, useLoginUserProps } from "../interfaces/hooks";
+import {
+  UseRegisterUserProps,
+  UseLoginUserProps,
+  UseResetPasswordProps,
+} from "../interfaces/hooks";
 
 import { toastOptions } from "../toastOptions";
 
@@ -86,7 +92,7 @@ export const useLoginUser = ({
   setIsLoading,
   setErrors,
   dispatch,
-}: useLoginUserProps) => {
+}: UseLoginUserProps) => {
   const loginUser = useCallback(
     async (displayName: string, password: string) => {
       setIsLoading(true);
@@ -132,4 +138,36 @@ export const useLoginUser = ({
   );
 
   return { loginUser };
+};
+
+export const useResetPassword = ({
+  setErrors,
+  setIsLoading,
+}: UseResetPasswordProps) => {
+  const resetPassword = useCallback(
+    async (email: string) => {
+      setIsLoading(true);
+      try {
+        const emailIsUsed = await checkIfEmailDoesExist(email);
+        if (!emailIsUsed) {
+          toast.error("No user with this email available", toastOptions);
+          setErrors((prevState) => ({ ...prevState, errorEmail: true }));
+          return;
+        }
+
+        await sendPasswordResetEmail(auth, email);
+
+        toast.success("Email sent successfuly", toastOptions);
+
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      } catch (err) {
+        toast.error("Could not send password reset mail", toastOptions);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setErrors, setIsLoading]
+  );
+
+  return { resetPassword };
 };
