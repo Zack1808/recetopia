@@ -1,21 +1,11 @@
 import React, { useRef, useState } from "react";
-import { toast, ToastOptions } from "react-toastify";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  setPersistence,
-  browserSessionPersistence,
-} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 
 import Input from "./Input";
 import Button from "./Button";
 
 import { useAppDispatch } from "../hooks/storeHook";
-import { registration } from "../slices/authSlice";
-import { auth, db } from "../firebaseConfig";
-import { checkIfUserNameIsUsed } from "../helpers/registration";
+import { useRegisterUser } from "../hooks/registrationHooks";
 
 import { RegistrationErrorState } from "../interfaces/states";
 
@@ -31,62 +21,11 @@ const RegisterForm: React.FC = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const toastOptions: ToastOptions = {
-    position: "top-right",
-    hideProgressBar: false,
-    closeOnClick: true,
-  };
-
-  const registerUser = async (
-    email: string,
-    password: string,
-    displayName: string
-  ) => {
-    setIsLoading(true);
-    try {
-      const userNameInUse = await checkIfUserNameIsUsed(displayName);
-      if (userNameInUse) {
-        toast.error("Username already in use");
-        setErrors((prevState) => {
-          return { ...prevState, errorUserName: true };
-        });
-        return;
-      }
-
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      await updateProfile(user, { displayName });
-
-      await setPersistence(auth, browserSessionPersistence);
-
-      await setDoc(doc(db, "users", user.uid), { displayName });
-
-      dispatch(
-        registration({
-          userName: displayName,
-          email,
-          uid: user.uid,
-        })
-      );
-
-      toast.success("Registration was successful", toastOptions);
-
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
-    } catch (err: any) {
-      if (err.message === "Firebase: Error (auth/email-already-in-use).") {
-        toast.error("Email already in use", toastOptions);
-        setErrors((prevState) => ({ ...prevState, errorEmail: true }));
-      } else {
-        toast.error(err.message, toastOptions);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { registerUser } = useRegisterUser({
+    setIsLoading,
+    setErrors,
+    dispatch,
+  });
 
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
