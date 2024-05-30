@@ -119,6 +119,11 @@ export const useLoginUser = ({
         document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
       } catch (err) {
         toast.error("Invalid credentials", toastOptions);
+        setErrors((prevState) => ({
+          ...prevState,
+          errorUserName: true,
+          errorPassword: true,
+        }));
       } finally {
         setIsLoading(false);
       }
