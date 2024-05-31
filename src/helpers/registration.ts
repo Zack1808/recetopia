@@ -37,13 +37,15 @@ export const checkPasswordValidity = ({
   const numbers = /[0-9]/;
 
   if (password.length < 8) {
-    setErrors((prevState) => ({ ...prevState, errorPassword: true }));
+    setErrors &&
+      setErrors((prevState) => ({ ...prevState, errorPassword: true }));
     toast.error("Password must have at least 8 characters", toastOptions);
     return false;
   }
 
   if (!lowerCase.test(password)) {
-    setErrors((prevState) => ({ ...prevState, errorPassword: true }));
+    setErrors &&
+      setErrors((prevState) => ({ ...prevState, errorPassword: true }));
     toast.error(
       "Password must have at least 1 lowercase character",
       toastOptions
@@ -52,7 +54,8 @@ export const checkPasswordValidity = ({
   }
 
   if (!upperCase.test(password)) {
-    setErrors((prevState) => ({ ...prevState, errorPassword: true }));
+    setErrors &&
+      setErrors((prevState) => ({ ...prevState, errorPassword: true }));
     toast.error(
       "Password must have at least 1 uppercase character",
       toastOptions
@@ -61,13 +64,15 @@ export const checkPasswordValidity = ({
   }
 
   if (!numbers.test(password)) {
-    setErrors((prevState) => ({ ...prevState, errorPassword: true }));
+    setErrors &&
+      setErrors((prevState) => ({ ...prevState, errorPassword: true }));
     toast.error("Password must have at least 1 number", toastOptions);
     return false;
   }
 
   if (!specialChars.test(password)) {
-    setErrors((prevState) => ({ ...prevState, errorPassword: true }));
+    setErrors &&
+      setErrors((prevState) => ({ ...prevState, errorPassword: true }));
     toast.error(
       "Password must have at least 1 special character",
       toastOptions
@@ -76,4 +81,16 @@ export const checkPasswordValidity = ({
   }
 
   return true;
+};
+
+export const checkIfEmailDoesExist = async (email: string) => {
+  const usersCollection = collection(db, "users");
+  const userQuery = query(usersCollection, where("email", "==", email));
+  try {
+    const userQuerySnapshot = await getDocs(userQuery);
+
+    return !userQuerySnapshot.empty;
+  } catch (err) {
+    console.log(err);
+  }
 };

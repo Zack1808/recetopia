@@ -5,6 +5,8 @@ import {
   setPersistence,
   browserSessionPersistence,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
@@ -15,9 +17,15 @@ import { auth, db } from "../firebaseConfig";
 import {
   checkIfUserNameIsUsed,
   checkPasswordValidity,
+  checkIfEmailDoesExist,
 } from "../helpers/registration";
 
-import { UseRegisterUserProps, useLoginUserProps } from "../interfaces/hooks";
+import {
+  UseRegisterUserProps,
+  UseLoginUserProps,
+  useSendResetPasswordMailProps,
+  useResetPasswordProps,
+} from "../interfaces/hooks";
 
 import { toastOptions } from "../toastOptions";
 
@@ -86,7 +94,7 @@ export const useLoginUser = ({
   setIsLoading,
   setErrors,
   dispatch,
-}: useLoginUserProps) => {
+}: UseLoginUserProps) => {
   const loginUser = useCallback(
     async (displayName: string, password: string) => {
       setIsLoading(true);
@@ -132,4 +140,72 @@ export const useLoginUser = ({
   );
 
   return { loginUser };
+};
+
+export const useSendResetPasswordMail = ({
+  setErrors,
+  setIsLoading,
+}: useSendResetPasswordMailProps) => {
+  const sendResetPasswordMail = useCallback(
+    async (email: string) => {
+      setIsLoading(true);
+      try {
+        const emailIsUsed = await checkIfEmailDoesExist(email);
+        if (!emailIsUsed) {
+          toast.error("No user with this email available", toastOptions);
+          setErrors((prevState) => ({ ...prevState, errorEmail: true }));
+          return;
+        }
+
+        await sendPasswordResetEmail(auth, email);
+
+        toast.success("Email sent successfuly", toastOptions);
+
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      } catch (err) {
+        toast.error("Could not send password reset mail", toastOptions);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setErrors, setIsLoading]
+  );
+
+  return { sendResetPasswordMail };
+};
+
+export const useResetPassword = ({
+  setIsLoading,
+  setErrors,
+  navigateTo,
+}: useResetPasswordProps) => {
+  const resetPassword = useCallback(
+    async (password: string, oobCode: string | null) => {
+      try {
+        if (!checkPasswordValidity({ password })) {
+          setErrors(true);
+          return;
+        }
+
+        if (!!!oobCode) {
+          toast.error("Invalid oobCode", toastOptions);
+          return;
+        }
+
+        await confirmPasswordReset(auth, oobCode, password);
+
+        toast.success(
+          "Your password has been reseted. Try logging in agian",
+          toastOptions
+        );
+
+        navigateTo("/");
+      } catch (err: any) {
+        toast.error(err);
+      }
+    },
+    [setIsLoading, setErrors]
+  );
+
+  return { resetPassword };
 };

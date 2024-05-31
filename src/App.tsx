@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { auth } from "./firebaseConfig";
-
 import Home from "./pages/Home";
+import PasswordReset from "./pages/PasswordReset";
 
 const App: React.FC = () => {
-  // useEffect(() => {
-  //   console.log(auth);
-  // }, [auth]);
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/reset-password" element={<PasswordReset />} />
       </Routes>
     </BrowserRouter>
   );

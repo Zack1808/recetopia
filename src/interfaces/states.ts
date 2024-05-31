@@ -15,7 +15,4 @@ export interface RegistrationErrorState {
   errorUserName: boolean;
 }
 
-export interface LoginErrorState {
-  errorUserName: boolean;
-  errorPassword: boolean;
-}
+export interface LoginErrorState extends RegistrationErrorState {}
