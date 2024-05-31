@@ -5,7 +5,10 @@ import Input from "./Input";
 import Button from "./Button";
 
 import { useAppDispatch } from "../hooks/storeHook";
-import { useLoginUser, useResetPassword } from "../hooks/registrationHooks";
+import {
+  useLoginUser,
+  useSendResetPasswordMail,
+} from "../hooks/registrationHooks";
 
 import { LoginErrorState } from "../interfaces/states";
 
@@ -23,12 +26,15 @@ const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { loginUser } = useLoginUser({ setIsLoading, setErrors, dispatch });
-  const { resetPassword } = useResetPassword({ setErrors, setIsLoading });
+  const { sendResetPasswordMail } = useSendResetPasswordMail({
+    setErrors,
+    setIsLoading,
+  });
 
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (hasForgottenPwd) {
-      resetPassword(formRef?.current?.Email?.value);
+      sendResetPasswordMail(formRef?.current?.Email?.value);
     } else {
       loginUser(
         formRef?.current?.username?.value,

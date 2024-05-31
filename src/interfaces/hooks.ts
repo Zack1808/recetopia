@@ -15,7 +15,12 @@ export interface UseLoginUserProps {
   dispatch: AppDispatch;
 }
 
-export interface UseResetPasswordProps {
+export interface useSendResetPasswordMailProps {
   setErrors: React.Dispatch<React.SetStateAction<LoginErrorState>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface useResetPasswordProps {
+  setErrors: React.Dispatch<React.SetStateAction<boolean>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }

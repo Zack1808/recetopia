@@ -6,6 +6,7 @@ import {
   browserSessionPersistence,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  confirmPasswordReset,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
@@ -22,7 +23,8 @@ import {
 import {
   UseRegisterUserProps,
   UseLoginUserProps,
-  UseResetPasswordProps,
+  useSendResetPasswordMailProps,
+  useResetPasswordProps,
 } from "../interfaces/hooks";
 
 import { toastOptions } from "../toastOptions";
@@ -140,11 +142,11 @@ export const useLoginUser = ({
   return { loginUser };
 };
 
-export const useResetPassword = ({
+export const useSendResetPasswordMail = ({
   setErrors,
   setIsLoading,
-}: UseResetPasswordProps) => {
-  const resetPassword = useCallback(
+}: useSendResetPasswordMailProps) => {
+  const sendResetPasswordMail = useCallback(
     async (email: string) => {
       setIsLoading(true);
       try {
@@ -167,6 +169,35 @@ export const useResetPassword = ({
       }
     },
     [setErrors, setIsLoading]
+  );
+
+  return { sendResetPasswordMail };
+};
+
+export const useResetPassword = ({
+  setIsLoading,
+  setErrors,
+}: useResetPasswordProps) => {
+  const resetPassword = useCallback(
+    async (password: string, oobCode: string) => {
+      try {
+        if (!checkPasswordValidity({ password })) {
+          setErrors(true);
+          return;
+        }
+        await confirmPasswordReset(auth, oobCode, password);
+
+        toast.success(
+          "Your password has been reseted. Try logging in agian",
+          toastOptions
+        );
+
+        window.history.pushState({}, "", "/");
+      } catch (err: any) {
+        toast.error(err);
+      }
+    },
+    [setIsLoading, setErrors]
   );
 
   return { resetPassword };

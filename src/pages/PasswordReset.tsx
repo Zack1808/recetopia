@@ -34,6 +34,7 @@ const PasswordReset: React.FC = () => {
           required
           name="resetPassword"
           placeholder="new password"
+          onChange={() => setErrors(false)}
         />
         <Button primary>Reset password</Button>
       </form>
