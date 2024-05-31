@@ -1,20 +1,35 @@
-import React, { useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
 
+import { useResetPassword } from "../hooks/registrationHooks";
+
 const PasswordReset: React.FC = () => {
   const [errors, setErrors] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  const navigateTo = useNavigate();
+
   const oobCode = new URLSearchParams(useLocation().search).get("oobCode");
+
+  useEffect(() => {
+    !!!oobCode && navigateTo("/");
+  }, [oobCode]);
+
+  const { resetPassword } = useResetPassword({
+    setErrors,
+    setIsLoading,
+    navigateTo,
+  });
 
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(oobCode);
-    console.log(formRef?.current?.resetPassword?.value);
+    resetPassword(formRef?.current?.resetPassword?.value, oobCode);
   };
 
   return (
@@ -36,7 +51,13 @@ const PasswordReset: React.FC = () => {
           placeholder="new password"
           onChange={() => setErrors(false)}
         />
-        <Button primary>Reset password</Button>
+        <Button primary>
+          {isLoading ? (
+            <ClipLoader color="white" size={23} />
+          ) : (
+            "Reset password"
+          )}
+        </Button>
       </form>
     </div>
   );

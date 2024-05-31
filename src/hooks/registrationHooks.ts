@@ -177,14 +177,21 @@ export const useSendResetPasswordMail = ({
 export const useResetPassword = ({
   setIsLoading,
   setErrors,
+  navigateTo,
 }: useResetPasswordProps) => {
   const resetPassword = useCallback(
-    async (password: string, oobCode: string) => {
+    async (password: string, oobCode: string | null) => {
       try {
         if (!checkPasswordValidity({ password })) {
           setErrors(true);
           return;
         }
+
+        if (!!!oobCode) {
+          toast.error("Invalid oobCode", toastOptions);
+          return;
+        }
+
         await confirmPasswordReset(auth, oobCode, password);
 
         toast.success(
@@ -192,7 +199,7 @@ export const useResetPassword = ({
           toastOptions
         );
 
-        window.history.pushState({}, "", "/");
+        navigateTo("/");
       } catch (err: any) {
         toast.error(err);
       }

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavigateFunction } from "react-router-dom";
 
 import { RegistrationErrorState, LoginErrorState } from "./states";
 import { AppDispatch } from "../store";
@@ -23,4 +24,5 @@ export interface useSendResetPasswordMailProps {
 export interface useResetPasswordProps {
   setErrors: React.Dispatch<React.SetStateAction<boolean>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  navigateTo: NavigateFunction;
 }
