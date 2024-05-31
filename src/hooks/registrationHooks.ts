@@ -57,7 +57,11 @@ export const useRegisterUser = ({
 
         await setPersistence(auth, browserSessionPersistence);
 
-        await setDoc(doc(db, "users", user.uid), { displayName, email });
+        await setDoc(doc(db, "users", user.uid), {
+          displayName,
+          email,
+          slug: displayName.toLowerCase(),
+        });
 
         dispatch(
           registration({

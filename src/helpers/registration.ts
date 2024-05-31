@@ -11,7 +11,7 @@ export const checkIfUserNameIsUsed = async (displayName: string) => {
   const usersCollection = collection(db, "users");
   const userQuery = query(
     usersCollection,
-    where("displayName", "==", displayName)
+    where("slug", "==", displayName.toLowerCase())
   );
   try {
     const userQuerySnapshot = await getDocs(userQuery);
