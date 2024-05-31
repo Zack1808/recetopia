@@ -31,8 +31,8 @@ const LoginForm: React.FC = () => {
       resetPassword(formRef?.current?.Email?.value);
     } else {
       loginUser(
-        formRef?.current?.Username?.value,
-        formRef?.current?.Password?.value
+        formRef?.current?.username?.value,
+        formRef?.current?.password?.value
       );
     }
   };

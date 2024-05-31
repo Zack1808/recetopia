@@ -30,9 +30,9 @@ const RegisterForm: React.FC = () => {
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     registerUser(
-      formRef?.current?.Email?.value,
-      formRef?.current?.Password?.value,
-      formRef?.current?.Username?.value
+      formRef?.current?.email?.value,
+      formRef?.current?.password?.value,
+      formRef?.current?.username?.value
     );
   };
 
