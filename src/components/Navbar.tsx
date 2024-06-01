@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaCircleUser, FaX } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -14,11 +14,31 @@ const Navbar: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
+  const menuSmallScreenRef = useRef<HTMLDivElement>(null);
+
   const linkStyles: string = `text-white py-2  font-semibold text-md ${
     menuIsOpen ? "border-b px-6" : "px-3"
   }`;
 
   const { isLoggedIn } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    const handleBackgroundClick = (event: MouseEvent) => {
+      menuSmallScreenRef.current === event.target && closeMenu();
+    };
+
+    menuSmallScreenRef.current?.addEventListener(
+      "click",
+      handleBackgroundClick
+    );
+
+    return () => {
+      menuSmallScreenRef.current?.removeEventListener(
+        "click",
+        handleBackgroundClick
+      );
+    };
+  }, []);
 
   const handleSignUpLinkPress = (
     event: React.MouseEvent<HTMLAnchorElement>
@@ -82,6 +102,7 @@ const Navbar: React.FC = () => {
         className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed ${
           !menuIsOpen && "hidden"
         }`}
+        ref={menuSmallScreenRef}
       >
         <div
           className={`absolute bg-orange-400 w-2/3 right-0 top-0 bottom-0 flex flex-col  gap-5`}
