@@ -38,10 +38,12 @@ const App: React.FC = () => {
           <ClipLoader color="rgb(251 146 60)" size={100} />
         </div>
       ) : (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/reset-password" element={<PasswordReset />} />
-        </Routes>
+        <div className="pt-24 px-3">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/reset-password" element={<PasswordReset />} />
+          </Routes>
+        </div>
       )}
     </BrowserRouter>
   );
