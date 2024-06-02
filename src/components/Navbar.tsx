@@ -105,9 +105,15 @@ const Navbar: React.FC = () => {
         ref={menuSmallScreenRef}
       >
         <div
-          className={`absolute bg-orange-400 w-2/3 right-0 top-0 bottom-0 flex flex-col  gap-5`}
+          className={`absolute bg-orange-400 w-2/3 right-0 top-0 bottom-0 flex flex-col scale-x-0 gap-5 origin-right ${
+            menuIsOpen && "animate-menu-open"
+          }`}
         >
-          <div className="flex justify-between items-center p-3 pl-0">
+          <div
+            className={`flex justify-between items-center p-3 pl-0 opacity-0 ${
+              menuIsOpen && "animate-menu-links-open"
+            }`}
+          >
             <Link
               to="/profile"
               className={`${linkStyles} border-none`}
@@ -117,7 +123,11 @@ const Navbar: React.FC = () => {
             </Link>
             <FaX className="text-white" size={30} onClick={closeMenu} />
           </div>
-          <div className="flex flex-col gap-2">
+          <div
+            className={`flex flex-col gap-2 opacity-0 ${
+              menuIsOpen && "animate-menu-links-open"
+            }`}
+          >
             <Link to="/" className={linkStyles} onClick={closeMenu}>
               Home
             </Link>
