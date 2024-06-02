@@ -44,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({
   return ReactDOM.createPortal(
     <div
       ref={modalOverlayRef}
-      className="bg-black/20 fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center p-4 z-100"
+      className="bg-black/20 fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center p-4 z-50"
     >
       <div className="bg-white p-3 pb-5 rounded w-full max-w-2xl flex flex-col gap-5">
         <div className="flex justify-between items-center">
