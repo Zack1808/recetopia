@@ -38,7 +38,7 @@ const App: React.FC = () => {
           <ClipLoader color="rgb(251 146 60)" size={100} />
         </div>
       ) : (
-        <div className="pt-24 px-3">
+        <div className="pt-24 px-3 flex justify-center">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/reset-password" element={<PasswordReset />} />

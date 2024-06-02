@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
 
   const menuSmallScreenRef = useRef<HTMLDivElement>(null);
 
-  const linkStyles: string = `text-white py-2  font-semibold text-md ${
+  const linkStyles: string = `text-white py-2  font-semibold text-md flex gap-2 items-center ${
     menuIsOpen ? "border-b px-6" : "px-3"
   }`;
 
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
                   Add recipe
                 </Link>
                 <Link to="/profile" className={linkStyles}>
-                  <FaCircleUser size={30} />
+                  <FaCircleUser size={30} /> Profile
                 </Link>
               </>
             ) : (
@@ -122,7 +122,7 @@ const Navbar: React.FC = () => {
               className={`${linkStyles} border-none`}
               onClick={closeMenu}
             >
-              <FaCircleUser size={30} />
+              <FaCircleUser size={30} /> Profile
             </Link>
             <FaX className="text-white" size={30} onClick={closeMenu} />
           </div>
