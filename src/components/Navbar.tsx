@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Menu big screen */}
-      <div className="bg-orange-400 p-3 flex justify-center fixed w-full">
+      <div className="bg-orange-400 p-3 flex justify-center fixed w-full z-10">
         <div className="w-full max-w-screen-2xl flex justify-between">
           <Link to="/" className="flex items-center gap-3 font-pacifico">
             <img src={Logo} className="w-14" alt="Logo" />
@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
 
       {/* Menu small screens */}
       <div
-        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed ${
+        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed z-10 ${
           !menuIsOpen && "hidden"
         }`}
         ref={menuSmallScreenRef}
