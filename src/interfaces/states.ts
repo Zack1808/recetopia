@@ -4,8 +4,8 @@ export interface AuthState {
 }
 
 export interface User {
-  userName: string;
-  email: string;
+  userName: string | null;
+  email: string | null;
   uid: string;
 }
 

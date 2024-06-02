@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
       sendResetPasswordMail(formRef?.current?.Email?.value);
     } else {
       loginUser(
-        formRef?.current?.username?.value,
+        formRef?.current?.username?.value.replace(/\s+/g, ""),
         formRef?.current?.password?.value
       );
     }

@@ -32,7 +32,7 @@ const RegisterForm: React.FC = () => {
     registerUser(
       formRef?.current?.email?.value,
       formRef?.current?.password?.value,
-      formRef?.current?.username?.value
+      formRef?.current?.username?.value.replace(/\s+/g, "")
     );
   };
 
