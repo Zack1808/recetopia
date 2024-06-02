@@ -77,6 +77,9 @@ const Navbar: React.FC = () => {
                 <Link to="/favorites" className={linkStyles}>
                   Favorites
                 </Link>
+                <Link to="/my-recipes" className={linkStyles}>
+                  My recipes
+                </Link>
                 <Link to="/add-recipe" className={linkStyles}>
                   Add recipe
                 </Link>
@@ -139,6 +142,13 @@ const Navbar: React.FC = () => {
                   onClick={closeMenu}
                 >
                   Favorites
+                </Link>
+                <Link
+                  to="/my-recipes"
+                  className={linkStyles}
+                  onClick={closeMenu}
+                >
+                  My recipes
                 </Link>
                 <Link
                   to="/add-recipe"
