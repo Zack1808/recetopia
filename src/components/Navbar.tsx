@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
 
   const menuSmallScreenRef = useRef<HTMLDivElement>(null);
 
-  const linkStyles: string = `text-white py-2  font-semibold text-md ${
+  const linkStyles: string = `text-white py-2  font-semibold text-md flex gap-2 items-center ${
     menuIsOpen ? "border-b px-6" : "px-3"
   }`;
 
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Menu big screen */}
-      <div className="bg-orange-400 p-3 flex justify-center fixed w-full">
+      <div className="bg-orange-400 p-3 flex justify-center fixed w-full z-10">
         <div className="w-full max-w-screen-2xl flex justify-between">
           <Link to="/" className="flex items-center gap-3 font-pacifico">
             <img src={Logo} className="w-14" alt="Logo" />
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
                   Add recipe
                 </Link>
                 <Link to="/profile" className={linkStyles}>
-                  <FaCircleUser size={30} />
+                  <FaCircleUser size={30} /> Profile
                 </Link>
               </>
             ) : (
@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
 
       {/* Menu small screens */}
       <div
-        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed ${
+        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed z-10 ${
           !menuIsOpen && "hidden"
         }`}
         ref={menuSmallScreenRef}
@@ -122,7 +122,7 @@ const Navbar: React.FC = () => {
               className={`${linkStyles} border-none`}
               onClick={closeMenu}
             >
-              <FaCircleUser size={30} />
+              <FaCircleUser size={30} /> Profile
             </Link>
             <FaX className="text-white" size={30} onClick={closeMenu} />
           </div>

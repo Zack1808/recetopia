@@ -22,3 +22,10 @@ export interface ModalProps {
   title?: string;
   isOpen: boolean;
 }
+
+export interface CardProps {
+  user: string;
+  title: string;
+  image: string;
+  id: string;
+}
