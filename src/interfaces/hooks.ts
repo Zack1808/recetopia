@@ -23,3 +23,7 @@ export interface useResetPasswordProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigateTo: NavigateFunction;
 }
+
+export interface UseGetTagsProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}

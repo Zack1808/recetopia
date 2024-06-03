@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCircleUser, FaX } from "react-icons/fa6";
+import { FaCircleUser, FaXmark } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import { useAuthStatus } from "../hooks/registrationHooks";
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             >
               <FaCircleUser size={30} /> Profile
             </Link>
-            <FaX className="text-white" size={30} onClick={closeMenu} />
+            <FaXmark className="text-white" size={30} onClick={closeMenu} />
           </div>
           <div
             className={`flex flex-col gap-2 opacity-0 ${

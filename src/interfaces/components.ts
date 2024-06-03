@@ -29,3 +29,28 @@ export interface CardProps {
   image: string;
   id: string;
 }
+
+export interface SelectOptionsProps {
+  label: string;
+  value: string | number;
+}
+
+interface SingleSelectProps {
+  onChange: (value: SelectOptionsProps | undefined) => void;
+  value?: SelectOptionsProps;
+  multiple?: false;
+}
+
+interface MultiSelectProps {
+  onChange: (value: SelectOptionsProps[]) => void;
+  value: SelectOptionsProps[];
+  multiple: true;
+}
+
+export type SelectProps = {
+  options: SelectOptionsProps[];
+  title: string;
+  placeholder: string;
+  name: string;
+  required: boolean;
+} & (SingleSelectProps | MultiSelectProps);
