@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
@@ -16,6 +16,9 @@ const Select: React.FC<SelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
+
+  const selectRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   const handleClear = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -38,7 +41,58 @@ const Select: React.FC<SelectProps> = ({
 
   useEffect(() => {
     setHighlightedIndex(0);
+    if (dropdownRef.current) {
+      const firstItem = dropdownRef.current.children[0];
+      if (firstItem) {
+        (firstItem as HTMLElement).scrollIntoView({ block: "nearest" });
+      }
+    }
   }, [isOpen]);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.target !== selectRef.current) return;
+      console.log(event.key);
+      switch (event.code) {
+        case "Enter":
+        case "Space":
+          setIsOpen((prevState) => !prevState);
+          isOpen && handleSelection(options[highlightedIndex]);
+          break;
+        case "ArrowUp":
+        case "ArrowDown": {
+          if (!isOpen) {
+            setIsOpen(true);
+            break;
+          }
+          const newValue =
+            highlightedIndex + (event.code === "ArrowDown" ? 1 : -1);
+          if (newValue >= 0 && newValue < options.length)
+            setHighlightedIndex(newValue);
+          break;
+        }
+        case "Escape":
+          setIsOpen(false);
+          break;
+      }
+    };
+    selectRef.current?.addEventListener("keydown", handler);
+
+    return () => {
+      selectRef.current?.removeEventListener("keydown", handler);
+    };
+  }, [isOpen, highlightedIndex, options]);
+
+  useEffect(() => {
+    if (dropdownRef.current) {
+      const highlightedItem = dropdownRef.current.children[highlightedIndex];
+      if (highlightedItem) {
+        (highlightedItem as HTMLElement).scrollIntoView({
+          block: "nearest",
+        });
+      }
+    }
+  }, [highlightedIndex]);
 
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -48,6 +102,7 @@ const Select: React.FC<SelectProps> = ({
       </label>
 
       <div
+        ref={selectRef}
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen((prevState) => !prevState)}
         tabIndex={0}
@@ -60,7 +115,7 @@ const Select: React.FC<SelectProps> = ({
               value.map((val) => (
                 <button
                   key={val.value}
-                  className="bg-gray-300 flex items-center gap-2 py-1 px-2 rounded hover:text-white hover:bg-gray-400 transition"
+                  className="bg-gray-300 flex items-center gap-2 py-1 px-2 rounded hover:text-white hover:bg-gray-400 transition text-xs "
                   onClick={(event) => {
                     event.stopPropagation();
                     handleSelection(val);
@@ -74,7 +129,8 @@ const Select: React.FC<SelectProps> = ({
             <span className="text-gray-400">{placeholder}</span>
           )}
         </span>
-        {!!value && (
+
+        {value && (
           <button type="button" onClick={handleClear}>
             <FaXmark />
           </button>
@@ -92,6 +148,7 @@ const Select: React.FC<SelectProps> = ({
           }`}
         >
           <ul
+            ref={dropdownRef}
             className={`md:max-h-60 max-h-96 overflow-y-auto bg-gray-100 rounded w-full md:divide-y-0  divide-y divide-gray-300`}
           >
             {options.map((option, index) => (
