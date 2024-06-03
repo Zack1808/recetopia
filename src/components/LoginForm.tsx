@@ -4,7 +4,6 @@ import { ClipLoader } from "react-spinners";
 import Input from "./Input";
 import Button from "./Button";
 
-import { useAppDispatch } from "../hooks/storeHook";
 import {
   useLoginUser,
   useSendResetPasswordMail,
@@ -23,9 +22,7 @@ const LoginForm: React.FC = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const dispatch = useAppDispatch();
-
-  const { loginUser } = useLoginUser({ setIsLoading, setErrors, dispatch });
+  const { loginUser } = useLoginUser({ setIsLoading, setErrors });
   const { sendResetPasswordMail } = useSendResetPasswordMail({
     setErrors,
     setIsLoading,

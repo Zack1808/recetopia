@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { FaCircleUser, FaX } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+import { useAuthStatus } from "../hooks/registrationHooks";
+
 import Modal from "./Modal";
 import RegistrationForms from "../pages/RegistrationForms";
-
-import { useAppSelector } from "../hooks/storeHook";
 
 import Logo from "../assets/Logo.svg";
 
@@ -16,11 +16,11 @@ const Navbar: React.FC = () => {
 
   const menuSmallScreenRef = useRef<HTMLDivElement>(null);
 
+  const { isLoggedIn } = useAuthStatus();
+
   const linkStyles: string = `text-white py-2  font-semibold text-md flex gap-2 items-center ${
     menuIsOpen ? "border-b px-6" : "px-3"
   }`;
-
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const handleBackgroundClick = (event: MouseEvent) => {

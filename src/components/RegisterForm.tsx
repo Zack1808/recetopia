@@ -4,7 +4,6 @@ import { ClipLoader } from "react-spinners";
 import Input from "./Input";
 import Button from "./Button";
 
-import { useAppDispatch } from "../hooks/storeHook";
 import { useRegisterUser } from "../hooks/registrationHooks";
 
 import { RegistrationErrorState } from "../interfaces/states";
@@ -17,14 +16,11 @@ const RegisterForm: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const dispatch = useAppDispatch();
-
   const formRef = useRef<HTMLFormElement>(null);
 
   const { registerUser } = useRegisterUser({
     setIsLoading,
     setErrors,
-    dispatch,
   });
 
   const handleFormSubmition = (event: React.FormEvent<HTMLFormElement>) => {
