@@ -106,16 +106,16 @@ const Select: React.FC<SelectProps> = ({
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen((prevState) => !prevState)}
         tabIndex={0}
-        className="w-full pl-2 pr-3 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer"
+        className="w-full px-3 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer"
       >
-        <input type="text" className="opacity-0 w-0 cursor-pointer" id={name} />
+        <input type="text" className="hidden" id={name} />
         <span className="flex flex-1 gap-2 flex-wrap">
           {(multiple
             ? value.length > 0 &&
               value.map((val) => (
                 <button
                   key={val.value}
-                  className="bg-gray-300 flex items-center gap-2 py-1 px-2 rounded hover:text-white hover:bg-gray-400 transition text-xs "
+                  className="bg-orange-400 flex items-center gap-2 py-1 px-2 rounded text-white hover:bg-orange-500 transition text-xs"
                   onClick={(event) => {
                     event.stopPropagation();
                     handleSelection(val);
@@ -130,11 +130,17 @@ const Select: React.FC<SelectProps> = ({
           )}
         </span>
 
-        {value && (
-          <button type="button" onClick={handleClear}>
-            <FaXmark />
-          </button>
-        )}
+        {multiple
+          ? value.length > 0 && (
+              <button type="button" onClick={handleClear}>
+                <FaXmark />
+              </button>
+            )
+          : !!value && (
+              <button type="button" onClick={handleClear}>
+                <FaXmark />
+              </button>
+            )}
 
         <div className="self-stretch border border-gray-300"></div>
         {isOpen ? (

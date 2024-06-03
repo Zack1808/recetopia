@@ -12,7 +12,7 @@ const PrivateRoute: React.FC = () => {
 
   if (checkingStatus)
     return (
-      <div className="absolute t-1/2 flex justify-center">
+      <div className="absolute top-1/2 flex w-full justify-center">
         <ClipLoader color="rgb(251 146 60)" size={100} />
       </div>
     );

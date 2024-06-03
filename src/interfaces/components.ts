@@ -54,3 +54,8 @@ export type SelectProps = {
   name: string;
   required: boolean;
 } & (SingleSelectProps | MultiSelectProps);
+
+export interface ListProps {
+  list: string[];
+  removeItem: (index: number) => void;
+}
