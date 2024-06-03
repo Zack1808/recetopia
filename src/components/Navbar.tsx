@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Menu big screen */}
-      <div className="bg-orange-400 p-3 flex justify-center fixed w-full z-20">
+      <div className="bg-orange-400 p-3 flex justify-center sticky top-0 w-full z-20">
         <div className="w-full max-w-screen-2xl flex justify-between">
           <Link to="/" className="flex items-center gap-3 font-pacifico">
             <img src={Logo} className="w-14" alt="Logo" />

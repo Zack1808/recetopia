@@ -12,15 +12,13 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <div className="pt-24 px-3 flex justify-center">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/reset-password" element={<PasswordReset />} />
-          <Route path="/add-recipe" element={<PrivateRoute />}>
-            <Route path="/add-recipe" element={<AddRecipe />} />
-          </Route>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reset-password" element={<PasswordReset />} />
+        <Route path="/add-recipe" element={<PrivateRoute />}>
+          <Route path="/add-recipe" element={<AddRecipe />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 };
