@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { ClipLoader } from "react-spinners";
 
 import { useGetMealTags } from "../hooks/data";
 
@@ -8,12 +9,36 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import Select from "../components/Select";
 import List from "../components/List";
-import { ClipLoader } from "react-spinners";
+import Textarea from "../components/Textarea";
 
 const AddRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [option, setOption] = useState<SelectOptionsProps[]>([]);
   const [ingredients, setIngredients] = useState<string[]>([]);
+  const [time, setTime] = useState<SelectOptionsProps | undefined>();
+
+  const timeList = [
+    {
+      label: "< 30 minutes",
+      value: "lessthan30minutes",
+    },
+    {
+      label: "30 - 60 minutes",
+      value: "30to60minutes",
+    },
+    {
+      label: "60 - 90 minutes",
+      value: "60to90minutes",
+    },
+    {
+      label: "90 - 120 minutes",
+      value: "90to120minutes",
+    },
+    {
+      label: "> 120 minutes",
+      value: "morethan120minutes",
+    },
+  ];
 
   const { allMealTags } = useGetMealTags({ setIsLoading });
 
@@ -58,10 +83,20 @@ const AddRecipe: React.FC = () => {
           name="tags"
           required
           multiple
-          placeholder="Select..."
+          placeholder="Select multiple..."
           options={allMealTags}
           value={option}
           onChange={(val) => setOption(val)}
+        />
+
+        <Select
+          title="Takes time"
+          name="takesTime"
+          required
+          placeholder="Select..."
+          options={timeList}
+          value={time}
+          onChange={(t) => setTime(t)}
         />
 
         <div className="flex flex-col w-full gap-5">
@@ -93,7 +128,37 @@ const AddRecipe: React.FC = () => {
             )}
           </div>
         </div>
-        <Button primary>{isLoading ? <ClipLoader /> : "Create Recipe"}</Button>
+
+        <div className="flex flex-col w-full gap-5">
+          <div className="w-full flex gap-2 md:items-end flex-col ">
+            <Textarea
+              title="Instructions"
+              placeholder="Add eggs to the mixture..."
+            />
+            <Button
+              type="button"
+              primary
+              className="md:justify-start justify-center flex-auto"
+              onClick={addIngredients}
+            >
+              Add
+            </Button>
+          </div>
+
+          <div>
+            {ingredients.length > 0 ? (
+              <List list={ingredients} removeItem={removeItem} />
+            ) : (
+              <h3 className="text-md font-semibold text-gray-700">
+                No instructions added yet.
+              </h3>
+            )}
+          </div>
+        </div>
+
+        <Button primary>
+          {isLoading ? <ClipLoader color="white" size={23} /> : "Create Recipe"}
+        </Button>
       </form>
     </div>
   );

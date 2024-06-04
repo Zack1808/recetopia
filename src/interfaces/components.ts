@@ -59,3 +59,9 @@ export interface ListProps {
   list: string[];
   removeItem: (index: number) => void;
 }
+
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  required?: boolean;
+  title?: string;
+}

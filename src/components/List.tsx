@@ -11,9 +11,7 @@ const List: React.FC<ListProps> = ({ list, removeItem }) => {
       {list.map((item, index) => (
         <li className="flex gap-2 justify-between items-center">
           <div className="flex gap-3 items-baseline">
-            <span className="text-gray-700 font-semibold text-xl">
-              {index + 1}.
-            </span>{" "}
+            <span className="text-gray-700 font-semibold ">{index + 1}.</span>{" "}
             {item}
           </div>
           <Button type="button" secondary onClick={() => removeItem(index)}>

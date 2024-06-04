@@ -155,7 +155,7 @@ const Select: React.FC<SelectProps> = ({
         >
           <ul
             ref={dropdownRef}
-            className={`md:max-h-60 max-h-96 overflow-y-auto bg-gray-100 rounded w-full md:divide-y-0  divide-y divide-gray-300`}
+            className={`md:max-h-60 max-h-96 overflow-y-auto bg-gray-100 rounded w-full md:divide-y-0  divide-y divide-gray-300 border border-gray-300`}
           >
             {options.map((option, index) => (
               <li
