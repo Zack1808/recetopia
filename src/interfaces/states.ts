@@ -5,3 +5,10 @@ export interface RegistrationErrorState {
 }
 
 export interface LoginErrorState extends RegistrationErrorState {}
+
+export interface AddRecipeErrorState {
+  errorTags: boolean;
+  errorTime: boolean;
+  errorIngredient: boolean;
+  errorInstructions: boolean;
+}

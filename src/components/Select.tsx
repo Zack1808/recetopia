@@ -13,6 +13,7 @@ const Select: React.FC<SelectProps> = ({
   value,
   onChange,
   options,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
@@ -106,7 +107,7 @@ const Select: React.FC<SelectProps> = ({
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen((prevState) => !prevState)}
         tabIndex={0}
-        className="w-full px-3 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer"
+        className={`w-full px-3 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer ${className}`}
       >
         <input type="text" className="hidden" id={name} />
         <span className="flex flex-1 gap-2 flex-wrap">

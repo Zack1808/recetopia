@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 import { useGetMealTags } from "../hooks/data";
 
 import { SelectOptionsProps } from "../interfaces/components";
+import { AddRecipeErrorState } from "../interfaces/states";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -12,12 +14,20 @@ import List from "../components/List";
 import Textarea from "../components/Textarea";
 import ImageUpload from "../components/ImageUpload";
 
+import { toastOptions } from "../toastOptions";
+
 const AddRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [option, setOption] = useState<SelectOptionsProps[]>([]);
+  const [tags, setTags] = useState<SelectOptionsProps[]>([]);
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [instructions, setInstructions] = useState<string[]>([]);
   const [time, setTime] = useState<SelectOptionsProps | undefined>();
+  const [errors, setErrors] = useState<AddRecipeErrorState>({
+    errorTags: false,
+    errorTime: false,
+    errorIngredient: false,
+    errorInstructions: false,
+  });
 
   const timeList = [
     {
@@ -86,6 +96,38 @@ const AddRecipe: React.FC = () => {
     setInstructions((prevState) => prevState.filter((_, ind) => ind !== index));
   };
 
+  const handleSubmition = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!!!formRef.current) return;
+    if (tags.length <= 0) {
+      setErrors((prevState) => ({ ...prevState, errorTags: true }));
+      toast.error("Must select at least one tag", toastOptions);
+      return;
+    }
+    if (!!!time) {
+      setErrors((prevState) => ({ ...prevState, errorTime: true }));
+      toast.error("Must select time for preparation", toastOptions);
+      return;
+    }
+    if (ingredients.length < 2) {
+      setErrors((prevState) => ({ ...prevState, errorIngredient: true }));
+      toast.error("Must add at least 2 ingredients", toastOptions);
+      return;
+    }
+    if (instructions.length < 2) {
+      setErrors((prevState) => ({ ...prevState, errorInstructions: true }));
+      toast.error("Must add at least 1 block of instructions", toastOptions);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (ingredients.length >= 2)
+      setErrors((prevState) => ({ ...prevState, errorIngredient: false }));
+    if (instructions.length >= 1)
+      setErrors((prevState) => ({ ...prevState, errorInstructions: false }));
+  }, [ingredients, instructions]);
+
   return (
     <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3">
       <h1 className="text-4xl font-bold text-gray-700 self-start">
@@ -93,7 +135,11 @@ const AddRecipe: React.FC = () => {
         <span className="text-orange-400">delicious</span> meal
       </h1>
 
-      <form ref={formRef} className="flex flex-col gap-5 items-end">
+      <form
+        ref={formRef}
+        className="flex flex-col gap-5 items-end"
+        onSubmit={handleSubmition}
+      >
         <Input
           type="text"
           title="Recipe title"
@@ -108,8 +154,14 @@ const AddRecipe: React.FC = () => {
           multiple
           placeholder="Select multiple..."
           options={allMealTags}
-          value={option}
-          onChange={(val) => setOption(val)}
+          value={tags}
+          onChange={(val) => {
+            setTags(val);
+            setErrors((prevState) => ({ ...prevState, errorTags: false }));
+          }}
+          className={
+            errors.errorTags ? "border-red-500 ring-1 ring-red-500" : ""
+          }
         />
 
         <Select
@@ -119,7 +171,13 @@ const AddRecipe: React.FC = () => {
           placeholder="Select..."
           options={timeList}
           value={time}
-          onChange={(t) => setTime(t)}
+          onChange={(val) => {
+            setTime(val);
+            setErrors((prevState) => ({ ...prevState, errorTime: false }));
+          }}
+          className={
+            errors.errorTime ? "border-red-500 ring-1 ring-red-500" : ""
+          }
         />
 
         <ImageUpload title="Upload Image" required />
@@ -132,6 +190,11 @@ const AddRecipe: React.FC = () => {
               type="text"
               placeholder="4 potatoes"
               title="Ingredients"
+              className={
+                errors.errorIngredient
+                  ? "border-red-500 ring-1 ring-red-500"
+                  : ""
+              }
             />
             <Button
               type="button"
@@ -165,6 +228,11 @@ const AddRecipe: React.FC = () => {
               title="Instructions"
               placeholder="Add eggs to the mixture..."
               ref={instructionsRef}
+              className={
+                errors.errorInstructions
+                  ? "border-red-500 ring-1 ring-red-500"
+                  : ""
+              }
             />
             <Button
               type="button"

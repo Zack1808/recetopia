@@ -16,7 +16,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           name={title?.toLowerCase().replace(/\s/g, "")}
           id={title}
           required={required}
-          className="bg-gray-100 resize-none border-b-2 border-orange-300 focus:border-orange-500 focus:ring-orange-300 focus:ring-1 outline-none rounded min-h-52 px-3 py-2"
+          className={`bg-gray-100 resize-none border-b-2 transition border-orange-300 focus:border-orange-500 focus:ring-orange-300 focus:ring-1 outline-none rounded min-h-52 px-3 py-2 ${rest.className}`}
         ></textarea>
       </div>
     );

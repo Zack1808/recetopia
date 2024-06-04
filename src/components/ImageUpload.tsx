@@ -11,7 +11,9 @@ const ImageUpload = React.forwardRef<HTMLInputElement, ImageUploadProps>(
           {title}{" "}
           {required && <span className="text-orange-500 font-bold">*</span>}
         </label>
-        <div className="bg-gray-100 h-32 rounded flex justify-center items-center relative border-b-2 border-orange-300 focus-within:border-orange-500 focus-within:ring-1 ring-orange-300">
+        <div
+          className={`bg-gray-100 h-32 rounded flex justify-center items-center relative border-b-2 border-orange-300 focus-within:border-orange-500 transition focus-within:ring-1 ring-orange-300 ${rest.className}`}
+        >
           <div className="flex gap-3 items-center font-semibold text-orange-400">
             <FaImage className="text-4xl" /> Upload Image
           </div>
@@ -23,6 +25,7 @@ const ImageUpload = React.forwardRef<HTMLInputElement, ImageUploadProps>(
             type="file"
             required={required}
             className="absolute top-0 bottom-0 right-0 left-0 opacity-0"
+            accept=".jpg, .png, .webp, .jpeg"
           />
         </div>
       </div>

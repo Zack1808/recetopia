@@ -53,6 +53,7 @@ export type SelectProps = {
   placeholder: string;
   name: string;
   required: boolean;
+  className?: string;
 } & (SingleSelectProps | MultiSelectProps);
 
 export interface ListProps {
