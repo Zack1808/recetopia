@@ -58,10 +58,14 @@ const Select: React.FC<SelectProps> = ({
         case "Enter":
         case "Space":
           setIsOpen((prevState) => !prevState);
-          isOpen && handleSelection(options[highlightedIndex]);
+          if (isOpen) {
+            event.preventDefault();
+            handleSelection(options[highlightedIndex]);
+          }
           break;
         case "ArrowUp":
         case "ArrowDown": {
+          event.preventDefault();
           if (!isOpen) {
             setIsOpen(true);
             break;
@@ -107,19 +111,21 @@ const Select: React.FC<SelectProps> = ({
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen((prevState) => !prevState)}
         tabIndex={0}
-        className={`w-full px-3 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer ${className}`}
+        className={`w-full pr-3 pl-2 py-2 bg-gray-100 rounded border-b-2 border-orange-300 md:relative  flex items-center gap-2 focus-within:ring-1 focus-within:ring-orange-300 focus-within:border-orange-500 outline-none cursor-pointer ${className}`}
       >
-        <input type="text" className="hidden" id={name} />
+        <input type="text" className="opacity-0 w-0" id={name} />
         <span className="flex flex-1 gap-2 flex-wrap">
           {(multiple
             ? value.length > 0 &&
               value.map((val) => (
                 <button
                   key={val.value}
+                  type="button"
                   className="bg-orange-400 flex items-center gap-2 py-1 px-2 rounded text-white hover:bg-orange-500 transition text-xs"
                   onClick={(event) => {
                     event.stopPropagation();
                     handleSelection(val);
+                    console.log("here");
                   }}
                 >
                   {val.label}

@@ -114,7 +114,7 @@ const AddRecipe: React.FC = () => {
       toast.error("Must add at least 2 ingredients", toastOptions);
       return;
     }
-    if (instructions.length < 2) {
+    if (instructions.length < 1) {
       setErrors((prevState) => ({ ...prevState, errorInstructions: true }));
       toast.error("Must add at least 1 block of instructions", toastOptions);
       return;
