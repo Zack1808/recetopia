@@ -10,11 +10,13 @@ import Button from "../components/Button";
 import Select from "../components/Select";
 import List from "../components/List";
 import Textarea from "../components/Textarea";
+import ImageUpload from "../components/ImageUpload";
 
 const AddRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [option, setOption] = useState<SelectOptionsProps[]>([]);
   const [ingredients, setIngredients] = useState<string[]>([]);
+  const [instructions, setInstructions] = useState<string[]>([]);
   const [time, setTime] = useState<SelectOptionsProps | undefined>();
 
   const timeList = [
@@ -44,6 +46,7 @@ const AddRecipe: React.FC = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
   const ingredientsRef = useRef<HTMLInputElement>(null);
+  const instructionsRef = useRef<HTMLTextAreaElement>(null);
 
   const addIngredients = () => {
     if (!!!ingredientsRef.current) return;
@@ -59,8 +62,28 @@ const AddRecipe: React.FC = () => {
     ingredientsRef.current.value = "";
   };
 
-  const removeItem = (index: number) => {
-    setIngredients((prevState) => prevState.filter((_, ind) => ind !== index));
+  const addInstruction = () => {
+    if (!!!instructionsRef.current) return;
+
+    const instruction = instructionsRef.current.value;
+
+    if (instruction.replace(/\s/g, "") === "") return;
+
+    console.log(instruction);
+
+    setInstructions((prevState) => [...prevState, instruction]);
+
+    instructionsRef.current.value = "";
+  };
+
+  const removeItem = (index: number, itemType: string) => {
+    if (itemType === "ingredients") {
+      setIngredients((prevState) =>
+        prevState.filter((_, ind) => ind !== index)
+      );
+      return;
+    }
+    setInstructions((prevState) => prevState.filter((_, ind) => ind !== index));
   };
 
   return (
@@ -99,6 +122,8 @@ const AddRecipe: React.FC = () => {
           onChange={(t) => setTime(t)}
         />
 
+        <ImageUpload title="Upload Image" required />
+
         <div className="flex flex-col w-full gap-5">
           <div className="w-full flex gap-2 md:items-end flex-col md:flex-row">
             <Input
@@ -120,10 +145,15 @@ const AddRecipe: React.FC = () => {
 
           <div>
             {ingredients.length > 0 ? (
-              <List list={ingredients} removeItem={removeItem} />
+              <List
+                list={ingredients}
+                removeItem={removeItem}
+                itemType="ingredients"
+              />
             ) : (
               <h3 className="text-md font-semibold text-gray-700">
-                No ingredients added yet.
+                No ingredients added yet. This field requires at least two
+                blocks of ingredients.
               </h3>
             )}
           </div>
@@ -134,23 +164,29 @@ const AddRecipe: React.FC = () => {
             <Textarea
               title="Instructions"
               placeholder="Add eggs to the mixture..."
+              ref={instructionsRef}
             />
             <Button
               type="button"
               primary
               className="md:justify-start justify-center flex-auto"
-              onClick={addIngredients}
+              onClick={addInstruction}
             >
               Add
             </Button>
           </div>
 
           <div>
-            {ingredients.length > 0 ? (
-              <List list={ingredients} removeItem={removeItem} />
+            {instructions.length > 0 ? (
+              <List
+                list={instructions}
+                removeItem={removeItem}
+                itemType="instructions"
+              />
             ) : (
               <h3 className="text-md font-semibold text-gray-700">
-                No instructions added yet.
+                No instructions added yet. This field requires at least one
+                block of instructions.
               </h3>
             )}
           </div>

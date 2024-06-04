@@ -57,11 +57,18 @@ export type SelectProps = {
 
 export interface ListProps {
   list: string[];
-  removeItem: (index: number) => void;
+  itemType: string;
+  removeItem: (index: number, itemType: string) => void;
 }
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   required?: boolean;
   title?: string;
+}
+
+export interface ImageUploadProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  title: string;
+  required?: boolean;
 }
