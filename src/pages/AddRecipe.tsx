@@ -19,9 +19,9 @@ import { toastOptions } from "../toastOptions";
 const AddRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tags, setTags] = useState<SelectOptionsProps[]>([]);
+  const [time, setTime] = useState<SelectOptionsProps | undefined>();
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [instructions, setInstructions] = useState<string[]>([]);
-  const [time, setTime] = useState<SelectOptionsProps | undefined>();
   const [errors, setErrors] = useState<AddRecipeErrorState>({
     errorTags: false,
     errorTime: false,
@@ -65,8 +65,6 @@ const AddRecipe: React.FC = () => {
 
     if (ingredient.replace(/\s/g, "") === "") return;
 
-    console.log(ingredient);
-
     setIngredients((prevState) => [...prevState, ingredient]);
 
     ingredientsRef.current.value = "";
@@ -78,8 +76,6 @@ const AddRecipe: React.FC = () => {
     const instruction = instructionsRef.current.value;
 
     if (instruction.replace(/\s/g, "") === "") return;
-
-    console.log(instruction);
 
     setInstructions((prevState) => [...prevState, instruction]);
 

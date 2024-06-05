@@ -53,7 +53,6 @@ const Select: React.FC<SelectProps> = ({
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if (event.target !== selectRef.current) return;
-      console.log(event.key);
       switch (event.code) {
         case "Enter":
         case "Space":
