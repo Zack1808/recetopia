@@ -6,6 +6,7 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 
 import { useGetRecipesInfo } from "../hooks/data";
+import { useAuthStatus } from "../hooks/registrationHooks";
 
 import { RecipeInfoState } from "../interfaces/states";
 
@@ -13,19 +14,30 @@ const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [recentRecipes, setRecentRecipes] = useState<RecipeInfoState[]>([]);
   const [mostLiked, setMostLiked] = useState<RecipeInfoState[]>([]);
+  const [userRecipes, setUserRecipes] = useState<RecipeInfoState[]>([]);
 
   const { getRecipesInfo } = useGetRecipesInfo({ setIsLoading });
+  const { isLoggedIn, checkingStatus } = useAuthStatus();
 
   useEffect(() => {
     const fetch = async () => {
       const recents = await getRecipesInfo(3, "createdOn");
-      const liked = await getRecipesInfo(3, "likes.likeCount");
+      if (isLoggedIn) {
+        const usersRecipe = await getRecipesInfo(3, "createdOn", true);
+        if (usersRecipe && usersRecipe.length > 0) setUserRecipes(usersRecipe);
+        else {
+          const liked = await getRecipesInfo(3, "likes.likeCount");
+          if (liked && liked?.length > 0) setMostLiked(liked);
+        }
+      } else {
+        const liked = await getRecipesInfo(3, "likes.likeCount");
+        if (liked && liked?.length > 0) setMostLiked(liked);
+      }
       if (recents && recents?.length > 0) setRecentRecipes(recents);
-      if (liked && liked?.length > 0) setMostLiked(liked);
     };
 
-    fetch();
-  }, []);
+    !checkingStatus && fetch();
+  }, [checkingStatus, isLoggedIn]);
 
   return (
     <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3">
@@ -46,6 +58,7 @@ const Home: React.FC = () => {
               {recentRecipes.length > 0 ? (
                 recentRecipes.map((recipe) => (
                   <Card
+                    key={recipe.id}
                     user={recipe.user}
                     image={recipe.imageUrl}
                     title={recipe.title}
@@ -60,26 +73,55 @@ const Home: React.FC = () => {
               <Button primary>Check out more</Button>
             </Link>
           </div>
-          <div className="flex flex-col gap-3">
-            <h2 className="text-2xl font-semibold text-gray-700">Most liked</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {mostLiked.length > 0 ? (
-                mostLiked.map((recipe) => (
-                  <Card
-                    user={recipe.user}
-                    image={recipe.imageUrl}
-                    title={recipe.title}
-                    id={recipe.id}
-                  />
-                ))
-              ) : (
-                <h3>No recipes</h3>
-              )}
+          {isLoggedIn && userRecipes.length > 0 ? (
+            <div className="flex flex-col gap-3">
+              <h2 className="text-2xl font-semibold text-gray-700">
+                My recipes
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {userRecipes.length > 0 ? (
+                  userRecipes.map((recipe) => (
+                    <Card
+                      key={recipe.id}
+                      user={recipe.user}
+                      image={recipe.imageUrl}
+                      title={recipe.title}
+                      id={recipe.id}
+                    />
+                  ))
+                ) : (
+                  <h3>No recipes</h3>
+                )}
+              </div>
+              <Link to="/recipes?most-liked" className="self-end">
+                <Button primary>Check out more</Button>
+              </Link>
             </div>
-            <Link to="/recipes?most-liked" className="self-end">
-              <Button primary>Check out more</Button>
-            </Link>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <h2 className="text-2xl font-semibold text-gray-700">
+                Most liked
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {mostLiked.length > 0 ? (
+                  mostLiked.map((recipe) => (
+                    <Card
+                      key={recipe.id}
+                      user={recipe.user}
+                      image={recipe.imageUrl}
+                      title={recipe.title}
+                      id={recipe.id}
+                    />
+                  ))
+                ) : (
+                  <h3>No recipes</h3>
+                )}
+              </div>
+              <Link to="/recipes?most-liked" className="self-end">
+                <Button primary>Check out more</Button>
+              </Link>
+            </div>
+          )}
         </>
       )}
     </div>

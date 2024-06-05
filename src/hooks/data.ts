@@ -10,6 +10,7 @@ import {
   orderBy,
   limit,
   getDocs,
+  where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -136,14 +137,24 @@ export const useCreateRecipe = ({
 
 export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
   const getRecipesInfo = useCallback(
-    async (amount = 10, sortBy = "createdOn") => {
+    async (amount = 10, sortBy = "createdOn", getFromLoggedInUser = false) => {
       setIsLoading(true);
       try {
-        let recipeQuery = query(
-          collection(db, "recipes"),
-          orderBy(sortBy, "desc"),
-          limit(amount)
-        );
+        let recipeQuery;
+        if (getFromLoggedInUser) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("createdBy.displayName", "==", auth.currentUser?.displayName),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        } else {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        }
 
         const querySnapshot = await getDocs(recipeQuery);
 
@@ -161,6 +172,7 @@ export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
 
         return fetchedRecipeInfo;
       } catch (err) {
+        console.log(err);
         toast.error("Could not fetch the recipes", toastOptions);
         setIsLoading(false);
       }
