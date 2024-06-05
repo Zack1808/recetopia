@@ -32,3 +32,7 @@ export interface UseCreateRecipeProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   navigate: NavigateFunction;
 }
+
+export interface UseGetRecipesInfoProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
