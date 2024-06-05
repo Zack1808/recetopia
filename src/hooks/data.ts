@@ -6,10 +6,19 @@ import {
   addDoc,
   collection,
   updateDoc,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-import { UseGetTagsProps, UseCreateRecipeProps } from "../interfaces/hooks";
+import {
+  UseGetTagsProps,
+  UseCreateRecipeProps,
+  UseGetRecipesInfoProps,
+} from "../interfaces/hooks";
 import { SelectOptionsProps } from "../interfaces/components";
 
 import { storeImage, returnUniqueList } from "../helpers/data";
@@ -124,4 +133,52 @@ export const useCreateRecipe = ({
   );
 
   return { createRecipe };
+};
+
+export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
+  const getRecipesInfo = useCallback(
+    async (amount = 10, sortBy = "createdOn", getFromLoggedInUser = false) => {
+      setIsLoading(true);
+      try {
+        let recipeQuery;
+        if (getFromLoggedInUser) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("createdBy.displayName", "==", auth.currentUser?.displayName),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        } else {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        }
+
+        const querySnapshot = await getDocs(recipeQuery);
+
+        const fetchedRecipeInfo = querySnapshot.docs.map((doc) => {
+          const { title, imageUrl, createdBy } = doc.data();
+          return {
+            id: doc.id,
+            title,
+            imageUrl,
+            user: createdBy.displayName,
+          };
+        });
+
+        setIsLoading(false);
+
+        return fetchedRecipeInfo;
+      } catch (err) {
+        console.log(err);
+        toast.error("Could not fetch the recipes", toastOptions);
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
+
+  return { getRecipesInfo };
 };

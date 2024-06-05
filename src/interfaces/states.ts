@@ -13,3 +13,10 @@ export interface AddRecipeErrorState {
   errorIngredient: boolean;
   errorInstructions: boolean;
 }
+
+export interface RecipeInfoState {
+  id: string;
+  title: string;
+  imageUrl: string;
+  user: string;
+}
