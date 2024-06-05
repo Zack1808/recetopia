@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { useCallback } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -7,11 +8,11 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   confirmPasswordReset,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { setDoc, doc } from "firebase/firestore";
 
-import { registration } from "../slices/authSlice";
 import { auth, db } from "../firebaseConfig";
 
 import {
@@ -32,7 +33,6 @@ import { toastOptions } from "../toastOptions";
 export const useRegisterUser = ({
   setIsLoading,
   setErrors,
-  dispatch,
 }: UseRegisterUserProps) => {
   const registerUser = useCallback(
     async (email: string, password: string, displayName: string) => {
@@ -63,14 +63,6 @@ export const useRegisterUser = ({
           slug: displayName.toLowerCase(),
         });
 
-        dispatch(
-          registration({
-            userName: displayName,
-            email,
-            uid: user.uid,
-          })
-        );
-
         toast.success("Registration was successful", toastOptions);
 
         document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
@@ -88,7 +80,7 @@ export const useRegisterUser = ({
         setIsLoading(false);
       }
     },
-    [setIsLoading, setErrors, dispatch]
+    [setIsLoading, setErrors]
   );
 
   return { registerUser };
@@ -97,7 +89,6 @@ export const useRegisterUser = ({
 export const useLoginUser = ({
   setIsLoading,
   setErrors,
-  dispatch,
 }: UseLoginUserProps) => {
   const loginUser = useCallback(
     async (displayName: string, password: string) => {
@@ -116,14 +107,6 @@ export const useLoginUser = ({
           password
         );
 
-        dispatch(
-          registration({
-            userName: displayName,
-            email: userNameInUse.email[0],
-            uid: user.uid,
-          })
-        );
-
         await setPersistence(auth, browserSessionPersistence);
 
         toast.success("Login was successful", toastOptions);
@@ -140,7 +123,7 @@ export const useLoginUser = ({
         setIsLoading(false);
       }
     },
-    [setIsLoading, setErrors, dispatch]
+    [setIsLoading, setErrors]
   );
 
   return { loginUser };
@@ -212,4 +195,20 @@ export const useResetPassword = ({
   );
 
   return { resetPassword };
+};
+
+export const useAuthStatus = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [checkingStatus, setCheckingStatuts] = useState<boolean>(true);
+
+  const isMounted = useRef<boolean>(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      user && setIsLoggedIn(true);
+      setCheckingStatuts(false);
+    });
+  }, [isMounted]);
+
+  return { isLoggedIn, checkingStatus };
 };

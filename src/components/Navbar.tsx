@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCircleUser, FaX } from "react-icons/fa6";
+import { FaCircleUser, FaXmark } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
+
+import { useAuthStatus } from "../hooks/registrationHooks";
 
 import Modal from "./Modal";
 import RegistrationForms from "../pages/RegistrationForms";
-
-import { useAppSelector } from "../hooks/storeHook";
 
 import Logo from "../assets/Logo.svg";
 
@@ -16,11 +16,11 @@ const Navbar: React.FC = () => {
 
   const menuSmallScreenRef = useRef<HTMLDivElement>(null);
 
+  const { isLoggedIn } = useAuthStatus();
+
   const linkStyles: string = `text-white py-2  font-semibold text-md flex gap-2 items-center ${
     menuIsOpen ? "border-b px-6" : "px-3"
   }`;
-
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const handleBackgroundClick = (event: MouseEvent) => {
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Menu big screen */}
-      <div className="bg-orange-400 p-3 flex justify-center fixed w-full z-20">
+      <div className="bg-orange-400 p-3 flex justify-center sticky top-0 w-full z-40">
         <div className="w-full max-w-screen-2xl flex justify-between">
           <Link to="/" className="flex items-center gap-3 font-pacifico">
             <img src={Logo} className="w-14" alt="Logo" />
@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
 
       {/* Menu small screens */}
       <div
-        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed z-20 ${
+        className={`bg-black/20 top-0 bottom-0 left-0 right-0 fixed z-40 ${
           !menuIsOpen && "hidden"
         }`}
         ref={menuSmallScreenRef}
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             >
               <FaCircleUser size={30} /> Profile
             </Link>
-            <FaX className="text-white" size={30} onClick={closeMenu} />
+            <FaXmark className="text-white" size={30} onClick={closeMenu} />
           </div>
           <div
             className={`flex flex-col gap-2 opacity-0 ${

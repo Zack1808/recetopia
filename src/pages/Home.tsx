@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 const Home: React.FC = () => {
   return (
-    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10">
+    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3">
       <h1 className="text-4xl font-bold text-gray-700">
         Get inspired to <span className="text-orange-400">cook more.</span>
       </h1>
