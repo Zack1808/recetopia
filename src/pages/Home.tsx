@@ -21,16 +21,26 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const recents = await getRecipesInfo(3, "createdOn");
+      const recents = await getRecipesInfo({ amount: 3, sortBy: "createdOn" });
       if (isLoggedIn) {
-        const usersRecipe = await getRecipesInfo(3, "createdOn", true);
+        const usersRecipe = await getRecipesInfo({
+          amount: 3,
+          sortBy: "createdOn",
+          getFromLoggedInUser: true,
+        });
         if (usersRecipe && usersRecipe.length > 0) setUserRecipes(usersRecipe);
         else {
-          const liked = await getRecipesInfo(3, "likes.likeCount");
+          const liked = await getRecipesInfo({
+            amount: 3,
+            sortBy: "likes.likeCount",
+          });
           if (liked && liked?.length > 0) setMostLiked(liked);
         }
       } else {
-        const liked = await getRecipesInfo(3, "likes.likeCount");
+        const liked = await getRecipesInfo({
+          amount: 3,
+          sortBy: "likes.likeCount",
+        });
         if (liked && liked?.length > 0) setMostLiked(liked);
       }
       if (recents && recents?.length > 0) setRecentRecipes(recents);
@@ -45,7 +55,7 @@ const Home: React.FC = () => {
         Get inspired to <span className="text-orange-400">cook more.</span>
       </h1>
       {isLoading ? (
-        <div className="absolute top-1/2 flex w-full justify-center">
+        <div className="absolute top-1/2 left-0 flex w-full justify-center">
           <ClipLoader color="rgb(251 146 60)" size={100} />
         </div>
       ) : (
