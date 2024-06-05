@@ -27,3 +27,8 @@ export interface useResetPasswordProps {
 export interface UseGetTagsProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface UseCreateRecipeProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  navigate: NavigateFunction;
+}

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { useGetMealTags } from "../hooks/data";
 
@@ -16,18 +17,28 @@ import ImageUpload from "../components/ImageUpload";
 
 import { toastOptions } from "../toastOptions";
 
+import { useCreateRecipe } from "../hooks/data";
+
 const AddRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tags, setTags] = useState<SelectOptionsProps[]>([]);
   const [time, setTime] = useState<SelectOptionsProps | undefined>();
+  const [peopleAmount, setPeopleAmount] = useState<
+    SelectOptionsProps | undefined
+  >();
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [instructions, setInstructions] = useState<string[]>([]);
   const [errors, setErrors] = useState<AddRecipeErrorState>({
     errorTags: false,
     errorTime: false,
+    errorPeople: false,
     errorIngredient: false,
     errorInstructions: false,
   });
+
+  const navigate = useNavigate();
+
+  const { createRecipe } = useCreateRecipe({ setIsLoading, navigate });
 
   const timeList = [
     {
@@ -52,7 +63,37 @@ const AddRecipe: React.FC = () => {
     },
   ];
 
-  const { allMealTags } = useGetMealTags({ setIsLoading });
+  const peopleList = [
+    {
+      label: "1 person",
+      value: 1,
+    },
+    {
+      label: "2 people",
+      value: 2,
+    },
+    {
+      label: "3 people",
+      value: 3,
+    },
+    {
+      label: "4 people",
+      value: 4,
+    },
+    {
+      label: "5 people",
+      value: 5,
+    },
+    {
+      label: "6 people",
+      value: 6,
+    },
+    {
+      label: "> 6 people",
+      value: "morethansixpeople",
+    },
+  ];
+  const { allMealTags, usedMealTags } = useGetMealTags({ setIsLoading });
 
   const formRef = useRef<HTMLFormElement>(null);
   const ingredientsRef = useRef<HTMLInputElement>(null);
@@ -105,6 +146,11 @@ const AddRecipe: React.FC = () => {
       toast.error("Must select time for preparation", toastOptions);
       return;
     }
+    if (!!!peopleAmount) {
+      setErrors((prevState) => ({ ...prevState, errorPeople: true }));
+      toast.error("Must select for how many people the meal is", toastOptions);
+      return;
+    }
     if (ingredients.length < 2) {
       setErrors((prevState) => ({ ...prevState, errorIngredient: true }));
       toast.error("Must add at least 2 ingredients", toastOptions);
@@ -115,6 +161,16 @@ const AddRecipe: React.FC = () => {
       toast.error("Must add at least 1 block of instructions", toastOptions);
       return;
     }
+    createRecipe(
+      formRef.current.recipetitle.value,
+      tags,
+      time,
+      peopleAmount,
+      formRef.current.uploadimage.files[0],
+      ingredients,
+      instructions,
+      usedMealTags
+    );
   };
 
   useEffect(() => {
@@ -140,6 +196,7 @@ const AddRecipe: React.FC = () => {
           type="text"
           title="Recipe title"
           placeholder="Pasta with salmon"
+          name="recipetitle"
           required
         />
 
@@ -173,6 +230,22 @@ const AddRecipe: React.FC = () => {
           }}
           className={
             errors.errorTime ? "border-red-500 ring-1 ring-red-500" : ""
+          }
+        />
+
+        <Select
+          title="For how many people"
+          name="forhowmanypeople"
+          required
+          placeholder="Select..."
+          options={peopleList}
+          value={peopleAmount}
+          onChange={(val) => {
+            setPeopleAmount(val);
+            setErrors((prevState) => ({ ...prevState, errorPeople: false }));
+          }}
+          className={
+            errors.errorPeople ? "border-red-500 ring-1 ring-red-500" : ""
           }
         />
 
@@ -212,7 +285,7 @@ const AddRecipe: React.FC = () => {
             ) : (
               <h3 className="text-md font-semibold text-gray-700">
                 No ingredients added yet. This field requires at least two
-                blocks of ingredients.
+                ingredients.
               </h3>
             )}
           </div>
@@ -256,7 +329,7 @@ const AddRecipe: React.FC = () => {
           </div>
         </div>
 
-        <Button primary>
+        <Button primary disabled={isLoading}>
           {isLoading ? <ClipLoader color="white" size={23} /> : "Create Recipe"}
         </Button>
       </form>
