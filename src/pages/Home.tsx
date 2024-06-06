@@ -127,7 +127,7 @@ const Home: React.FC = () => {
                   <h3>No recipes</h3>
                 )}
               </div>
-              <Link to="/recipes?most-liked" className="self-end">
+              <Link to="/recipes?likes.likeCount" className="self-end">
                 <Button primary>Check out more</Button>
               </Link>
             </div>

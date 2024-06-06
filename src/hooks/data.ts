@@ -169,6 +169,13 @@ export const useGetRecipesInfo = ({
             startAfter(lastRecipe),
             limit(amount)
           );
+        } else if (getNewList) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            orderBy(sortBy, "desc"),
+            startAfter(lastRecipe),
+            limit(amount)
+          );
         } else if (favorite) {
           recipeQuery = query(
             collection(db, "recipes"),
