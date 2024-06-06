@@ -153,11 +153,20 @@ export const useGetRecipesInfo = ({
       setIsLoading(true);
       try {
         let recipeQuery;
-        if (getFromLoggedInUser) {
+        if (getNewList && getFromLoggedInUser) {
           recipeQuery = query(
             collection(db, "recipes"),
             where("createdBy.displayName", "==", auth.currentUser?.displayName),
             orderBy(sortBy, "desc"),
+            startAfter(lastRecipe),
+            limit(amount)
+          );
+        } else if (getNewList && favorite) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("likes.likedBy", "array-contains", auth.currentUser?.uid),
+            orderBy(sortBy, "desc"),
+            startAfter(lastRecipe),
             limit(amount)
           );
         } else if (favorite) {
@@ -167,19 +176,11 @@ export const useGetRecipesInfo = ({
             orderBy(sortBy, "desc"),
             limit(amount)
           );
-        } else if (getNewList && favorite && lastRecipe) {
-          recipeQuery = query(
-            collection(db, "recipes"),
-            where("likes.likedBy", "array-contains", auth.currentUser?.uid),
-            startAfter(lastRecipe),
-            orderBy(sortBy, "desc"),
-            limit(amount)
-          );
-        } else if (getNewList && getFromLoggedInUser && lastRecipe) {
+        } else if (getFromLoggedInUser) {
+          console.log(lastRecipe);
           recipeQuery = query(
             collection(db, "recipes"),
             where("createdBy.displayName", "==", auth.currentUser?.displayName),
-            startAfter(lastRecipe),
             orderBy(sortBy, "desc"),
             limit(amount)
           );
@@ -196,6 +197,10 @@ export const useGetRecipesInfo = ({
         setLastRecipe &&
           !querySnapshot.empty &&
           setLastRecipe(querySnapshot.docs[querySnapshot.docs.length - 1]);
+
+        ((setLastRecipe && querySnapshot.empty) ||
+          (querySnapshot.docs.length < amount && setLastRecipe)) &&
+          setLastRecipe(null);
 
         const fetchedRecipeInfo = querySnapshot.docs.map((doc) => {
           const { title, imageUrl, createdBy } = doc.data();
