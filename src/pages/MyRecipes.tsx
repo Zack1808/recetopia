@@ -45,7 +45,7 @@ const MyRecipes: React.FC = () => {
   return (
     <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3 items-start">
       <h1 className="text-4xl font-bold text-gray-700">
-        My <span className="text-orange-400">favorites</span>
+        My <span className="text-orange-400">recipes</span>
       </h1>
       {isLoading ? (
         <div className="absolute top-1/2 left-0 flex w-full justify-center ">
