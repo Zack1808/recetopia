@@ -63,7 +63,7 @@ const Favorite: React.FC = () => {
               <h2>No recipes</h2>
             )}
           </div>
-          {!lastRecipe && (
+          {lastRecipe && (
             <Button
               className="justify-center self-center"
               onClick={fetchMoreFavoriteRecipes}
