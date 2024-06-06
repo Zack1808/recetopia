@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import PasswordReset from "./pages/PasswordReset";
 import AddRecipe from "./pages/AddRecipe";
 import Favorite from "./pages/Favorite";
+import MyRecipes from "./pages/MyRecipes";
 
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
@@ -21,6 +22,9 @@ const App: React.FC = () => {
         </Route>
         <Route path="/favorites" element={<PrivateRoute />}>
           <Route path="/favorites" element={<Favorite />} />
+        </Route>
+        <Route path="/my-recipes" element={<PrivateRoute />}>
+          <Route path="/my-recipes" element={<MyRecipes />} />
         </Route>
       </Routes>
     </BrowserRouter>
