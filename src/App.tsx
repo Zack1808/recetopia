@@ -7,6 +7,7 @@ import AddRecipe from "./pages/AddRecipe";
 import Favorite from "./pages/Favorite";
 import MyRecipes from "./pages/MyRecipes";
 import RecipesDisplay from "./pages/RecipesDisplay";
+import DisplayRecipe from "./pages/DisplayRecipe";
 
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
@@ -19,6 +20,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/reset-password" element={<PasswordReset />} />
         <Route path="/recipes" element={<RecipesDisplay />} />
+        <Route path="/recipe/:id" element={<DisplayRecipe />} />
         <Route path="/add-recipe" element={<PrivateRoute />}>
           <Route path="/add-recipe" element={<AddRecipe />} />
         </Route>
