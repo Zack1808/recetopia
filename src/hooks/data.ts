@@ -11,6 +11,7 @@ import {
   limit,
   getDocs,
   where,
+  startAfter,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -20,6 +21,7 @@ import {
   UseGetRecipesInfoProps,
 } from "../interfaces/hooks";
 import { SelectOptionsProps } from "../interfaces/components";
+import { GetRecipesInfoOptions } from "../interfaces/hooks";
 
 import { storeImage, returnUniqueList } from "../helpers/data";
 
@@ -135,9 +137,19 @@ export const useCreateRecipe = ({
   return { createRecipe };
 };
 
-export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
+export const useGetRecipesInfo = ({
+  setIsLoading,
+  setLastRecipe,
+  lastRecipe,
+}: UseGetRecipesInfoProps) => {
   const getRecipesInfo = useCallback(
-    async (amount = 10, sortBy = "createdOn", getFromLoggedInUser = false) => {
+    async ({
+      amount = 10,
+      sortBy = "createdOn",
+      getFromLoggedInUser = false,
+      favorite = false,
+      getNewList = false,
+    }: GetRecipesInfoOptions) => {
       setIsLoading(true);
       try {
         let recipeQuery;
@@ -145,6 +157,29 @@ export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
           recipeQuery = query(
             collection(db, "recipes"),
             where("createdBy.displayName", "==", auth.currentUser?.displayName),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        } else if (favorite) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("likes.likedBy", "array-contains", auth.currentUser?.uid),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        } else if (getNewList && favorite && lastRecipe) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("likes.likedBy", "array-contains", auth.currentUser?.uid),
+            startAfter(lastRecipe),
+            orderBy(sortBy, "desc"),
+            limit(amount)
+          );
+        } else if (getNewList && getFromLoggedInUser && lastRecipe) {
+          recipeQuery = query(
+            collection(db, "recipes"),
+            where("createdBy.displayName", "==", auth.currentUser?.displayName),
+            startAfter(lastRecipe),
             orderBy(sortBy, "desc"),
             limit(amount)
           );
@@ -157,6 +192,10 @@ export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
         }
 
         const querySnapshot = await getDocs(recipeQuery);
+
+        setLastRecipe &&
+          !querySnapshot.empty &&
+          setLastRecipe(querySnapshot.docs[querySnapshot.docs.length - 1]);
 
         const fetchedRecipeInfo = querySnapshot.docs.map((doc) => {
           const { title, imageUrl, createdBy } = doc.data();
@@ -177,7 +216,7 @@ export const useGetRecipesInfo = ({ setIsLoading }: UseGetRecipesInfoProps) => {
         setIsLoading(false);
       }
     },
-    [setIsLoading]
+    [setIsLoading, setLastRecipe, lastRecipe]
   );
 
   return { getRecipesInfo };
