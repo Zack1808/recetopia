@@ -101,7 +101,7 @@ export const useLoginUser = ({
           return;
         }
 
-        const { user } = await signInWithEmailAndPassword(
+        await signInWithEmailAndPassword(
           auth,
           userNameInUse.email[0],
           password
