@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
@@ -8,6 +8,8 @@ import Button from "../components/Button";
 
 import { useGetRecipe } from "../hooks/data";
 import { useAuthStatus } from "../hooks/registrationHooks";
+
+import { updateLikeCount } from "../helpers/data";
 
 import { toastOptions } from "../toastOptions";
 
@@ -30,6 +32,17 @@ const DisplayRecipe: React.FC = () => {
   }
 
   const { recipe } = useGetRecipe({ setIsLoading, uid: id });
+
+  useEffect(() => {
+    !!recipe &&
+      !!auth.currentUser &&
+      setLiked(recipe.likes.likedBy.includes(auth.currentUser?.uid));
+  }, [recipe]);
+
+  const handleLikeState = () => {
+    setLiked((prevState) => !prevState);
+    !!auth.currentUser && updateLikeCount(auth.currentUser.uid, id);
+  };
 
   return isLoading ? (
     <div className="absolute top-1/2 left-0 flex w-full justify-center ">
@@ -78,7 +91,7 @@ const DisplayRecipe: React.FC = () => {
                   <Button secondary>Delete</Button>
                 </>
               ) : (
-                <Button>
+                <Button onClick={handleLikeState}>
                   {liked ? (
                     <FaHeart className="text-orange-400 text-2xl" />
                   ) : (
@@ -103,7 +116,7 @@ const DisplayRecipe: React.FC = () => {
           </h2>
           <ol className=" p-3 flex flex-col gap-2 max-h-96 ">
             {recipe.ingredients.map((ingredient: string) => (
-              <li>{ingredient}</li>
+              <li key={ingredient}>{ingredient}</li>
             ))}
           </ol>
         </div>
@@ -113,7 +126,10 @@ const DisplayRecipe: React.FC = () => {
           </h2>
           <ol className="p-3 flex flex-col gap-10 list-decimal list-inside">
             {recipe.instructions.map((instruction: string) => (
-              <li className="font-semibold text-2xl text-orange-400">
+              <li
+                className="font-semibold text-2xl text-orange-400"
+                key={instruction}
+              >
                 <span className="font-medium text-base text-black">
                   {instruction}
                 </span>

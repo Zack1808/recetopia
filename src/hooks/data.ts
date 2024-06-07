@@ -186,7 +186,6 @@ export const useGetRecipesInfo = ({
             limit(amount)
           );
         } else if (getFromLoggedInUser) {
-          console.log(lastRecipe);
           recipeQuery = query(
             collection(db, "recipes"),
             where("createdBy.displayName", "==", auth.currentUser?.displayName),

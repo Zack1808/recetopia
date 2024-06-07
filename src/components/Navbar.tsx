@@ -64,7 +64,6 @@ const Navbar: React.FC = () => {
           <div className="text-white md:hidden flex justify-center items-center">
             <GiHamburgerMenu
               size={40}
-              onClick={() => console.log("Hello")}
               onClickCapture={() => setMenuIsOpen(true)}
             />
           </div>

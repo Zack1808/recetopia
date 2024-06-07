@@ -48,7 +48,7 @@ const Favorite: React.FC = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full">
             {favorites.length > 0 ? (
               favorites.map((recipe) => (
                 <Card
