@@ -13,14 +13,17 @@ import {
   where,
   startAfter,
   DocumentData,
+  runTransaction,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   UseGetTagsProps,
   UseCreateRecipeProps,
   UseGetRecipesInfoProps,
   UseGetRecipe,
+  UseCreateComment,
 } from "../interfaces/hooks";
 import { SelectOptionsProps } from "../interfaces/components";
 import { GetRecipesInfoOptions } from "../interfaces/hooks";
@@ -264,4 +267,43 @@ export const useGetRecipe = ({ setIsLoading, uid }: UseGetRecipe) => {
   }, [loading]);
 
   return { recipe };
+};
+
+export const useCreateComment = ({ setIsLoading }: UseCreateComment) => {
+  const createComment = useCallback(
+    async (displayName: string, comment: string, uid: string) => {
+      setIsLoading(true);
+      try {
+        const recipeRef = doc(db, "recipes", uid);
+        await runTransaction(db, async (transaction) => {
+          const recipeDoc = await transaction.get(recipeRef);
+
+          if (!recipeDoc.exists()) throw new Error("recipe does not exist");
+
+          const { comments } = recipeDoc.data();
+
+          const userComment = {
+            commentId: uuidv4(),
+            comment,
+            displayName,
+          };
+
+          transaction.update(recipeRef, {
+            comments: [...comments, userComment],
+          });
+
+          toast.success("Comment successfully added", toastOptions);
+
+          window.location.reload();
+        });
+      } catch (err) {
+        toast.error("Could not create comment", toastOptions);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
+
+  return { createComment };
 };

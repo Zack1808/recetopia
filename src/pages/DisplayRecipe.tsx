@@ -5,6 +5,8 @@ import { ClipLoader } from "react-spinners";
 import { FaUtensils, FaClock, FaHeart, FaRegHeart } from "react-icons/fa6";
 
 import Button from "../components/Button";
+import Modal from "../components/Modal";
+import CommentSection from "../components/CommentSection";
 
 import { useGetRecipe } from "../hooks/data";
 import { useAuthStatus } from "../hooks/registrationHooks";
@@ -18,6 +20,8 @@ import { auth } from "../firebaseConfig";
 const DisplayRecipe: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [liked, setLiked] = useState<boolean>(false);
+  const [isCommentSectionOpen, setIsCommentSectionOpen] =
+    useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
 
@@ -49,10 +53,10 @@ const DisplayRecipe: React.FC = () => {
       <ClipLoader color="rgb(251 146 60)" size={100} />
     </div>
   ) : !!recipe ? (
-    <>
-      <div className="w-full flex flex-col-reverse md:flex-row border-b-2">
-        <div className="flex flex-1 md:justify-center md:items-start relative p-3 flex-col gap-10">
-          <div className="flex flex-col-reverse md:flex-col gap-3 md:absolute md:left-1/4 md:-right-10 z-10">
+    <div className="*:box-border">
+      <div className="w-full flex flex-col-reverse lg:flex-row border-b-2">
+        <div className="flex flex-1 lg:justify-center lg:items-start relative p-3 flex-col gap-10">
+          <div className="flex flex-col-reverse lg:flex-col gap-3 lg:absolute lg:left-1/4 lg:-right-10 z-10">
             <div>
               <h3 className="text-xl font-semibold text-gray-700">
                 {recipe.createdBy.displayName}
@@ -84,7 +88,7 @@ const DisplayRecipe: React.FC = () => {
             </div>
           </div>
           {isLoggedIn ? (
-            <div className="flex-1 md:ml-44 flex items-end gap-3">
+            <div className="flex-1 lg:ml-44 flex items-end gap-3">
               {auth?.currentUser?.uid === recipe.createdBy.uid ? (
                 <>
                   <Button primary>Edit</Button>
@@ -99,18 +103,20 @@ const DisplayRecipe: React.FC = () => {
                   )}
                 </Button>
               )}
-              <Button>Comments</Button>
+              <Button onClick={() => setIsCommentSectionOpen(true)}>
+                Comments
+              </Button>
             </div>
           ) : null}
         </div>
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
-          className="w-full md:w-3/5"
+          className="w-full lg:w-3/5"
         />
       </div>
       <div className="w-full mx-auto gap-20 flex flex-col mb-10 md:flex-row divide-x-2 divide-y-2 md:divide-y-0">
-        <div className="md:w-screen md:pt-10 flex-1 md:pl-40">
+        <div className="lg:w-screen lg:pt-10 flex-1 lg:pl-40">
           <h2 className="text-3xl p-3 font-semibold text-orange-400">
             Ingredients
           </h2>
@@ -120,7 +126,7 @@ const DisplayRecipe: React.FC = () => {
             ))}
           </ol>
         </div>
-        <div className=" md:pt-10 w-full md:w-3/5 md:pr-32 md:pl-5">
+        <div className=" lg:pt-10 w-full lg:w-3/5 lg:pr-32 lg:pl-5">
           <h2 className="text-3xl p-3 font-semibold text-orange-400">
             Instructions
           </h2>
@@ -138,7 +144,14 @@ const DisplayRecipe: React.FC = () => {
           </ol>
         </div>
       </div>
-    </>
+      <Modal
+        title="Comments"
+        isOpen={isCommentSectionOpen}
+        handleClose={() => setIsCommentSectionOpen(false)}
+      >
+        <CommentSection comments={recipe.comments} />
+      </Modal>
+    </div>
   ) : (
     <div className="absolute top-1/2 left-0 flex w-full justify-center ">
       <ClipLoader color="rgb(251 146 60)" size={100} />

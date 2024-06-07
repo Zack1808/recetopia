@@ -73,3 +73,13 @@ export interface ImageUploadProps
   title: string;
   required?: boolean;
 }
+
+export interface CommentSectionProps {
+  comments: CommentProps[];
+}
+
+interface CommentProps {
+  commentId: string;
+  displayName: string;
+  comment: string;
+}

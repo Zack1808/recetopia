@@ -54,3 +54,7 @@ export interface UseGetRecipe {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   uid: string;
 }
+
+export interface UseCreateComment {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}

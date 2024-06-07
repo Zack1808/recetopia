@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {!!title && (
           <label htmlFor={title} className="font-medium">
             {title}{" "}
-            {required && (
+            {required && title && (
               <span className="font-semibold text-orange-500">*</span>
             )}
           </label>
