@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ user, title, image, id }) => {
   return (
     <Link
       to={`/recipe/${id}`}
-      className={`relative flex min-h-96 rounded p-5 items-end overflow-hidden `}
+      className={`relative flex min-h-96 rounded p-5 items-end overflow-hidden flex-1 `}
     >
       <div
         style={cardStyle}

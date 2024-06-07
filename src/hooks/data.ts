@@ -12,13 +12,18 @@ import {
   getDocs,
   where,
   startAfter,
+  DocumentData,
+  runTransaction,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   UseGetTagsProps,
   UseCreateRecipeProps,
   UseGetRecipesInfoProps,
+  UseGetRecipe,
+  UseCreateComment,
 } from "../interfaces/hooks";
 import { SelectOptionsProps } from "../interfaces/components";
 import { GetRecipesInfoOptions } from "../interfaces/hooks";
@@ -184,7 +189,6 @@ export const useGetRecipesInfo = ({
             limit(amount)
           );
         } else if (getFromLoggedInUser) {
-          console.log(lastRecipe);
           recipeQuery = query(
             collection(db, "recipes"),
             where("createdBy.displayName", "==", auth.currentUser?.displayName),
@@ -232,4 +236,74 @@ export const useGetRecipesInfo = ({
   );
 
   return { getRecipesInfo };
+};
+
+export const useGetRecipe = ({ setIsLoading, uid }: UseGetRecipe) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [recipe, setRecipe] = useState<DocumentData | null>(null);
+
+  const getRecipe = async () => {
+    try {
+      const docSnapshot = await getDoc(doc(db, "recipes", uid));
+
+      if (!docSnapshot.exists()) return;
+
+      const recipeData = docSnapshot.data();
+
+      setRecipe(recipeData);
+    } catch (err) {
+      toast.error("Could not get the recipe", toastOptions);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRecipe();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
+
+  return { recipe };
+};
+
+export const useCreateComment = ({ setIsLoading }: UseCreateComment) => {
+  const createComment = useCallback(
+    async (displayName: string, comment: string, uid: string) => {
+      setIsLoading(true);
+      try {
+        const recipeRef = doc(db, "recipes", uid);
+        await runTransaction(db, async (transaction) => {
+          const recipeDoc = await transaction.get(recipeRef);
+
+          if (!recipeDoc.exists()) throw new Error("recipe does not exist");
+
+          const { comments } = recipeDoc.data();
+
+          const userComment = {
+            commentId: uuidv4(),
+            comment,
+            displayName,
+          };
+
+          transaction.update(recipeRef, {
+            comments: [...comments, userComment],
+          });
+
+          toast.success("Comment successfully added", toastOptions);
+
+          window.location.reload();
+        });
+      } catch (err) {
+        toast.error("Could not create comment", toastOptions);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
+
+  return { createComment };
 };
