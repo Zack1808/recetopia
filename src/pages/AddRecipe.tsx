@@ -181,7 +181,7 @@ const AddRecipe: React.FC = () => {
   }, [ingredients, instructions]);
 
   return (
-    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3">
+    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3 mb-10">
       <h1 className="text-4xl font-bold text-gray-700 self-start">
         Share the recipe for your{" "}
         <span className="text-orange-400">delicious</span> meal

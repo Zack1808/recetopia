@@ -76,6 +76,7 @@ export interface ImageUploadProps
 
 export interface CommentSectionProps {
   comments: CommentProps[];
+  uid: string;
 }
 
 interface CommentProps {

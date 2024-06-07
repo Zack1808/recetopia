@@ -8,10 +8,7 @@ const RegistrationForms: React.FC = () => {
   const [isRegisterForm, setIsRegisterForm] = useState<boolean>(true);
 
   return (
-    <div
-      className="flex flex-col gap-5
-    "
-    >
+    <div className="flex flex-col gap-5">
       <div className="bg-gradient-to-b from-gray-100 from-50% to-white to-50% flex rounted-t-lg">
         <Button
           onClick={() => setIsRegisterForm(true)}

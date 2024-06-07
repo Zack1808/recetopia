@@ -10,7 +10,7 @@ import { CommentSectionProps } from "../interfaces/components";
 import { useCreateComment } from "../hooks/data";
 import { auth } from "../firebaseConfig";
 
-const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
+const CommentSection: React.FC<CommentSectionProps> = ({ comments, uid }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -34,8 +34,8 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
   };
 
   return (
-    <div className="max-h-60 overflow-y-auto flex flex-col gap-5">
-      <div className="divide-y-2 flex flex-col gap-2">
+    <div className="flex flex-col gap-5">
+      <div className="divide-y-2 flex flex-col gap-2 max-h-60 overflow-y-auto">
         {comments.length > 0 ? (
           comments.map((comment) => (
             <div className="flex flex-col gap-2" key={comment.commentId}>
@@ -51,21 +51,27 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
           </h3>
         )}
       </div>
-      <form
-        ref={formRef}
-        className="flex flex-col gap-2 md:items-end"
-        onSubmit={handleSubmit}
-      >
-        <Textarea
-          className="min-h-24"
-          placeholder="Comment..."
-          required
-          name="comment"
-        />
-        <Button primary className="justify-center">
-          {isLoading ? <ClipLoader color="white" size={23} /> : "Send comment"}
-        </Button>
-      </form>
+      {auth.currentUser?.uid !== uid && (
+        <form
+          ref={formRef}
+          className="flex flex-col gap-2 md:items-end"
+          onSubmit={handleSubmit}
+        >
+          <Textarea
+            className="min-h-24"
+            placeholder="Comment..."
+            required
+            name="comment"
+          />
+          <Button primary className="justify-center">
+            {isLoading ? (
+              <ClipLoader color="white" size={23} />
+            ) : (
+              "Send comment"
+            )}
+          </Button>
+        </form>
+      )}
     </div>
   );
 };

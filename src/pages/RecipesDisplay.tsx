@@ -51,7 +51,7 @@ const RecipesDisplay: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3 items-start">
+    <div className="w-full max-w-screen-2xl pt-5 flex flex-col gap-10 mx-auto p-3 items-start mb-10">
       {location.search === "?likes.likeCount" ? (
         <h1 className="text-4xl font-bold text-gray-700">
           Most <span className="text-orange-400">liked</span>

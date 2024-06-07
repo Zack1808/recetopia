@@ -149,7 +149,7 @@ const DisplayRecipe: React.FC = () => {
         isOpen={isCommentSectionOpen}
         handleClose={() => setIsCommentSectionOpen(false)}
       >
-        <CommentSection comments={recipe.comments} />
+        <CommentSection comments={recipe.comments} uid={recipe.createdBy.uid} />
       </Modal>
     </div>
   ) : (
