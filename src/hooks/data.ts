@@ -128,7 +128,7 @@ export const useCreateRecipe = ({
         });
 
         toast.success("Recipe created successfully", toastOptions);
-        navigate(`recipes/${docRef.id}`);
+        navigate(`/recipe/${docRef.id}`);
       } catch (err) {
         console.log(err);
         toast.error("Could not create the recipe", toastOptions);
