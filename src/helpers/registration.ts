@@ -1,11 +1,17 @@
 import { getDocs, where, query, collection } from "firebase/firestore";
+import {
+  signOut,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 import { toast } from "react-toastify";
 
-import { db } from "../firebaseConfig";
+import { db, auth } from "../firebaseConfig";
 
 import { PasswordValidityProps } from "../interfaces/helpers";
 
 import { toastOptions } from "../toastOptions";
+import { NavigateFunction } from "react-router-dom";
 
 export const checkIfUserNameIsUsed = async (displayName: string) => {
   const usersCollection = collection(db, "users");
@@ -92,5 +98,19 @@ export const checkIfEmailDoesExist = async (email: string) => {
     return !userQuerySnapshot.empty;
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const logout = async (navigate: NavigateFunction) => {
+  try {
+    await setPersistence(auth, browserSessionPersistence);
+    await signOut(auth);
+    navigate("/");
+
+    window.location.reload();
+
+    toast.success("You are logged out!", toastOptions);
+  } catch (err) {
+    toast.error("An error occured", toastOptions);
   }
 };

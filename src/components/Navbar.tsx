@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaCircleUser, FaXmark } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import { FaXmark } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdLogOut } from "react-icons/io";
 
 import { useAuthStatus } from "../hooks/registrationHooks";
+
+import { logout } from "../helpers/registration";
 
 import Modal from "./Modal";
 import RegistrationForms from "../pages/RegistrationForms";
@@ -15,6 +18,8 @@ const Navbar: React.FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const menuSmallScreenRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
 
   const { isLoggedIn } = useAuthStatus();
 
@@ -82,8 +87,12 @@ const Navbar: React.FC = () => {
                 <Link to="/add-recipe" className={linkStyles}>
                   Add recipe
                 </Link>
-                <Link to="/profile" className={linkStyles}>
-                  <FaCircleUser size={30} /> Profile
+                <Link
+                  to="/"
+                  className={linkStyles}
+                  onClick={() => logout(navigate)}
+                >
+                  <IoMdLogOut size={30} /> LogOut
                 </Link>
               </>
             ) : (
@@ -117,11 +126,15 @@ const Navbar: React.FC = () => {
             }`}
           >
             <Link
-              to="/profile"
+              to="/"
               className={`${linkStyles} border-none`}
-              onClick={closeMenu}
+              onClick={(event) => {
+                event.preventDefault();
+                closeMenu();
+                logout(navigate);
+              }}
             >
-              <FaCircleUser size={30} /> Profile
+              <IoMdLogOut size={30} /> Profile
             </Link>
             <FaXmark className="text-white" size={30} onClick={closeMenu} />
           </div>
