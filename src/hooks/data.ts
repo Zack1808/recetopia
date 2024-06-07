@@ -12,6 +12,7 @@ import {
   getDocs,
   where,
   startAfter,
+  DocumentData,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -19,6 +20,7 @@ import {
   UseGetTagsProps,
   UseCreateRecipeProps,
   UseGetRecipesInfoProps,
+  UseGetRecipe,
 } from "../interfaces/hooks";
 import { SelectOptionsProps } from "../interfaces/components";
 import { GetRecipesInfoOptions } from "../interfaces/hooks";
@@ -232,4 +234,35 @@ export const useGetRecipesInfo = ({
   );
 
   return { getRecipesInfo };
+};
+
+export const useGetRecipe = ({ setIsLoading, uid }: UseGetRecipe) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [recipe, setRecipe] = useState<DocumentData | null>(null);
+
+  const getRecipe = async () => {
+    try {
+      const docSnapshot = await getDoc(doc(db, "recipes", uid));
+
+      if (!docSnapshot.exists()) return;
+
+      const recipeData = docSnapshot.data();
+
+      setRecipe(recipeData);
+    } catch (err) {
+      toast.error("Could not get the recipe", toastOptions);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRecipe();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
+
+  return { recipe };
 };

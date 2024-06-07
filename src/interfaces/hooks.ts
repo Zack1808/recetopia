@@ -49,3 +49,8 @@ export interface GetRecipesInfoOptions {
   favorite?: boolean;
   getNewList?: boolean;
 }
+
+export interface UseGetRecipe {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  uid: string;
+}
