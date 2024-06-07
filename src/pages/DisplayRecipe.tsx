@@ -89,12 +89,7 @@ const DisplayRecipe: React.FC = () => {
           </div>
           {isLoggedIn ? (
             <div className="flex-1 lg:ml-44 flex items-end gap-3">
-              {auth?.currentUser?.uid === recipe.createdBy.uid ? (
-                <>
-                  <Button primary>Edit</Button>
-                  <Button secondary>Delete</Button>
-                </>
-              ) : (
+              {auth?.currentUser?.uid === recipe.createdBy.uid ? null : (
                 <Button onClick={handleLikeState}>
                   {liked ? (
                     <FaHeart className="text-orange-400 text-2xl" />
@@ -103,8 +98,11 @@ const DisplayRecipe: React.FC = () => {
                   )}
                 </Button>
               )}
-              <Button onClick={() => setIsCommentSectionOpen(true)}>
-                Comments
+              <Button secondary onClick={() => setIsCommentSectionOpen(true)}>
+                Comments{" "}
+                {recipe.comments.length > 0
+                  ? `(${recipe.comments.length})`
+                  : null}
               </Button>
             </div>
           ) : null}
