@@ -125,18 +125,24 @@ const Navbar: React.FC = () => {
               menuIsOpen && "animate-menu-links-open"
             }`}
           >
-            <Link
-              to="/"
-              className={`${linkStyles} border-none`}
-              onClick={(event) => {
-                event.preventDefault();
-                closeMenu();
-                logout(navigate);
-              }}
-            >
-              <IoMdLogOut size={30} /> Profile
-            </Link>
-            <FaXmark className="text-white" size={30} onClick={closeMenu} />
+            {isLoggedIn && (
+              <Link
+                to="/"
+                className={`${linkStyles} border-none`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  closeMenu();
+                  logout(navigate);
+                }}
+              >
+                <IoMdLogOut size={30} /> Logout
+              </Link>
+            )}
+            <FaXmark
+              className={`text-white ${isLoggedIn ? "" : "ml-auto"}`}
+              size={30}
+              onClick={closeMenu}
+            />
           </div>
           <div
             className={`flex flex-col gap-2 opacity-0 ${
